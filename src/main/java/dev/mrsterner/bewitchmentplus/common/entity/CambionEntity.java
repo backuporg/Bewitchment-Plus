@@ -157,7 +157,7 @@ public class CambionEntity extends BWHostileEntity implements InventoryChangedLi
 		int l = rand.nextInt(8);
 		if (barterTimer == 0) {
 			if (itemStack.getItem() == Items.GOLD_INGOT) {
-				switch (rand.nextInt(24)) {
+				switch (rand.nextInt(25)) {
 					default:
 						ItemStack itemStack1 = new ItemStack(Items.GOLD_INGOT, j);
 						itemStack.decrement(1);
@@ -347,6 +347,14 @@ public class CambionEntity extends BWHostileEntity implements InventoryChangedLi
 						itemStack.decrement(1);
 						player.getInventory().insertStack(itemStack24);
 						barterTimer = 7200; //Timer exists to avoid cheese
+						player.playSound(SoundEvents.ITEM_ARMOR_EQUIP_GOLD, SoundCategory.NEUTRAL, 1, 1);
+						ActionResult.success(this.world.isClient);
+						break;
+					case 23:
+						ItemStack itemStack25 = new ItemStack(BWObjects.MANDRAKE_ROOT, i);
+						itemStack.decrement(1);
+						player.getInventory().insertStack(itemStack25);
+						barterTimer = 600; //Timer exists to avoid cheese
 						player.playSound(SoundEvents.ITEM_ARMOR_EQUIP_GOLD, SoundCategory.NEUTRAL, 1, 1);
 						ActionResult.success(this.world.isClient);
 						break;
