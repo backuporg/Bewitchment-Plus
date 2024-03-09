@@ -10,6 +10,7 @@ import dev.mrsterner.bewitchmentplus.mixin.common.MobEntityAccessor;
 import moriyashiine.bewitchment.api.BewitchmentAPI;
 import moriyashiine.bewitchment.common.entity.living.LeonardEntity;
 import moriyashiine.bewitchment.common.entity.living.util.BWHostileEntity;
+import moriyashiine.bewitchment.common.registry.BWObjects;
 import net.minecraft.entity.*;
 import net.minecraft.entity.ai.goal.*;
 import net.minecraft.entity.attribute.DefaultAttributeContainer;
@@ -27,6 +28,7 @@ import net.minecraft.inventory.InventoryChangedListener;
 import net.minecraft.inventory.SimpleInventory;
 import net.minecraft.item.ArmorItem;
 import net.minecraft.item.ItemStack;
+import net.minecraft.item.Items;
 import net.minecraft.item.SpawnEggItem;
 import net.minecraft.loot.LootTable;
 import net.minecraft.loot.context.LootContext;
@@ -34,6 +36,8 @@ import net.minecraft.loot.context.LootContextParameters;
 import net.minecraft.nbt.NbtCompound;
 import net.minecraft.nbt.NbtList;
 import net.minecraft.server.world.ServerWorld;
+import net.minecraft.sound.SoundCategory;
+import net.minecraft.sound.SoundEvents;
 import net.minecraft.tag.StructureTags;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.Hand;
@@ -55,6 +59,7 @@ public class CambionEntity extends BWHostileEntity implements InventoryChangedLi
 	public SimpleInventory cambionInventory = new SimpleInventory(8);
 	public static final int BABY_AGE = -12000;
 	private int age;
+	int barterTimer = 0;
 	private static final Map<EquipmentSlot, Identifier> EQUIPMENT_SLOT_ITEMS = Util.make(Maps.newHashMap(),
 	(slotItems) -> {
 		slotItems.put(EquipmentSlot.MAINHAND, BWPLootTables.CAMBION_MAIN_HAND);
@@ -145,7 +150,7 @@ public class CambionEntity extends BWHostileEntity implements InventoryChangedLi
 	@Override
 	public ActionResult interactMob(PlayerEntity player, Hand hand) {
 		ItemStack itemStack = player.getStackInHand(hand);
-		Random rand = new Random();
+		Random rand = getRandom();
 		int i = rand.nextInt(64);
 		int j = rand.nextInt(16);
 		int k = rand.nextInt(32);
@@ -156,7 +161,7 @@ public class CambionEntity extends BWHostileEntity implements InventoryChangedLi
 					default:
 						ItemStack itemStack1 = new ItemStack(Items.GOLD_INGOT, j);
 						itemStack.decrement(1);
-						player.inventory.insertStack(itemStack1);
+						player.getInventory().insertStack(itemStack1);
 						barterTimer = 1200; //Timer exists to avoid cheese
 						player.playSound(SoundEvents.ITEM_ARMOR_EQUIP_GOLD, SoundCategory.NEUTRAL, 1, 1);
 						ActionResult.success(this.world.isClient);
@@ -164,7 +169,7 @@ public class CambionEntity extends BWHostileEntity implements InventoryChangedLi
 					case 0:
 						ItemStack itemStack2 = new ItemStack(Items.DIAMOND, j);
 						itemStack.decrement(1);
-						player.inventory.insertStack(itemStack2);
+						player.getInventory().insertStack(itemStack2);
 						barterTimer = 1200; //Timer exists to avoid cheese
 						player.playSound(SoundEvents.ITEM_ARMOR_EQUIP_GOLD, SoundCategory.NEUTRAL, 1, 1);
 						ActionResult.success(this.world.isClient);
@@ -172,7 +177,7 @@ public class CambionEntity extends BWHostileEntity implements InventoryChangedLi
 					case 1:
 						ItemStack itemStack3 = new ItemStack(Items.GOLDEN_HORSE_ARMOR);
 						itemStack.decrement(1);
-						player.inventory.insertStack(itemStack3);
+						player.getInventory().insertStack(itemStack3);
 						barterTimer = 1200; //Timer exists to avoid cheese
 						player.playSound(SoundEvents.ITEM_ARMOR_EQUIP_GOLD, SoundCategory.NEUTRAL, 1, 1);
 						ActionResult.success(this.world.isClient);
@@ -180,7 +185,7 @@ public class CambionEntity extends BWHostileEntity implements InventoryChangedLi
 					case 2:
 						ItemStack itemStack4 = new ItemStack(Items.GOLDEN_APPLE);
 						itemStack.decrement(1);
-						player.inventory.insertStack(itemStack4);
+						player.getInventory().insertStack(itemStack4);
 						barterTimer = 4800; //Timer exists to avoid cheese. Golden apples are powerful, give them a longer cooldown.
 						player.playSound(SoundEvents.ITEM_ARMOR_EQUIP_GOLD, SoundCategory.NEUTRAL, 1, 1);
 						ActionResult.success(this.world.isClient);
@@ -188,7 +193,7 @@ public class CambionEntity extends BWHostileEntity implements InventoryChangedLi
 					case 3:
 						ItemStack itemStack5 = new ItemStack(Items.SADDLE);
 						itemStack.decrement(1);
-						player.inventory.insertStack(itemStack5);
+						player.getInventory().insertStack(itemStack5);
 						barterTimer = 1200; //Timer exists to avoid cheese
 						player.playSound(SoundEvents.ITEM_ARMOR_EQUIP_GOLD, SoundCategory.NEUTRAL, 1, 1);
 						ActionResult.success(this.world.isClient);
@@ -196,7 +201,7 @@ public class CambionEntity extends BWHostileEntity implements InventoryChangedLi
 					case 4:
 						ItemStack itemStack6 = new ItemStack(BWObjects.DEMON_HORN, j);
 						itemStack.decrement(1);
-						player.inventory.insertStack(itemStack6);
+						player.getInventory().insertStack(itemStack6);
 						barterTimer = 1200; //Timer exists to avoid cheese
 						player.playSound(SoundEvents.ITEM_ARMOR_EQUIP_GOLD, SoundCategory.NEUTRAL, 1, 1);
 						ActionResult.success(this.world.isClient);
@@ -204,7 +209,7 @@ public class CambionEntity extends BWHostileEntity implements InventoryChangedLi
 					case 5:
 						ItemStack itemStack7 = new ItemStack(Items.BLAZE_POWDER, j);
 						itemStack.decrement(1);
-						player.inventory.insertStack(itemStack7);
+						player.getInventory().insertStack(itemStack7);
 						barterTimer = 1200; //Timer exists to avoid cheese
 						player.playSound(SoundEvents.ITEM_ARMOR_EQUIP_GOLD, SoundCategory.NEUTRAL, 1, 1);
 						ActionResult.success(this.world.isClient);
@@ -212,7 +217,7 @@ public class CambionEntity extends BWHostileEntity implements InventoryChangedLi
 					case 6:
 						ItemStack itemStack8 = new ItemStack(Items.REDSTONE, k);
 						itemStack.decrement(1);
-						player.inventory.insertStack(itemStack8);
+						player.getInventory().insertStack(itemStack8);
 						barterTimer = 1200; //Timer exists to avoid cheese
 						player.playSound(SoundEvents.ITEM_ARMOR_EQUIP_GOLD, SoundCategory.NEUTRAL, 1, 1);
 						ActionResult.success(this.world.isClient);
@@ -220,7 +225,7 @@ public class CambionEntity extends BWHostileEntity implements InventoryChangedLi
 					case 7:
 						ItemStack itemStack9 = new ItemStack(BWObjects.DEMON_HEART);
 						itemStack.decrement(1);
-						player.inventory.insertStack(itemStack9);
+						player.getInventory().insertStack(itemStack9);
 						barterTimer = 4800; //Timer exists to avoid cheese
 						player.playSound(SoundEvents.ITEM_ARMOR_EQUIP_GOLD, SoundCategory.NEUTRAL, 1, 1);
 						ActionResult.success(this.world.isClient);
@@ -228,7 +233,7 @@ public class CambionEntity extends BWHostileEntity implements InventoryChangedLi
 					case 8:
 						ItemStack itemStack10 = new ItemStack(BWObjects.SNAKE_TONGUE, i);
 						itemStack.decrement(1);
-						player.inventory.insertStack(itemStack10);
+						player.getInventory().insertStack(itemStack10);
 						barterTimer = 1200; //Timer exists to avoid cheese
 						player.playSound(SoundEvents.ITEM_ARMOR_EQUIP_GOLD, SoundCategory.NEUTRAL, 1, 1);
 						ActionResult.success(this.world.isClient);
@@ -236,7 +241,7 @@ public class CambionEntity extends BWHostileEntity implements InventoryChangedLi
 					case 9:
 						ItemStack itemStack11 = new ItemStack(Items.NETHER_WART, j);
 						itemStack.decrement(1);
-						player.inventory.insertStack(itemStack11);
+						player.getInventory().insertStack(itemStack11);
 						barterTimer = 1200; //Timer exists to avoid cheese
 						player.playSound(SoundEvents.ITEM_ARMOR_EQUIP_GOLD, SoundCategory.NEUTRAL, 1, 1);
 						ActionResult.success(this.world.isClient);
@@ -244,7 +249,7 @@ public class CambionEntity extends BWHostileEntity implements InventoryChangedLi
 					case 10:
 						ItemStack itemStack12 = new ItemStack(Items.LEATHER, k);
 						itemStack.decrement(1);
-						player.inventory.insertStack(itemStack12);
+						player.getInventory().insertStack(itemStack12);
 						barterTimer = 1200; //Timer exists to avoid cheese
 						player.playSound(SoundEvents.ITEM_ARMOR_EQUIP_GOLD, SoundCategory.NEUTRAL, 1, 1);
 						ActionResult.success(this.world.isClient);
@@ -252,7 +257,7 @@ public class CambionEntity extends BWHostileEntity implements InventoryChangedLi
 					case 11:
 						ItemStack itemStack13 = new ItemStack(Items.NAUTILUS_SHELL);
 						itemStack.decrement(1);
-						player.inventory.insertStack(itemStack13);
+						player.getInventory().insertStack(itemStack13);
 						barterTimer = 4800; //Timer exists to avoid cheese
 						player.playSound(SoundEvents.ITEM_ARMOR_EQUIP_GOLD, SoundCategory.NEUTRAL, 1, 1);
 						ActionResult.success(this.world.isClient);
@@ -260,7 +265,7 @@ public class CambionEntity extends BWHostileEntity implements InventoryChangedLi
 					case 12:
 						ItemStack itemStack14 = new ItemStack(Items.ENDER_PEARL, j);
 						itemStack.decrement(1);
-						player.inventory.insertStack(itemStack14);
+						player.getInventory().insertStack(itemStack14);
 						barterTimer = 1200; //Timer exists to avoid cheese
 						player.playSound(SoundEvents.ITEM_ARMOR_EQUIP_GOLD, SoundCategory.NEUTRAL, 1, 1);
 						ActionResult.success(this.world.isClient);
@@ -268,7 +273,7 @@ public class CambionEntity extends BWHostileEntity implements InventoryChangedLi
 					case 13:
 						ItemStack itemStack15 = new ItemStack(Items.IRON_INGOT, j);
 						itemStack.decrement(1);
-						player.inventory.insertStack(itemStack15);
+						player.getInventory().insertStack(itemStack15);
 						barterTimer = 1200; //Timer exists to avoid cheese
 						player.playSound(SoundEvents.ITEM_ARMOR_EQUIP_GOLD, SoundCategory.NEUTRAL, 1, 1);
 						ActionResult.success(this.world.isClient);
@@ -276,7 +281,7 @@ public class CambionEntity extends BWHostileEntity implements InventoryChangedLi
 					case 14:
 						ItemStack itemStack16 = new ItemStack(Items.ARROW, k);
 						itemStack.decrement(1);
-						player.inventory.insertStack(itemStack16);
+						player.getInventory().insertStack(itemStack16);
 						barterTimer = 1200; //Timer exists to avoid cheese
 						player.playSound(SoundEvents.ITEM_ARMOR_EQUIP_GOLD, SoundCategory.NEUTRAL, 1, 1);
 						ActionResult.success(this.world.isClient);
@@ -284,7 +289,7 @@ public class CambionEntity extends BWHostileEntity implements InventoryChangedLi
 					case 15:
 						ItemStack itemStack17 = new ItemStack(Items.QUARTZ, j);
 						itemStack.decrement(1);
-						player.inventory.insertStack(itemStack17);
+						player.getInventory().insertStack(itemStack17);
 						barterTimer = 1200; //Timer exists to avoid cheese
 						player.playSound(SoundEvents.ITEM_ARMOR_EQUIP_GOLD, SoundCategory.NEUTRAL, 1, 1);
 						ActionResult.success(this.world.isClient);
@@ -292,7 +297,7 @@ public class CambionEntity extends BWHostileEntity implements InventoryChangedLi
 					case 16:
 						ItemStack itemStack18 = new ItemStack(Items.LAPIS_LAZULI, j);
 						itemStack.decrement(1);
-						player.inventory.insertStack(itemStack18);
+						player.getInventory().insertStack(itemStack18);
 						barterTimer = 1200; //Timer exists to avoid cheese
 						player.playSound(SoundEvents.ITEM_ARMOR_EQUIP_GOLD, SoundCategory.NEUTRAL, 1, 1);
 						ActionResult.success(this.world.isClient);
@@ -300,7 +305,7 @@ public class CambionEntity extends BWHostileEntity implements InventoryChangedLi
 					case 17:
 						ItemStack itemStack19 = new ItemStack(Items.STRING, k);
 						itemStack.decrement(1);
-						player.inventory.insertStack(itemStack19);
+						player.getInventory().insertStack(itemStack19);
 						barterTimer = 1200; //Timer exists to avoid cheese
 						player.playSound(SoundEvents.ITEM_ARMOR_EQUIP_GOLD, SoundCategory.NEUTRAL, 1, 1);
 						ActionResult.success(this.world.isClient);
@@ -308,7 +313,7 @@ public class CambionEntity extends BWHostileEntity implements InventoryChangedLi
 					case 18:
 						ItemStack itemStack20 = new ItemStack(Items.GOLDEN_CHESTPLATE);
 						itemStack.decrement(1);
-						player.inventory.insertStack(itemStack20);
+						player.getInventory().insertStack(itemStack20);
 						barterTimer = 1200; //Timer exists to avoid cheese
 						player.playSound(SoundEvents.ITEM_ARMOR_EQUIP_GOLD, SoundCategory.NEUTRAL, 1, 1);
 						ActionResult.success(this.world.isClient);
@@ -316,7 +321,7 @@ public class CambionEntity extends BWHostileEntity implements InventoryChangedLi
 					case 19:
 						ItemStack itemStack21 = new ItemStack(BWObjects.DRAGONS_BLOOD_SAPLING);
 						itemStack.decrement(1);
-						player.inventory.insertStack(itemStack21);
+						player.getInventory().insertStack(itemStack21);
 						barterTimer = 2400; //Timer exists to avoid cheese
 						player.playSound(SoundEvents.ITEM_ARMOR_EQUIP_GOLD, SoundCategory.NEUTRAL, 1, 1);
 						ActionResult.success(this.world.isClient);
@@ -324,7 +329,7 @@ public class CambionEntity extends BWHostileEntity implements InventoryChangedLi
 					case 20:
 						ItemStack itemStack22 = new ItemStack(BWObjects.DRAGONS_BLOOD_RESIN, l);
 						itemStack.decrement(1);
-						player.inventory.insertStack(itemStack22);
+						player.getInventory().insertStack(itemStack22);
 						barterTimer = 1200; //Timer exists to avoid cheese
 						player.playSound(SoundEvents.ITEM_ARMOR_EQUIP_GOLD, SoundCategory.NEUTRAL, 1, 1);
 						ActionResult.success(this.world.isClient);
@@ -332,7 +337,7 @@ public class CambionEntity extends BWHostileEntity implements InventoryChangedLi
 					case 21:
 						ItemStack itemStack23 = new ItemStack(Items.TOTEM_OF_UNDYING, 1);
 						itemStack.decrement(1);
-						player.inventory.insertStack(itemStack23);
+						player.getInventory().insertStack(itemStack23);
 						barterTimer = 7200; //Timer exists to avoid cheese
 						player.playSound(SoundEvents.ITEM_ARMOR_EQUIP_GOLD, SoundCategory.NEUTRAL, 1, 1);
 						ActionResult.success(this.world.isClient);
@@ -340,7 +345,7 @@ public class CambionEntity extends BWHostileEntity implements InventoryChangedLi
 					case 22:
 						ItemStack itemStack24 = new ItemStack(Items.LODESTONE, 1);
 						itemStack.decrement(1);
-						player.inventory.insertStack(itemStack24);
+						player.getInventory().insertStack(itemStack24);
 						barterTimer = 7200; //Timer exists to avoid cheese
 						player.playSound(SoundEvents.ITEM_ARMOR_EQUIP_GOLD, SoundCategory.NEUTRAL, 1, 1);
 						ActionResult.success(this.world.isClient);
@@ -349,6 +354,11 @@ public class CambionEntity extends BWHostileEntity implements InventoryChangedLi
 			} else {
 				return super.interactMob(player, hand);
 			}
+			ActionResult actionResult = this.interactWithSpawnEgg(player, hand);
+			if (actionResult.isAccepted()) {
+				return actionResult;
+			}
+			return super.interactMob(player, hand);
 		}
 		return super.interactMob(player, hand);
 	}
@@ -513,15 +523,6 @@ public class CambionEntity extends BWHostileEntity implements InventoryChangedLi
 			this.calculateDimensions();
 		}
 		super.onTrackedDataSet(data);
-	}
-
-	@Override
-	protected ActionResult interactMob(PlayerEntity player, Hand hand) {
-		ActionResult actionResult = this.interactWithSpawnEgg(player, hand);
-		if (actionResult.isAccepted()) {
-			return actionResult;
-		}
-		return super.interactMob(player, hand);
 	}
 
 	private ActionResult interactWithSpawnEgg(PlayerEntity player, Hand hand) {
