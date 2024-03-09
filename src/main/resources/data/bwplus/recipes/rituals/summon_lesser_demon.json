@@ -1,0 +1,17 @@
+{
+  "type": "bewitchment:ritual_recipe",
+  "ingredients": [
+    {
+      "item": "raw_gold"
+    },
+    {
+      "item": "bewitchment:aconite"
+    },
+    {
+      "item": "emerald"
+    }
+  ],
+  "inner": "fiery",
+  "ritual_function": "bwplus:summon_lesser_demon",
+  "cost": 333
+}
