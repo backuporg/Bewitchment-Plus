@@ -21,6 +21,7 @@ public class SummonLesserDemonRitualFunction extends RitualFunction {
         super(startParticle, sacrifice);
     }
 
+    //TODO: CALL FROM THE SUMMONABLES TAG. I will talk with the Alex's Mobs fabric port guy about helping me a bit, since he is the only active coder I know of ATM.
     public void start(ServerWorld world, BlockPos glyphPos, BlockPos effectivePos, Inventory inventory, boolean catFamiliar) {
         CambionEntity entity = BWPEntityTypes.CAMBION.create(world);
         if (entity != null) {
