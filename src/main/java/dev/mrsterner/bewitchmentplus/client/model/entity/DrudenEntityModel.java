@@ -1,6 +1,7 @@
 package dev.mrsterner.bewitchmentplus.client.model.entity;
 
 import dev.mrsterner.bewitchmentplus.common.entity.CambionEntity;
+import dev.mrsterner.bewitchmentplus.common.entity.DrudenEntity;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.minecraft.client.model.*;
@@ -13,74 +14,13 @@ import net.minecraft.entity.Entity;
 // Exported for Minecraft version 1.17+ for Yarn
 // Paste this class into your mod and generate all required imports
 @Environment(EnvType.CLIENT)
-public class DrudenEntityModel extends BipedEntityModel<CambionEntity> {
+public class DrudenEntityModel extends BipedEntityModel<DrudenEntity> {
 	private final ModelPart body;
-	private final ModelPart boobs;
-	private final ModelPart stomach;
-	private final ModelPart bSkirt01;
-	private final ModelPart bSkirt02;
-	private final ModelPart lSkirt;
-	private final ModelPart rSkirt;
 	private final ModelPart bipedLeftArm;
-	private final ModelPart lArmLeaves01;
-	private final ModelPart lArmLeaves02;
-	private final ModelPart lClaw01;
-	private final ModelPart lClaw02;
-	private final ModelPart lClaw03;
 	private final ModelPart bipedRightArm;
-	private final ModelPart rArmLeaves01;
-	private final ModelPart rArmLeaves02;
-	private final ModelPart rClaw01;
-	private final ModelPart rClaw02;
-	private final ModelPart rClaw03;
 	private final ModelPart bipedLeftLeg;
-	private final ModelPart lLeg02;
-	private final ModelPart lLeg03;
-	private final ModelPart lHoofClaw01a;
-	private final ModelPart lHoofClaw01b;
-	private final ModelPart lHoofClaw02a;
-	private final ModelPart lHoofClaw02b;
 	private final ModelPart bipedRightLeg;
-	private final ModelPart rLeg02;
-	private final ModelPart rLeg03;
-	private final ModelPart rHoofClaw01a;
-	private final ModelPart rHoofClaw01b;
-	private final ModelPart rHoofClaw02a;
-	private final ModelPart rHoofClaw02b;
 	private final ModelPart head;
-	private final ModelPart lAntler01;
-	private final ModelPart lAntler02;
-	private final ModelPart Box_r1;
-	private final ModelPart rightAntler02;
-	private final ModelPart lAntler03a;
-	private final ModelPart lAntler03b;
-	private final ModelPart lAntler03c;
-	private final ModelPart lAntler04a;
-	private final ModelPart lAntler04b;
-	private final ModelPart lAntler05a;
-	private final ModelPart lAntler05b;
-	private final ModelPart lAntler06a;
-	private final ModelPart lAntler06b;
-	private final ModelPart lAntler07a;
-	private final ModelPart lAntler07b;
-	private final ModelPart rAntler01;
-	private final ModelPart rAntler02;
-	private final ModelPart Box_r2;
-	private final ModelPart rAntler03a;
-	private final ModelPart rAntler03b;
-	private final ModelPart rAntler03c;
-	private final ModelPart rAntler03d;
-	private final ModelPart rAntler04a;
-	private final ModelPart rAntler04b;
-	private final ModelPart rAntler05a;
-	private final ModelPart rAntler05b;
-	private final ModelPart rAntler06a;
-	private final ModelPart rAntler06b;
-	private final ModelPart rAntler07a;
-	private final ModelPart rAntler07b;
-	private final ModelPart hood;
-	private final ModelPart HAIR;
-	private final ModelPart Base_r1;
 	public DrudenEntityModel(ModelPart root) {
 		super(root);
 		this.body = root.getChild("body");
