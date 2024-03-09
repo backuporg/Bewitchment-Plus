@@ -15,12 +15,12 @@ public class BWPConfig extends MidnightConfig {
 	@Entry public static List<String> blackDogBiomeCategories = List.of(ConventionalBiomeTags.PLAINS.toString());
 	@Entry public static int blackDogWeight = 8;
 	@Entry	public static int blackDogMinGroupCount = 0;
-	@Entry	public static int blackDogMaxGroupCount = 2;
+	@Entry	public static int blackDogMaxGroupCount = 4;
 
 	@Entry	public static List<String> cambionBiomeCategories = Arrays.asList(ConventionalBiomeTags.IN_NETHER.toString(), ConventionalBiomeTags.DESERT.toString());
 	@Entry	public static int cambionWeight = 12;
 	@Entry	public static int cambionMinGroupCount = 0;
-	@Entry	public static int cambionMaxGroupCount = 2;
+	@Entry	public static int cambionMaxGroupCount = 4;
 
 
 	@Entry	public static boolean blackDogStructureSpawn = true;
