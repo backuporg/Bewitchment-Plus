@@ -14,6 +14,7 @@ public class BWPTags {
     public static final TagKey<EntityType<?>> SPECTRAL_FAMILIAR = TagKey.of(Registry.ENTITY_TYPE_KEY, new Identifier(BewitchmentPlus.MODID, "spectral_familiar"));
     public static final TagKey<EntityType<?>> UNHOLY = TagKey.of(Registry.ENTITY_TYPE_KEY, new Identifier(BewitchmentPlus.MODID, "unholy"));
     public static final TagKey<EntityType<?>> SACRIFICES = TagKey.of(Registry.ENTITY_TYPE_KEY, new Identifier(BewitchmentPlus.MODID, "sacrifices"));
+    public static final TagKey<EntityType<?>> LESSER_DEMON = TagKey.of(Registry.ENTITY_TYPE_KEY, new Identifier(BewitchmentPlus.MODID, "lesser_demon"));
 
     public static final TagKey<Block> MUTANDIS = TagKey.of(Registry.BLOCK_KEY, new Identifier(BewitchmentPlus.MODID, "mutandis"));
     public static final TagKey<Block> FLEECE = TagKey.of(Registry.BLOCK_KEY, new Identifier(BewitchmentPlus.MODID, "fleece"));
