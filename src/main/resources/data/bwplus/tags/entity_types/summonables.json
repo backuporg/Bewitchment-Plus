@@ -1,0 +1,15 @@
+{
+  "replace": false,
+  "values": [
+    "minecraft:blaze",
+    "minecraft:ghast",
+    "minecraft:vex",
+    "minecraft:allay",
+    "minecraft:magma_cube",
+    "bewitchment:hellhound",
+    "bewitchment:ghost",
+    "bwplus:lilim",
+    "bwplus:cambion",
+    "bwplus:leshon"
+  ]
+}
