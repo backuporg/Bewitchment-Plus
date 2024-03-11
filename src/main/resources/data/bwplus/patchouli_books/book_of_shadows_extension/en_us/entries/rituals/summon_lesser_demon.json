@@ -1,0 +1,18 @@
+{
+  "category": "bewitchment:rituals",
+  "name": "Summon Lesser Spirits",
+  "icon": "bewitchment:ectoplasm",
+  "entry_color": "DC143C",
+  "advancement": "bewitchment:hidden_unlocks/demon_horn",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "A ritual meant for summoning lesser spirits, this rite is utterly predictable, but it has a chance of summoning spirits that may be in the player's interest to keep around."
+    },
+    {
+      "type": "bewitchment:ritual",
+      "recipe": "bwplus:rituals/summon_lesser_demon",
+      "text": "This rite can only be cast under the night of a full moon, and requires a sacrifice of either sheep or goat."
+    }
+  ]
+}
