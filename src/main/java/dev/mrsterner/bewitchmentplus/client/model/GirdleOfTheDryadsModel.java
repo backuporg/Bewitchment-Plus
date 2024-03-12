@@ -1,7 +1,11 @@
+package dev.mrsterner.bewitchmentplus.client.model;
+
+import net.minecraft.client.model.ModelPart;
+
 // Made with Blockbench 4.9.4
 // Exported for Minecraft version 1.17+ for Yarn
 // Paste this class into your mod and generate all required imports
-public class ModelGirdleOfTheDryad extends EntityModel<Entity> {
+public class GirdleOfTheDryadsModel extends EntityModel<Entity> {
 	private final ModelPart rootRight1;
 	private final ModelPart rootRight2;
 	private final ModelPart rootLeft1;
@@ -32,7 +36,7 @@ public class ModelGirdleOfTheDryad extends EntityModel<Entity> {
 	private final ModelPart barkBack1c;
 	private final ModelPart rootLeft3;
 	private final ModelPart rootRight3;
-	public ModelGirdleOfTheDryad(ModelPart root) {
+	public GirdleOfTheDryadsModel(ModelPart root) {
 		this.rootRight1 = root.getChild("rootRight1");
 		this.rootLeft1 = root.getChild("rootLeft1");
 		this.belt2 = root.getChild("belt2");
