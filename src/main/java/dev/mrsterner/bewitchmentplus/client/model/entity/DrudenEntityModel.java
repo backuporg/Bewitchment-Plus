@@ -9,6 +9,7 @@ import net.minecraft.client.render.VertexConsumer;
 import net.minecraft.client.render.entity.model.BipedEntityModel;
 import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.entity.Entity;
+import net.minecraft.util.math.MathHelper;
 
 // Made with Blockbench 4.9.4
 // Exported for Minecraft version 1.17+ for Yarn
@@ -177,5 +178,39 @@ public class DrudenEntityModel extends BipedEntityModel<DrudenEntity> {
 		bipedLeftLeg.render(matrices, vertexConsumer, light, overlay, red, green, blue, alpha);
 		bipedRightLeg.render(matrices, vertexConsumer, light, overlay, red, green, blue, alpha);
 		head.render(matrices, vertexConsumer, light, overlay, red, green, blue, alpha);
+	}
+
+	@Override
+	public void setAngles(T entity, float limbAngle, float limbDistance, float animationProgress, float headYaw, float headPitch) {
+		realArm = false;
+		super.setAngles(entity, limbAngle, limbDistance, animationProgress, headYaw, headPitch);
+		realArm = true;
+		copyRotation(head, super.head);
+		copyRotation(body, super.torso);
+		copyRotation(bipedLeftArm, super.leftArm);
+		copyRotation(bipedRightArm, super.rightArm);
+		copyRotation(bipedLeftLeg, super.leftLeg);
+		copyRotation(bipedRightLeg, super.rightLeg);
+
+		this.bipedRightArm.pitch = -MathHelper.cos(limbAngle * 0.6662F + 3.1415927F) * 2.0F * limbDistance * 0.55F;
+		this.bipedLeftArm.pitch = MathHelper.cos(limbAngle * 0.6662F + 3.1415927F) * 2.0F * limbDistance * 0.55F;
+		float j = MathHelper.sin(entity.handSwingProgress * 3.1415927F);
+		if (j > 0) {
+			this.bipedRightArm.pitch = -j;
+			if (entity.getDataTracker().get(CambionEntity.PUNCH)) {
+				this.bipedLeftArm.pitch = -j;
+			}
+		}
+	}
+
+	public void setRotationAngle(ModelPart bone, float x, float y, float z) {
+		bone.pitch = x;
+		bone.yaw = y;
+		bone.roll = z;
+	}
+
+	@Override
+	protected ModelPart getArm(Arm arm) {
+		return realArm ? (arm == Arm.LEFT ? bipedLeftArm : bipedRightArm) : super.getArm(arm);
 	}
 }
