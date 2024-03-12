@@ -42,8 +42,8 @@ public class BWPStatusEffects {
 
         @Override
         public void applyUpdateEffect(LivingEntity entity, int amplifier) {
-            for(StatusEffect statusEffect : Registry.STATUS_EFFECT){
-                if(!statusEffect.isBeneficial() && !statusEffect.equals(BWPStatusEffects.HALF_LIFE)){
+            for (StatusEffect statusEffect : Registry.STATUS_EFFECT) {
+                if (!statusEffect.isBeneficial() && !statusEffect.equals(BWPStatusEffects.HALF_LIFE)) {
                     entity.removeStatusEffect(statusEffect);
                 }
             }
@@ -53,7 +53,7 @@ public class BWPStatusEffects {
 
         @Override
         public void onRemoved(LivingEntity entity, AttributeContainer attributes, int amplifier) {
-            if(amplifier == 1){
+            if (amplifier == 1) {
                 BWComponents.CURSES_COMPONENT.get(entity).addCurse(new Curse.Instance(BWPCurses.HALF_LIFE, 168000));
             }
             super.onRemoved(entity, attributes, amplifier);

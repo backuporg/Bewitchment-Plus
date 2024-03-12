@@ -5,8 +5,8 @@ import dev.mrsterner.bewitchmentplus.client.model.GobletItemModel;
 import dev.mrsterner.bewitchmentplus.common.block.blockentity.GobletBlockEntity;
 import dev.mrsterner.bewitchmentplus.common.item.GobletBlockItem;
 import dev.mrsterner.bewitchmentplus.common.registry.BWPObjects;
-import dev.mrsterner.bewitchmentplus.common.utils.RenderHelper;
 import dev.mrsterner.bewitchmentplus.common.registry.BWPSpriteIdentifiers;
+import dev.mrsterner.bewitchmentplus.common.utils.RenderHelper;
 import net.fabricmc.fabric.api.client.rendering.v1.BuiltinItemRendererRegistry;
 import net.fabricmc.fabric.api.renderer.v1.mesh.MeshBuilder;
 import net.fabricmc.fabric.api.transfer.v1.client.fluid.FluidVariantRendering;
@@ -58,7 +58,7 @@ public class GobletBlockItemRenderer implements BlockEntityRenderer<GobletBlockE
             if (nbt != null && nbt.contains("BlockEntityTag")) {
                 DefaultedList<ItemStack> slots = DefaultedList.ofSize(1, ItemStack.EMPTY);
                 Inventories.readNbt(nbt.getCompound("BlockEntityTag"), slots);
-                if(!slots.get(0).isEmpty() && !slots.get(0).getItem().equals(Items.AIR)){
+                if (!slots.get(0).isEmpty() && !slots.get(0).getItem().equals(Items.AIR)) {
                     matrices.push();
                     matrices.scale(0.25f, 0.25f, 0.25f);
                     matrices.translate(-0.5F, 0.75F, 0.5F);
@@ -104,7 +104,7 @@ public class GobletBlockItemRenderer implements BlockEntityRenderer<GobletBlockE
                     sprite = color == RenderHelper.BLOOD_COLOR ? BWPSpriteIdentifiers.BLOOD.getSprite() : color == RenderHelper.HONEY_COLOR ? BWPSpriteIdentifiers.HONEY.getSprite() : color == RenderHelper.UNICORN_BLOOD_COLOR ? BWPSpriteIdentifiers.UNICORN.getSprite() : sprite;
                 }
             }
-            for(var direction :Direction.values()){
+            for (var direction : Direction.values()) {
                 RenderHelper.emitFluidFace(builder.getEmitter(), sprite, newColor, direction, 1f, 0f, EDGE_SIZE, INNER_SIZE);
             }
             int newLight = (light & 0xFFFF_0000) | (Math.max((light >> 4) & 0xF, variant.getFluid().getDefaultState().getBlockState().getLuminance()) << 4);

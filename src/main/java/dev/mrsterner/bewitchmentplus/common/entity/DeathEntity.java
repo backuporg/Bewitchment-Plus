@@ -89,7 +89,6 @@ public class DeathEntity extends HostileEntity implements IAnimatable {
     }
 
 
-
     @Override
     public void equipStack(EquipmentSlot slot, ItemStack stack) {
         this.processEquippedStack(stack);
@@ -136,14 +135,16 @@ public class DeathEntity extends HostileEntity implements IAnimatable {
 
     private static class SlownessLookGoal extends Goal {
         private final DeathEntity deathEntity;
-        @Nullable private LivingEntity target;
+        @Nullable
+        private LivingEntity target;
+
         public SlownessLookGoal(DeathEntity deathEntity) {
             this.deathEntity = deathEntity;
         }
 
         @Override
         public void start() {
-            if(this.target instanceof PlayerEntity player){
+            if (this.target instanceof PlayerEntity player) {
                 player.addStatusEffect(new StatusEffectInstance(StatusEffects.SLOWNESS, 20 * 3));
             }
             super.start();
@@ -159,6 +160,7 @@ public class DeathEntity extends HostileEntity implements IAnimatable {
                 return false;
             }
         }
+
         @Override
         public void tick() {
             this.deathEntity.getLookControl().lookAt(this.target.getX(), this.target.getEyeY(), this.target.getZ());

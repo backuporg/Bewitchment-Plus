@@ -3,7 +3,9 @@ package dev.mrsterner.bewitchmentplus.common.utils;
 import dev.mrsterner.bewitchmentplus.common.block.blockentity.YewLogBlockEntity;
 import dev.mrsterner.bewitchmentplus.common.entity.LeshonEntity;
 import dev.mrsterner.bewitchmentplus.common.interfaces.Magical;
-import dev.mrsterner.bewitchmentplus.common.registry.*;
+import dev.mrsterner.bewitchmentplus.common.registry.BWPCriterion;
+import dev.mrsterner.bewitchmentplus.common.registry.BWPEntityTypes;
+import dev.mrsterner.bewitchmentplus.common.registry.BWPTransformations;
 import dev.mrsterner.bewitchmentplus.common.world.BWPWorldState;
 import moriyashiine.bewitchment.api.component.TransformationComponent;
 import moriyashiine.bewitchment.common.registry.BWComponents;
@@ -21,7 +23,7 @@ public class BWPUtil {
     public static boolean grantMagical(PlayerEntity player) {
         if (player instanceof ServerPlayerEntity) {
             BWPCriterion.MAGICAL_CRITERION.trigger((ServerPlayerEntity) player);
-            ((Magical)player).setMagical(true);
+            ((Magical) player).setMagical(true);
             return true;
         }
         return false;
@@ -38,10 +40,9 @@ public class BWPUtil {
     }
 
 
-
     public static LeshonEntity getLeshon(PlayerEntity player) {
         if (BWPTransformations.isLeshon(player, false)) {
-            if(entity == null) {
+            if (entity == null) {
                 entity = BWPEntityTypes.LESHON.create(player.world);
                 assert entity != null;
             }

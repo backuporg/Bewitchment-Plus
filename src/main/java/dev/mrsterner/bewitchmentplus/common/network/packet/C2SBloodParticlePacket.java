@@ -19,6 +19,7 @@ import java.util.UUID;
 
 public class C2SBloodParticlePacket {
     public static final Identifier ID = new Identifier(BewitchmentPlus.MODID, "blood_heal");
+
     public static void send(UUID uuid, int entityId) {
         PacketByteBuf buf = new PacketByteBuf(Unpooled.buffer());
         buf.writeUuid(uuid);
@@ -32,16 +33,16 @@ public class C2SBloodParticlePacket {
         var entity = player.world.getEntityById(buf.readInt());
 
         server.execute(() -> {
-            if(entity != null){
-                if(entity instanceof CowEntity cowEntity){
+            if (entity != null) {
+                if (entity instanceof CowEntity cowEntity) {
                     BWComponents.BLOOD_COMPONENT.maybeGet(player.world.getPlayerByUuid(uuid)).ifPresent(bloodComponent -> {
                         bloodComponent.fillBlood(1, false);
                     });
                     player.world.getPlayerByUuid(uuid).clearStatusEffects();
 
-                }else if(entity instanceof WitherSkeletonEntity witherSkeletonEntity){
+                } else if (entity instanceof WitherSkeletonEntity witherSkeletonEntity) {
                     (player.world.getPlayerByUuid(uuid)).addStatusEffect(new StatusEffectInstance(StatusEffects.WITHER, 200), witherSkeletonEntity);
-                }else{
+                } else {
                     BWComponents.BLOOD_COMPONENT.maybeGet(player.world.getPlayerByUuid(uuid)).ifPresent(bloodComponent -> {
                         bloodComponent.fillBlood(1, false);
                     });

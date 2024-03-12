@@ -67,7 +67,7 @@ public class RuneEntity extends Entity {
     }
 
     private void runeTick(RuneEntity runeEntity, World world, BlockPos blockPos) {
-        if(!world.isClient()){
+        if (!world.isClient()) {
             var entityList = world.getNonSpectatingEntities(LivingEntity.class, new Box(blockPos).expand(runeEntity.dataTracker.get(ACTIVE_RANGE), runeEntity.dataTracker.get(ACTIVE_RANGE), runeEntity.dataTracker.get(ACTIVE_RANGE)));
             if (!entityList.isEmpty()) {
                 for (LivingEntity mob : entityList) {
@@ -98,25 +98,25 @@ public class RuneEntity extends Entity {
 
     @Override
     public void tick() {
-        if(!world.isClient()) {
-            if(this.workingTicks < 20){
+        if (!world.isClient()) {
+            if (this.workingTicks < 20) {
                 this.workingTicks++;
-            }else{
+            } else {
                 runeTick(this, this.world, this.getBlockPos());
                 this.workingTicks = 0;
             }
 
-            if(getProgress()>= 0){
+            if (getProgress() >= 0) {
                 setProgress(getProgress() + 1);
             }
-            if(getProgress() >= 20 * 10){
+            if (getProgress() >= 20 * 10) {
                 world.playSound(null, this.getBlockPos(), SoundEvents.ENTITY_WITHER_SPAWN, SoundCategory.BLOCKS, 0.5f, 0.5f);
                 setProgress(-1);
                 setExpansion(true);
             }
-            if(getExpansion()){
+            if (getExpansion()) {
                 setExpansionTicks(getExpansionTick() + 1);
-                if(getExpansionTick() > 20 * 10){
+                if (getExpansionTick() > 20 * 10) {
                     setExpansionTicks(0);
                 }
             }
@@ -125,8 +125,7 @@ public class RuneEntity extends Entity {
     }
 
 
-
-    public void killRune(){
+    public void killRune() {
         this.kill();
     }
 

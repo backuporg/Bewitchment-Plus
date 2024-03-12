@@ -25,7 +25,7 @@ import net.minecraft.util.registry.Registry;
 import net.minecraft.world.World;
 
 
-public class StatueRenderer implements BlockEntityRenderer<StatueBlockEntity>, BuiltinItemRendererRegistry.DynamicItemRenderer{
+public class StatueRenderer implements BlockEntityRenderer<StatueBlockEntity>, BuiltinItemRendererRegistry.DynamicItemRenderer {
     public LilithStatueModel lilithStatueModel;
     public HerneStatueModel herneStatueModel;
     public LeonardStatueModel leonardStatueModel;
@@ -40,7 +40,7 @@ public class StatueRenderer implements BlockEntityRenderer<StatueBlockEntity>, B
 
     public Identifier getStatueTexture(StatueBlockItem itemStack) {
         String string = Registry.ITEM.getKey(itemStack.asItem()).get().getValue().getPath();
-        return new Identifier(BewitchmentPlus.MODID,  "textures/block/statues/"+ string +".png");
+        return new Identifier(BewitchmentPlus.MODID, "textures/block/statues/" + string + ".png");
     }
 
     @Override
@@ -48,16 +48,16 @@ public class StatueRenderer implements BlockEntityRenderer<StatueBlockEntity>, B
         matrices.push();
         matrices.multiply(Vec3f.POSITIVE_X.getDegreesQuaternion(180));
         String string = Registry.ITEM.getKey(stack.getItem()).get().getValue().getPath();
-        if(string.contains("lilith")){
+        if (string.contains("lilith")) {
             VertexConsumer ivertexbuilder1 = ItemRenderer.getItemGlintConsumer(vertexConsumers, this.lilithStatueModel.getLayer(getStatueTexture((StatueBlockItem) stack.getItem())), false, stack.hasGlint());
             lilithStatueModel.render(matrices, ivertexbuilder1, light, overlay, 1, 1, 1, 1);
-        }else if(string.contains("herne")){
+        } else if (string.contains("herne")) {
             VertexConsumer ivertexbuilder1 = ItemRenderer.getItemGlintConsumer(vertexConsumers, this.herneStatueModel.getLayer(getStatueTexture((StatueBlockItem) stack.getItem())), false, stack.hasGlint());
             herneStatueModel.render(matrices, ivertexbuilder1, light, overlay, 1, 1, 1, 1);
-        }else if(string.contains("leonard")){
+        } else if (string.contains("leonard")) {
             VertexConsumer ivertexbuilder1 = ItemRenderer.getItemGlintConsumer(vertexConsumers, this.leonardStatueModel.getLayer(getStatueTexture((StatueBlockItem) stack.getItem())), false, stack.hasGlint());
             leonardStatueModel.render(matrices, ivertexbuilder1, light, overlay, 1, 1, 1, 1);
-        }else if(string.contains("baphomet")){
+        } else if (string.contains("baphomet")) {
             VertexConsumer ivertexbuilder1 = ItemRenderer.getItemGlintConsumer(vertexConsumers, this.baphometStatueModel.getLayer(getStatueTexture((StatueBlockItem) stack.getItem())), false, stack.hasGlint());
             baphometStatueModel.render(matrices, ivertexbuilder1, light, overlay, 1, 1, 1, 1);
         }
@@ -75,17 +75,17 @@ public class StatueRenderer implements BlockEntityRenderer<StatueBlockEntity>, B
         float f = blockState.get(Properties.HORIZONTAL_FACING).asRotation();
         matrices.multiply(Vec3f.POSITIVE_Y.getDegreesQuaternion(f));
         String s = Registry.BLOCK.getKey(entity.getStatue().getBlock()).get().getValue().getPath();
-        if(s.contains("lilith")){
+        if (s.contains("lilith")) {
             VertexConsumer ivertexbuilder1 = ItemRenderer.getItemGlintConsumer(vertexConsumers, this.lilithStatueModel.getLayer(getStatueTexture(entity.getStatue())), false, false);
             lilithStatueModel.render(matrices, ivertexbuilder1, light, overlay, 1, 1, 1, 1);
-        }else if(s.contains("herne")){
+        } else if (s.contains("herne")) {
             VertexConsumer ivertexbuilder1 = ItemRenderer.getItemGlintConsumer(vertexConsumers, this.herneStatueModel.getLayer(getStatueTexture(entity.getStatue())), false, false);
             herneStatueModel.render(matrices, ivertexbuilder1, light, overlay, 1, 1, 1, 1);
-        }else if(s.contains("leonard")){
+        } else if (s.contains("leonard")) {
             VertexConsumer ivertexbuilder1 = ItemRenderer.getItemGlintConsumer(vertexConsumers, this.leonardStatueModel.getLayer(getStatueTexture(entity.getStatue())), false, false);
             leonardStatueModel.render(matrices, ivertexbuilder1, light, overlay, 1, 1, 1, 1);
             //System.out.println(getStatueTexture(entity.getStatue()));
-        }else if(s.contains("baphomet")){
+        } else if (s.contains("baphomet")) {
             VertexConsumer ivertexbuilder1 = ItemRenderer.getItemGlintConsumer(vertexConsumers, this.baphometStatueModel.getLayer(getStatueTexture(entity.getStatue())), false, false);
             baphometStatueModel.render(matrices, ivertexbuilder1, light, overlay, 1, 1, 1, 1);
         }

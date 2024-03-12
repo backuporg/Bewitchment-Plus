@@ -1,7 +1,7 @@
 {
   "variants": {
-	"": {
-	  "model": "bwplus:block/gold_goblet"
-	}
+    "": {
+      "model": "bwplus:block/gold_goblet"
+    }
   }
 }

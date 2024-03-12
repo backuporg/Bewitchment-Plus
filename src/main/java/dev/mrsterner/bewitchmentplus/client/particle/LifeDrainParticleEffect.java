@@ -1,5 +1,6 @@
 package dev.mrsterner.bewitchmentplus.client.particle;
 
+import com.mojang.brigadier.StringReader;
 import com.mojang.brigadier.exceptions.CommandSyntaxException;
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
@@ -11,11 +12,11 @@ import net.minecraft.particle.ParticleEffect;
 import net.minecraft.particle.ParticleType;
 import net.minecraft.util.registry.Registry;
 
-import com.mojang.brigadier.StringReader;
 import java.util.Locale;
 
 //Derivative from Illuminations https://github.com/Ladysnake/Illuminations/blob/1.18/src/main/java/ladysnake/illuminations/client/particle/WispTrailParticleEffect.java
-public record LifeDrainParticleEffect(float red, float green, float blue, float redEvolution, float greenEvolution, float blueEvolution) implements ParticleEffect {
+public record LifeDrainParticleEffect(float red, float green, float blue, float redEvolution, float greenEvolution,
+                                      float blueEvolution) implements ParticleEffect {
     public static final Codec<LifeDrainParticleEffect> CODEC = RecordCodecBuilder.create((instance)
             -> instance.group(Codec.FLOAT.fieldOf("r").forGetter((lifeDrainTrailParticleEffect)
             -> lifeDrainTrailParticleEffect.red), Codec.FLOAT.fieldOf("g").forGetter((lifeDrainTrailParticleEffect)

@@ -17,21 +17,22 @@ import java.util.List;
 
 public class YewLogBlockEntity extends BlockEntity {
     private int effectGiverCoolerDowner;
+
     public YewLogBlockEntity(BlockPos pos, BlockState state) {
         super(BWPBlockEntityTypes.YEW_LOG_BLOCK_ENTITY, pos, state);
     }
 
     public static void tick(World world, BlockPos pos, BlockState state, YewLogBlockEntity blockEntity) {
         blockEntity.effectGiverCoolerDowner++;
-        if(blockEntity.effectGiverCoolerDowner > 40){
+        if (blockEntity.effectGiverCoolerDowner > 40) {
             blockEntity.effectGiverCoolerDowner = 0;
             Box box = new Box(pos).expand(64);
             List<PlayerEntity> list = world.getNonSpectatingEntities(PlayerEntity.class, box);
             Iterator<PlayerEntity> var11 = list.iterator();
             PlayerEntity playerEntity;
-            while(var11.hasNext()) {
+            while (var11.hasNext()) {
                 playerEntity = var11.next();
-                if(playerEntity.getEquippedStack(EquipmentSlot.HEAD).getItem().equals(BWPObjects.LESHON_SKULL.asItem())){
+                if (playerEntity.getEquippedStack(EquipmentSlot.HEAD).getItem().equals(BWPObjects.LESHON_SKULL.asItem())) {
                     playerEntity.addStatusEffect(new StatusEffectInstance(BWPStatusEffects.HOMESTEAD, 20 * 3, 1, true, true));
                 }
             }

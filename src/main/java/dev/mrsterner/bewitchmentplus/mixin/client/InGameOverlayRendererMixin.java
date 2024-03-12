@@ -17,7 +17,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 public abstract class InGameOverlayRendererMixin {
 
     @Inject(method = "renderFireOverlay", at = @At("HEAD"), cancellable = true)
-    private static void dontGetSprite(MinecraftClient minecraftClient, MatrixStack matrixStack, CallbackInfo ci){
+    private static void dontGetSprite(MinecraftClient minecraftClient, MatrixStack matrixStack, CallbackInfo ci) {
         if (minecraftClient.player.getEquippedStack(EquipmentSlot.CHEST).getItem().equals(BWPObjects.DEATHS_ROBES)) {
             ci.cancel();
         }

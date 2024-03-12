@@ -1,7 +1,7 @@
 {
   "variants": {
-	"": {
-	  "model": "bwplus:block/netherite_goblet"
-	}
+    "": {
+      "model": "bwplus:block/netherite_goblet"
+    }
   }
 }

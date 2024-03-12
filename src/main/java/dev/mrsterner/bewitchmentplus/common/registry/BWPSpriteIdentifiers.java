@@ -2,12 +2,11 @@ package dev.mrsterner.bewitchmentplus.common.registry;
 
 import dev.mrsterner.bewitchmentplus.BewitchmentPlus;
 import net.fabricmc.api.EnvType;
-
-import java.util.*;
-
 import net.fabricmc.api.Environment;
 import net.minecraft.client.util.SpriteIdentifier;
 import net.minecraft.util.Identifier;
+
+import java.util.*;
 
 import static net.minecraft.client.render.TexturedRenderLayers.CHEST_ATLAS_TEXTURE;
 import static net.minecraft.screen.PlayerScreenHandler.BLOCK_ATLAS_TEXTURE;

@@ -1,7 +1,7 @@
 {
   "variants": {
-	"": {
-	  "model": "bwplus:block/copper_goblet"
-	}
+    "": {
+      "model": "bwplus:block/copper_goblet"
+    }
   }
 }

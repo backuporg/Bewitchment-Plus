@@ -1,7 +1,7 @@
 {
-"replace": false,
-"values": [
-  "bwplus:silver_stairs",
-  "bwplus:cut_silver_stairs"
+  "replace": false,
+  "values": [
+    "bwplus:silver_stairs",
+    "bwplus:cut_silver_stairs"
   ]
 }

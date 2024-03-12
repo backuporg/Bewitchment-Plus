@@ -54,7 +54,8 @@ public abstract class InGameHudMixin extends DrawableHelper {
     @Shadow
     private int scaledWidth;
 
-    @Shadow protected abstract PlayerEntity getCameraPlayer();
+    @Shadow
+    protected abstract PlayerEntity getCameraPlayer();
 
     @Inject(method = "renderStatusBars", at = @At(value = "INVOKE", shift = At.Shift.AFTER, ordinal = 3, target = "Lnet/minecraft/client/MinecraftClient;getProfiler()Lnet/minecraft/util/profiler/Profiler;"))
     private void renderPre(MatrixStack matrices, CallbackInfo callbackInfo) {
@@ -69,8 +70,8 @@ public abstract class InGameHudMixin extends DrawableHelper {
     }
 
     private void drawHalfLife(MatrixStack matrices, LivingEntity entity, int x, int y) {
-        for(int i = 0; i < (int)entity.getHealth()/4; i++) {
-            drawTexture(matrices, (x - i * 8), y, 0,  0, 9, 9);
+        for (int i = 0; i < (int) entity.getHealth() / 4; i++) {
+            drawTexture(matrices, (x - i * 8), y, 0, 0, 9, 9);
         }
     }
 

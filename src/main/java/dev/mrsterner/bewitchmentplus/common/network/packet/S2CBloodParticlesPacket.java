@@ -34,12 +34,12 @@ public class S2CBloodParticlesPacket {
                 Entity entity = world.getEntityById(id);
                 if (entity != null) {
                     BlockPos pos = entity.getBlockPos();
-                    if(entity instanceof CowEntity){
+                    if (entity instanceof CowEntity) {
                         world.addParticle(BWPParticleTypes.MILK_DRAIN, true, pos.getX() + 0.5, pos.getY() + 0.5, pos.getZ() + 0.1, 0f, 0f, 0f);
                         world.addParticle(BWPParticleTypes.LIFE_DRAIN, true, pos.getX() + 0.5, pos.getY() + 0.5, pos.getZ() + 0.5, 0f, 0f, 0f);
-                    }else if(entity instanceof WitherSkeletonEntity){
+                    } else if (entity instanceof WitherSkeletonEntity) {
                         world.addParticle(BWPParticleTypes.WITHER_DRAIN, true, pos.getX() + 0.5, pos.getY() + 0.5, pos.getZ() + 0.5, 0f, 0f, 0f);
-                    }else{
+                    } else {
                         world.addParticle(BWPParticleTypes.LIFE_DRAIN, true, pos.getX() + 0.5, pos.getY() + 0.5, pos.getZ() + 0.5, 0f, 0f, 0f);
                     }
 

@@ -1,7 +1,7 @@
 {
   "variants": {
-	"": {
-	  "model": "bwplus:block/silver_goblet"
-	}
+    "": {
+      "model": "bwplus:block/silver_goblet"
+    }
   }
 }

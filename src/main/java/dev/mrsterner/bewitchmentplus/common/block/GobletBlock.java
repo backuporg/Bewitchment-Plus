@@ -13,7 +13,10 @@ import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.fluid.FluidState;
 import net.minecraft.fluid.Fluids;
-import net.minecraft.item.*;
+import net.minecraft.item.Item;
+import net.minecraft.item.ItemPlacementContext;
+import net.minecraft.item.ItemStack;
+import net.minecraft.item.Items;
 import net.minecraft.loot.context.LootContextParameters;
 import net.minecraft.potion.PotionUtil;
 import net.minecraft.state.StateManager;
@@ -34,7 +37,7 @@ import java.util.List;
 import static net.minecraft.block.ShulkerBoxBlock.CONTENTS;
 
 public class GobletBlock extends Block implements BlockEntityProvider, Waterloggable {
-    public static final IntProperty LIQUID_STATE = IntProperty.of("liquid_state", 0,4);
+    public static final IntProperty LIQUID_STATE = IntProperty.of("liquid_state", 0, 4);
     private static final VoxelShape SHAPE;
     public Item dropItem;
 
@@ -58,7 +61,7 @@ public class GobletBlock extends Block implements BlockEntityProvider, Waterlogg
             if (!world.isClient && player.isCreative() && !gobletBlockEntity.isEmpty() && gobletBlockEntity.getColor() != 0) {
                 ItemStack itemStack = new ItemStack(dropItem);
                 blockEntity.setStackNbt(itemStack);
-                ItemEntity itemEntity = new ItemEntity(world, (double)pos.getX() + 0.5D, (double)pos.getY() + 0.5D, (double)pos.getZ() + 0.5D, itemStack);
+                ItemEntity itemEntity = new ItemEntity(world, (double) pos.getX() + 0.5D, (double) pos.getY() + 0.5D, (double) pos.getZ() + 0.5D, itemStack);
                 itemEntity.setToDefaultPickupDelay();
                 world.spawnEntity(itemEntity);
             }
@@ -70,8 +73,8 @@ public class GobletBlock extends Block implements BlockEntityProvider, Waterlogg
     public ItemStack getPickStack(BlockView world, BlockPos pos, BlockState state) {
         ItemStack itemStack = super.getPickStack(world, pos, state);
         world.getBlockEntity(pos, BWPBlockEntityTypes.GOBLET).ifPresent((blockEntity) -> {
-            if(blockEntity.getColor() != 0)
-            blockEntity.setStackNbt(itemStack);
+            if (blockEntity.getColor() != 0)
+                blockEntity.setStackNbt(itemStack);
         });
         return itemStack;
     }
@@ -81,7 +84,7 @@ public class GobletBlock extends Block implements BlockEntityProvider, Waterlogg
         BlockEntity blockEntity = builder.getNullable(LootContextParameters.BLOCK_ENTITY);
         if (blockEntity instanceof GobletBlockEntity jarBlockEntity) {
             builder = builder.putDrop(CONTENTS, (context, consumer) -> {
-                for(int i = 0; i < jarBlockEntity.size(); ++i) {
+                for (int i = 0; i < jarBlockEntity.size(); ++i) {
                     consumer.accept(jarBlockEntity.getStack(i));
                 }
             });
@@ -104,7 +107,7 @@ public class GobletBlock extends Block implements BlockEntityProvider, Waterlogg
 
     @Override
     public void onPlaced(World world, BlockPos pos, BlockState state, @Nullable LivingEntity placer, ItemStack itemStack) {
-        if(world.getBlockEntity(pos) instanceof GobletBlockEntity gobletBlock){
+        if (world.getBlockEntity(pos) instanceof GobletBlockEntity gobletBlock) {
             gobletBlock.setGoblet((GobletBlockItem) itemStack.getItem());
             world.setBlockState(pos, state.with(LIQUID_STATE, (gobletBlock.getStack(0).getItem()) == Items.HONEY_BOTTLE ? 2 : (gobletBlock.getStack(0).getItem()) == BWObjects.BOTTLE_OF_BLOOD ? 3 : (gobletBlock.getStack(0).getItem()) == Items.POTION ? 1 : (gobletBlock.getStack(0).getItem()) == BWPObjects.UNICORN_BLOOD ? 4 : 0));
             gobletBlock.setColor((gobletBlock.getStack(0).getItem()) == Items.HONEY_BOTTLE ? RenderHelper.HONEY_COLOR : (gobletBlock.getStack(0).getItem()) == BWObjects.BOTTLE_OF_BLOOD ? RenderHelper.BLOOD_COLOR : (gobletBlock.getStack(0).getItem()) == Items.POTION ? PotionUtil.getColor(gobletBlock.getStack(0)) : (gobletBlock.getStack(0).getItem()) == BWPObjects.UNICORN_BLOOD ? RenderHelper.UNICORN_BLOOD_COLOR : 0);

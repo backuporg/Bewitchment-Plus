@@ -1,7 +1,10 @@
 package dev.mrsterner.bewitchmentplus.common.block;
 
 import dev.mrsterner.bewitchmentplus.common.registry.BWPObjects;
-import net.minecraft.block.*;
+import net.minecraft.block.Block;
+import net.minecraft.block.BlockState;
+import net.minecraft.block.Blocks;
+import net.minecraft.block.ShapeContext;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Direction;
@@ -22,6 +25,7 @@ public class PuddleBlock extends Block {
     public boolean hasRandomTicks(BlockState state) {
         return true;
     }
+
     @Override
     public void randomTick(BlockState state, ServerWorld world, BlockPos pos, Random random) {
         if (!world.isRaining() && random.nextInt(1000) == 0) {
@@ -32,7 +36,7 @@ public class PuddleBlock extends Block {
 
     @Override
     public VoxelShape getOutlineShape(BlockState state, BlockView world, BlockPos pos, ShapeContext context) {
-        return Block.createCuboidShape(0,0,0, 16, 1, 16);
+        return Block.createCuboidShape(0, 0, 0, 16, 1, 16);
     }
 
     @Override
@@ -70,9 +74,9 @@ public class PuddleBlock extends Block {
                 }
             }
             return world.getBlockState(pos.down()).isSideSolidFullSquare(world, pos, Direction.UP);
-        }
-        else return false;
+        } else return false;
     }
+
     public BlockState getStateForNeighborUpdate(BlockState state, Direction direction, BlockState newState, WorldAccess world, BlockPos pos, BlockPos posFrom) {
         return !state.canPlaceAt(world, pos) ? Blocks.AIR.getDefaultState() : super.getStateForNeighborUpdate(state, direction, newState, world, pos, posFrom);
     }

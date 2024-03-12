@@ -8,7 +8,7 @@ import static dev.mrsterner.bewitchmentplus.common.entity.NifflerEntity.SLEEPING
 public class NifflerWakeGoal extends Goal {
     private final NifflerEntity niffler;
 
-    public NifflerWakeGoal(NifflerEntity niffler){
+    public NifflerWakeGoal(NifflerEntity niffler) {
         this.niffler = niffler;
     }
 

@@ -34,8 +34,6 @@ public class NifflerEntityRenderer extends GeoEntityRenderer<NifflerEntity> {
  */
 
 
-
-
     @Override
     public void renderRecursively(GeoBone bone, MatrixStack stack, VertexConsumer bufferIn, int packedLightIn, int packedOverlayIn, float red, float green, float blue, float alpha) {
         if (bone.getName().equals("rightItem") && !mainHand.isEmpty()) {
@@ -43,7 +41,7 @@ public class NifflerEntityRenderer extends GeoEntityRenderer<NifflerEntity> {
             stack.multiply(Vec3f.POSITIVE_X.getDegreesQuaternion(-75));
             stack.translate(0.2D, 0.4D, -0.2D);
             stack.scale(1.0f, 1.0f, 1.0f);
-            MinecraftClient.getInstance().getItemRenderer().renderItem(mainHand, ModelTransformation.Mode.THIRD_PERSON_RIGHT_HAND, packedLightIn, packedOverlayIn, stack, rtb,0);
+            MinecraftClient.getInstance().getItemRenderer().renderItem(mainHand, ModelTransformation.Mode.THIRD_PERSON_RIGHT_HAND, packedLightIn, packedOverlayIn, stack, rtb, 0);
             stack.pop();
             bufferIn = rtb.getBuffer(RenderLayer.getEntityTranslucent(whTexture));
         }
@@ -52,7 +50,7 @@ public class NifflerEntityRenderer extends GeoEntityRenderer<NifflerEntity> {
             stack.multiply(Vec3f.POSITIVE_X.getDegreesQuaternion(-75));
             stack.translate(-0.2D, 0.4D, -0.2D);
             stack.scale(1.0f, 1.0f, 1.0f);
-            MinecraftClient.getInstance().getItemRenderer().renderItem(offHand, ModelTransformation.Mode.THIRD_PERSON_RIGHT_HAND, packedLightIn, packedOverlayIn, stack, rtb,0);
+            MinecraftClient.getInstance().getItemRenderer().renderItem(offHand, ModelTransformation.Mode.THIRD_PERSON_RIGHT_HAND, packedLightIn, packedOverlayIn, stack, rtb, 0);
             stack.pop();
             bufferIn = rtb.getBuffer(RenderLayer.getEntityTranslucent(whTexture));
         }

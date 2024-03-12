@@ -1,10 +1,8 @@
 package dev.mrsterner.bewitchmentplus.common.entity;
 
-import dev.mrsterner.bewitchmentplus.common.registry.BWPEntityTypes;
 import dev.mrsterner.bewitchmentplus.common.registry.BWPObjects;
 import moriyashiine.bewitchment.common.entity.living.util.BWTameableEntity;
 import net.minecraft.entity.EntityType;
-import net.minecraft.entity.SpawnReason;
 import net.minecraft.entity.attribute.DefaultAttributeContainer;
 import net.minecraft.entity.attribute.EntityAttributes;
 import net.minecraft.entity.mob.MobEntity;
@@ -22,20 +20,19 @@ import software.bernie.geckolib3.core.event.predicate.AnimationEvent;
 import software.bernie.geckolib3.core.manager.AnimationData;
 import software.bernie.geckolib3.core.manager.AnimationFactory;
 
-import java.util.UUID;
-
 public class DragonEntity extends BWTameableEntity implements IAnimatable {
     private final AnimationFactory factory = new AnimationFactory(this);
+
     public DragonEntity(EntityType<? extends TameableEntity> type, World world) {
         super(type, world);
     }
 
     public static DefaultAttributeContainer.Builder createAttributes() {
         return MobEntity.createMobAttributes()
-        .add(EntityAttributes.GENERIC_MAX_HEALTH, 8.0D)
-        .add(EntityAttributes.GENERIC_ATTACK_DAMAGE, 1.0D)
-        .add(EntityAttributes.GENERIC_MOVEMENT_SPEED, 0.25D)
-        .add(EntityAttributes.GENERIC_FLYING_SPEED, 0.6D);
+                .add(EntityAttributes.GENERIC_MAX_HEALTH, 8.0D)
+                .add(EntityAttributes.GENERIC_ATTACK_DAMAGE, 1.0D)
+                .add(EntityAttributes.GENERIC_MOVEMENT_SPEED, 0.25D)
+                .add(EntityAttributes.GENERIC_FLYING_SPEED, 0.6D);
     }
 
     @Override
@@ -56,7 +53,7 @@ public class DragonEntity extends BWTameableEntity implements IAnimatable {
     @Nullable
     @Override
     public PassiveEntity createChild(ServerWorld world, PassiveEntity entity) {
-       //TODO  DragonEntity child = BWPEntityTypes.DRAGON.create(world);
+        //TODO  DragonEntity child = BWPEntityTypes.DRAGON.create(world);
         /*
         if (child != null) {
             child.initialize(world, world.getLocalDifficulty(this.getBlockPos()), SpawnReason.BREEDING, null, null);

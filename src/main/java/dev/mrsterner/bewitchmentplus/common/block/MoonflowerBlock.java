@@ -18,7 +18,7 @@ public class MoonflowerBlock extends BlockWithEntity {
 
     @Override
     public VoxelShape getOutlineShape(BlockState state, BlockView world, BlockPos pos, ShapeContext context) {
-        return VoxelShapes.union(createCuboidShape(5, 0, 5, 16-5, 6, 16-5));
+        return VoxelShapes.union(createCuboidShape(5, 0, 5, 16 - 5, 6, 16 - 5));
     }
 
     @Nullable

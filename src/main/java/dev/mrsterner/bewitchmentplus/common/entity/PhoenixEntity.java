@@ -37,6 +37,7 @@ import software.bernie.geckolib3.core.manager.AnimationFactory;
 public class PhoenixEntity extends BWTameableEntity implements IAnimatable {
     private final AnimationFactory factory = new AnimationFactory(this);
     public static final TrackedData<Boolean> FLYING = DataTracker.registerData(PhoenixEntity.class, TrackedDataHandlerRegistry.BOOLEAN);
+
     public PhoenixEntity(EntityType<? extends TameableEntity> type, World world) {
         super(type, world);
         this.moveControl = new FlightMoveControl(this, 180, false);
@@ -51,12 +52,13 @@ public class PhoenixEntity extends BWTameableEntity implements IAnimatable {
     public ItemStack getPickedResult(HitResult target) {
         return new ItemStack(BWPObjects.PHOENIX_SPAWN_EGG.asItem());
     }
+
     public static DefaultAttributeContainer.Builder createAttributes() {
         return MobEntity.createMobAttributes()
-        .add(EntityAttributes.GENERIC_MAX_HEALTH, 8.0D)
-        .add(EntityAttributes.GENERIC_ATTACK_DAMAGE, 1.0D)
-        .add(EntityAttributes.GENERIC_MOVEMENT_SPEED, 0.25D)
-        .add(EntityAttributes.GENERIC_FLYING_SPEED, 0.6D);
+                .add(EntityAttributes.GENERIC_MAX_HEALTH, 8.0D)
+                .add(EntityAttributes.GENERIC_ATTACK_DAMAGE, 1.0D)
+                .add(EntityAttributes.GENERIC_MOVEMENT_SPEED, 0.25D)
+                .add(EntityAttributes.GENERIC_FLYING_SPEED, 0.6D);
     }
 
 
@@ -105,7 +107,6 @@ public class PhoenixEntity extends BWTameableEntity implements IAnimatable {
     }
 
 
-
     @Override
     public int getVariants() {
         return 0;
@@ -117,7 +118,6 @@ public class PhoenixEntity extends BWTameableEntity implements IAnimatable {
     }
 
 
-
     @Nullable
     @Override
     public PassiveEntity createChild(ServerWorld world, PassiveEntity entity) {
@@ -125,11 +125,10 @@ public class PhoenixEntity extends BWTameableEntity implements IAnimatable {
     }
 
 
-
     private <E extends IAnimatable> PlayState basicMovement(AnimationEvent<E> event) {
-        if(this.getDataTracker().get(FLYING)){
+        if (this.getDataTracker().get(FLYING)) {
             event.getController().setAnimation(new AnimationBuilder().addAnimation("phoenix_flying", true));
-        }else{
+        } else {
             event.getController().setAnimation(new AnimationBuilder().addAnimation("phoenix_idle", true));
         }
         return PlayState.CONTINUE;

@@ -6,7 +6,7 @@ import net.minecraft.entity.ai.goal.Goal;
 public class NifflerWalkToInventoryGoal extends Goal {
     private final NifflerEntity niffler;
 
-    public NifflerWalkToInventoryGoal(NifflerEntity niffler){
+    public NifflerWalkToInventoryGoal(NifflerEntity niffler) {
         this.niffler = niffler;
     }
 

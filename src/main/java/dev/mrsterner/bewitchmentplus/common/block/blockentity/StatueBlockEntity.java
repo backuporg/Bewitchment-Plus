@@ -15,6 +15,7 @@ import org.jetbrains.annotations.Nullable;
 
 public class StatueBlockEntity extends BlockEntity {
     private StatueBlockItem statue = (StatueBlockItem) BWPObjects.LILITH_STATUE_BLACKSTONE.asItem();
+
     public StatueBlockEntity(BlockPos pos, BlockState state) {
         super(BWPBlockEntityTypes.STATUE_BLOCK_ENTITY, pos, state);
     }

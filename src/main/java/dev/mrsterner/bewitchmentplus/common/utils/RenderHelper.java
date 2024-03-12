@@ -21,13 +21,13 @@ public class RenderHelper {
     public static final int UNICORN_BLOOD_COLOR = 0xd4fdff;
     public static final int WATER_COLOR = 0x3f76e4;
 
-    public static Vector4f intToRGB(int i){
+    public static Vector4f intToRGB(int i) {
         float r = ((i >> 16) & 0xff) / 255.0f;
-        float g = ((i >>  8) & 0xff) / 255.0f;
-        float b = ((i      ) & 0xff) / 255.0f;
+        float g = ((i >> 8) & 0xff) / 255.0f;
+        float b = ((i) & 0xff) / 255.0f;
         float a = ((i >> 24) & 0xff) / 255.0f;
 
-        return new Vector4f(r,g,b,a);
+        return new Vector4f(r, g, b, a);
     }
 
     public static int getColor(int... colors) {
@@ -35,19 +35,19 @@ public class RenderHelper {
         int g = 0;
         int b = 0;
         int total = 1;
-        for(int i = 1; i < colors.length; i++) {
-            if(colors[i] >= 0) {
+        for (int i = 1; i < colors.length; i++) {
+            if (colors[i] >= 0) {
                 r += (colors[i] >> 16) & 0xFF;
                 g += (colors[i] >> 8) & 0xFF;
                 b += (colors[i]) & 0xFF;
                 total++;
             }
         }
-        if(total > 1) {
+        if (total > 1) {
             r += ((colors[0] >> 16) & 0xFF) / 2;
             g += ((colors[0] >> 8) & 0xFF) / 2;
             b += ((colors[0]) & 0xFF) / 2;
-        }else {
+        } else {
             r += ((colors[0] >> 16) & 0xFF);
             g += ((colors[0] >> 8) & 0xFF);
             b += ((colors[0]) & 0xFF);
@@ -82,11 +82,11 @@ public class RenderHelper {
 
     private static void add(VertexConsumer renderer, MatrixStack stack, float x, float y, float z, float u, float v, int color, int light, int overlay, float alpha) {
         renderer.vertex(stack.peek().getPositionMatrix(), x, y, z)
-        .color((((color >> 16) & 0xFF) / 255F), (((color >> 8) & 0xFF) / 255F), (color & 0xFF) / 255F, alpha)
-        .texture(u, v)
-        .light(light)
-        .normal(1, 0, 0)
-        .next();
+                .color((((color >> 16) & 0xFF) / 255F), (((color >> 8) & 0xFF) / 255F), (color & 0xFF) / 255F, alpha)
+                .texture(u, v)
+                .light(light)
+                .normal(1, 0, 0)
+                .next();
     }
 
     public static void drawTexture(VertexConsumer renderer, MatrixStack matrices, Sprite sprite, int color, int light, int overlay, float alpha) {
@@ -101,9 +101,9 @@ public class RenderHelper {
     }
 
     public static void drawTexture(VertexConsumer renderer, MatrixStack matrices, Sprite sprite, int color, int light, int overlay, float alpha, boolean inverted) {
-        if(inverted) {
+        if (inverted) {
             drawTexture(renderer, matrices, sprite, color, light, overlay, alpha, true);
-        }else{
+        } else {
             add(renderer, matrices, 1, 1, 0, sprite.getMinU(), sprite.getMinV(), color, light, overlay, alpha);
             add(renderer, matrices, 0, 1, 0, sprite.getMaxU(), sprite.getMinV(), color, light, overlay, alpha);
             add(renderer, matrices, 0, 1, 1, sprite.getMaxU(), sprite.getMaxV(), color, light, overlay, alpha);

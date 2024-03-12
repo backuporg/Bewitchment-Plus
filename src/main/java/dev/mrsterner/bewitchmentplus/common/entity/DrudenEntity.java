@@ -1,4 +1,5 @@
 package dev.mrsterner.bewitchmentplus.common.entity;
+
 import moriyashiine.bewitchment.api.BewitchmentAPI;
 import moriyashiine.bewitchment.common.entity.living.util.BWHostileEntity;
 import net.minecraft.block.BlockState;

@@ -16,8 +16,8 @@ public class HalfLifeCurse extends Curse {
     public void tick(LivingEntity target) {
         BWComponents.CURSES_COMPONENT.maybeGet(target).ifPresent(cursesComponent -> {
             for (Curse.Instance instance : cursesComponent.getCurses()) {
-                if(cursesComponent.hasCurse(BWPCurses.HALF_LIFE)){
-                    if(instance.duration > 20 * 2){
+                if (cursesComponent.hasCurse(BWPCurses.HALF_LIFE)) {
+                    if (instance.duration > 20 * 2) {
                         target.addStatusEffect(new StatusEffectInstance(BWPStatusEffects.HALF_LIFE, 20 * 12, 0, false, false, true));
                     }
                 }

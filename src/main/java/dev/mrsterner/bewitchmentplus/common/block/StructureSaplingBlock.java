@@ -52,7 +52,7 @@ public class StructureSaplingBlock extends PlantBlock implements Fertilizable {
     }
 
     private void generateStructureTree(ServerWorld world, BlockPos pos) {
-        WorldgenHelper.generateNbtFeature(new Identifier(BewitchmentPlus.MODID, nbtLocation+"_"+world.getRandom().nextInt(variants)), world, pos, BWPConfig.yewTreeWeight);
+        WorldgenHelper.generateNbtFeature(new Identifier(BewitchmentPlus.MODID, nbtLocation + "_" + world.getRandom().nextInt(variants)), world, pos, BWPConfig.yewTreeWeight);
     }
 
 
@@ -63,7 +63,7 @@ public class StructureSaplingBlock extends PlantBlock implements Fertilizable {
 
     @Override
     public boolean canGrow(World world, Random random, BlockPos pos, BlockState state) {
-        return (double)world.random.nextFloat() < 0.45;
+        return (double) world.random.nextFloat() < 0.45;
     }
 
     @Override

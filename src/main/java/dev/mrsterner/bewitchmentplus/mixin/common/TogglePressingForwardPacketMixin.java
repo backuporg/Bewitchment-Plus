@@ -18,7 +18,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 @Mixin(TogglePressingForwardPacket.class)
 public abstract class TogglePressingForwardPacketMixin {
     @Inject(method = "handle", at = @At(value = "HEAD"), cancellable = true)
-    private static void handleYewBroom(MinecraftServer server, ServerPlayerEntity player, ServerPlayNetworkHandler network, PacketByteBuf buf, PacketSender sender, CallbackInfo ci){
+    private static void handleYewBroom(MinecraftServer server, ServerPlayerEntity player, ServerPlayNetworkHandler network, PacketByteBuf buf, PacketSender sender, CallbackInfo ci) {
         boolean pressingForward = buf.readBoolean();
         if (pressingForward && BewitchmentAPI.getFamiliar(player) != BWEntityTypes.OWL && !(player.getVehicle() instanceof YewBroomEntity)) {
             if (!BewitchmentAPI.drainMagic(player, 1, true)) {

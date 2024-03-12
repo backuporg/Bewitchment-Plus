@@ -1,9 +1,6 @@
 package dev.mrsterner.bewitchmentplus.common.ritualfunction;
 
-import dev.mrsterner.bewitchmentplus.BewitchmentPlus;
 import dev.mrsterner.bewitchmentplus.common.BWPConfig;
-import dev.mrsterner.bewitchmentplus.common.entity.DeathEntity;
-import dev.mrsterner.bewitchmentplus.common.registry.BWPEntityTypes;
 import dev.mrsterner.bewitchmentplus.common.world.BWPWorldState;
 import moriyashiine.bewitchment.api.registry.RitualFunction;
 import moriyashiine.bewitchment.common.misc.BWUtil;
@@ -33,23 +30,23 @@ public class BindSpectralFamiliarRitualFunction extends RitualFunction {
     @Override
     public void start(ServerWorld world, BlockPos glyphPos, BlockPos effectivePos, Inventory inventory, boolean catFamiliar) {
         super.start(world, glyphPos, effectivePos, inventory, catFamiliar);
-        if(BWPConfig.allowSummoningPlayersWithDeathGearInsteadOfDeath){
+        if (BWPConfig.allowSummoningPlayersWithDeathGearInsteadOfDeath) {
             BWPWorldState worldState = BWPWorldState.get(world);
             Optional<Pair<UUID, Boolean>> uuidBooleanPair = worldState.deathPlayer.stream().findAny();
-            if(uuidBooleanPair.isPresent()){
+            if (uuidBooleanPair.isPresent()) {
                 PlayerEntity playerEntity = world.getPlayerByUuid(uuidBooleanPair.get().getLeft());
-                if(playerEntity != null){
+                if (playerEntity != null) {
                     BWUtil.teleport(playerEntity, effectivePos.getX() + 0.5, effectivePos.getY(), effectivePos.getZ() + 0.5, true);
                 }
-            }else{
+            } else {
                 summonDeath(world, effectivePos);
             }
-        }else{
+        } else {
             summonDeath(world, effectivePos);
         }
     }
 
-    public void summonDeath(World world, BlockPos effectivePos){
+    public void summonDeath(World world, BlockPos effectivePos) {
         /*
         DeathEntity deathEntity = BWPEntityTypes.DEATH.create(world);
         if (deathEntity != null) {

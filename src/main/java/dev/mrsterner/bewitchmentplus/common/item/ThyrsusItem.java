@@ -27,16 +27,14 @@ public class ThyrsusItem extends SwordItem {
         Random random = new Random();
         if (user instanceof MagicAccessor) {
             if (stack.getDamage() > 0) {
-                if (entity instanceof AnimalEntity) {
-                    AnimalEntity animalEntity = (AnimalEntity) entity;
+                if (entity instanceof AnimalEntity animalEntity) {
                     if (animalEntity.isAlive() && !animalEntity.isInLove()) {
                         animalEntity.setLoveTicks(5000);
                         stack.damage(6, random, null);
                         user.playSound(SoundEvents.BLOCK_BAMBOO_HIT, 1, 1);
                         BewitchmentAPI.drainMagic(user, 2, false);
                     }
-                    if (entity instanceof TameableEntity) {
-                        TameableEntity tameableEntity = (TameableEntity) entity;
+                    if (entity instanceof TameableEntity tameableEntity) {
                         if (!tameableEntity.isTamed()) {
                             tameableEntity.setOwnerUuid(user.getUuid());
                             tameableEntity.setTamed(true);
@@ -45,8 +43,7 @@ public class ThyrsusItem extends SwordItem {
                             BewitchmentAPI.drainMagic(user, 4, false);
                         }
                     }
-                    if (entity instanceof HorseBaseEntity) {
-                        HorseBaseEntity horseBaseEntity = (HorseBaseEntity) entity;
+                    if (entity instanceof HorseBaseEntity horseBaseEntity) {
                         if (!horseBaseEntity.isTame()) {
                             horseBaseEntity.setOwnerUuid(user.getUuid());
                             horseBaseEntity.setTame(true);

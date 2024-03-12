@@ -1,7 +1,7 @@
 {
   "variants": {
-	"": {
-	  "model": "bwplus:block/rgb_witch_wool"
-	}
+    "": {
+      "model": "bwplus:block/rgb_witch_wool"
+    }
   }
 }

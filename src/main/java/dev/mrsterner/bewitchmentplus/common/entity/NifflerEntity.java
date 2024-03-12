@@ -15,9 +15,11 @@ import net.minecraft.entity.data.DataTracker;
 import net.minecraft.entity.data.TrackedData;
 import net.minecraft.entity.data.TrackedDataHandlerRegistry;
 import net.minecraft.entity.mob.MobEntity;
-import net.minecraft.entity.passive.*;
+import net.minecraft.entity.passive.PassiveEntity;
+import net.minecraft.entity.passive.PolarBearEntity;
+import net.minecraft.entity.passive.TameableEntity;
+import net.minecraft.entity.passive.WolfEntity;
 import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.inventory.Inventory;
 import net.minecraft.inventory.SimpleInventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NbtCompound;
@@ -48,6 +50,7 @@ public class NifflerEntity extends BWTameableEntity implements IAnimatable, Inve
     private static final TrackedData<Boolean> NIFFLING = DataTracker.registerData(NifflerEntity.class, TrackedDataHandlerRegistry.BOOLEAN);
     public static final TrackedData<Boolean> SLEEPING = DataTracker.registerData(NifflerEntity.class, TrackedDataHandlerRegistry.BOOLEAN);
     private final AnimationFactory factory = new AnimationFactory(this);
+
     public NifflerEntity(EntityType<? extends TameableEntity> type, World world) {
         super(type, world);
         this.getNavigation().setCanSwim(true);
@@ -55,10 +58,10 @@ public class NifflerEntity extends BWTameableEntity implements IAnimatable, Inve
 
     public static DefaultAttributeContainer.Builder createAttributes() {
         return MobEntity.createMobAttributes()
-        .add(EntityAttributes.GENERIC_MAX_HEALTH, 8.0D)
-        .add(EntityAttributes.GENERIC_ATTACK_DAMAGE, 1.0D)
-        .add(EntityAttributes.GENERIC_MOVEMENT_SPEED, 0.25D)
-        .add(EntityAttributes.GENERIC_FLYING_SPEED, 0.6D);
+                .add(EntityAttributes.GENERIC_MAX_HEALTH, 8.0D)
+                .add(EntityAttributes.GENERIC_ATTACK_DAMAGE, 1.0D)
+                .add(EntityAttributes.GENERIC_MOVEMENT_SPEED, 0.25D)
+                .add(EntityAttributes.GENERIC_FLYING_SPEED, 0.6D);
     }
 
 
@@ -66,8 +69,8 @@ public class NifflerEntity extends BWTameableEntity implements IAnimatable, Inve
         return new ItemStack(BWPObjects.NIFFLER_SPAWN_EGG.asItem());
     }
 
-    public Vec3d getDeltaMotion(){
-        return new Vec3d(this.getX()-this.prevX, this.getY()-this.prevY,this.getZ()-this.prevZ);
+    public Vec3d getDeltaMotion() {
+        return new Vec3d(this.getX() - this.prevX, this.getY() - this.prevY, this.getZ() - this.prevZ);
     }
 
     private <E extends IAnimatable> PlayState devMovement(AnimationEvent<E> animationEvent) {
@@ -75,21 +78,21 @@ public class NifflerEntity extends BWTameableEntity implements IAnimatable, Inve
         AnimationBuilder builder = new AnimationBuilder();
 
         boolean isMovingHorizontal = Math.sqrt(Math.pow(getDeltaMotion().x, 2) + Math.pow(getDeltaMotion().z, 2)) > 0.005;
-        if(this.dataTracker.get(SLEEPING)){
+        if (this.dataTracker.get(SLEEPING)) {
             builder.addAnimation("niffler_idle", true);//TODO niffler_sleep
-        }else if (!this.isOnGround() && getDeltaMotion().getY() < 0){
+        } else if (!this.isOnGround() && getDeltaMotion().getY() < 0) {
             //TODO create falling animation
-        }else if(isMovingHorizontal || animationEvent.isMoving()){
+        } else if (isMovingHorizontal || animationEvent.isMoving()) {
             animationController.setAnimationSpeed(2);
-            if(this.dataTracker.get(NIFFLING)){
+            if (this.dataTracker.get(NIFFLING)) {
                 builder.addAnimation("niffler_running_sniff", true);
-            }else{
+            } else {
                 builder.addAnimation("niffler_running", true);
             }
         }
-        if(animationEvent.getController().getCurrentAnimation() == null || builder.getRawAnimationList().size() <= 0){
+        if (animationEvent.getController().getCurrentAnimation() == null || builder.getRawAnimationList().size() <= 0) {
             animationController.setAnimationSpeed(1);
-            builder.addAnimation( "niffler_idle", true);
+            builder.addAnimation("niffler_idle", true);
         }
         animationController.setAnimation(builder);
         return PlayState.CONTINUE;
@@ -99,7 +102,7 @@ public class NifflerEntity extends BWTameableEntity implements IAnimatable, Inve
     public void readCustomDataFromNbt(NbtCompound nbt) {
         super.readCustomDataFromNbt(nbt);
         NbtList blockList = nbt.getList("BlockPositions", 10);
-        for(int k = 0; k < blockList.size(); ++k){
+        for (int k = 0; k < blockList.size(); ++k) {
             NbtCompound compoundnbtBlock = blockList.getCompound(k);
             this.blocksChecked.add(compoundnbtBlock.getLong("Block"));
         }
@@ -112,17 +115,18 @@ public class NifflerEntity extends BWTameableEntity implements IAnimatable, Inve
         }
         if (nbt.contains("HandItems", 9)) {
             NbtList handItems = nbt.getList("HandItems", 10);
-            for (int i = 0; i < ((MobEntityAccessor)this).handItems().size(); ++i) {
+            for (int i = 0; i < ((MobEntityAccessor) this).handItems().size(); ++i) {
                 int handSlot = i == 0 ? 5 : 4;
                 this.nifflerInventory.setStack(handSlot, ItemStack.fromNbt(handItems.getCompound(i)));
             }
         }
     }
+
     @Override
     public void writeCustomDataToNbt(NbtCompound nbt) {
         super.writeCustomDataToNbt(nbt);
         NbtList listnbtBlockPos = new NbtList();
-        for(long pos : this.blocksChecked){
+        for (long pos : this.blocksChecked) {
             NbtCompound compound = new NbtCompound();
             compound.putLong("Block", pos);
         }
@@ -202,7 +206,8 @@ public class NifflerEntity extends BWTameableEntity implements IAnimatable, Inve
         if (!this.world.isClient && this.canPickUpLoot() && this.isAlive() && !this.dead && this.world.getGameRules().getBoolean(GameRules.DO_MOB_GRIEFING)) {
             List<ItemEntity> list = this.world.getNonSpectatingEntities(ItemEntity.class, this.getBoundingBox().expand(1.0, 0.0, 1.0));
             for (ItemEntity itemEntity : list) {
-                if (itemEntity.isRemoved() || itemEntity.getStack().isEmpty() || itemEntity.cannotPickup() || !this.canGather(itemEntity.getStack())) continue;
+                if (itemEntity.isRemoved() || itemEntity.getStack().isEmpty() || itemEntity.cannotPickup() || !this.canGather(itemEntity.getStack()))
+                    continue;
                 this.loot(itemEntity);
             }
         }
@@ -224,8 +229,6 @@ public class NifflerEntity extends BWTameableEntity implements IAnimatable, Inve
         ItemEntity itemEntity = new ItemEntity(this.world, this.getX(), this.getY(), this.getZ(), stack);
         this.world.spawnEntity(itemEntity);
     }
-
-
 
 
     @Override

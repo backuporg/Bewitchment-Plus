@@ -22,19 +22,19 @@
     "common.VillagerHostilesSensorMixin"
   ],
   "client": [
-    "client.EntityRenderDispatcherMixin",
-    "client.InGameOverlayRendererMixin",
     "client.AbstractInventoryScreenMixin",
+    "client.EntityRenderDispatcherMixin",
     "client.GameRendererMixin",
+    "client.HeldItemRendererMixin",
     "client.InGameHudMixin",
+    "client.InGameOverlayRendererMixin",
     "client.LivingEntityRendererMixin",
     "client.MinecraftClientMixin",
     "client.PlayerEntityRendererMixin",
     "client.RenderLayerAccessor",
     "client.SignBlockEntityRendererMixin",
     "client.SignEditScreenMixin",
-    "client.TexturedRenderLayersMixin",
-    "client.HeldItemRendererMixin"
+    "client.TexturedRenderLayersMixin"
   ],
   "injectors": {
     "defaultRequire": 1

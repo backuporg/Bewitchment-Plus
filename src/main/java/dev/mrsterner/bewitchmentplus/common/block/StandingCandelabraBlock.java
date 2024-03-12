@@ -1,8 +1,5 @@
 package dev.mrsterner.bewitchmentplus.common.block;
 
-import moriyashiine.bewitchment.api.block.CandelabraBlock;
-import net.fabricmc.api.EnvType;
-import net.fabricmc.api.Environment;
 import net.minecraft.block.*;
 import net.minecraft.block.enums.DoubleBlockHalf;
 import net.minecraft.entity.LivingEntity;
@@ -27,21 +24,19 @@ import net.minecraft.util.shape.VoxelShape;
 import net.minecraft.world.*;
 import org.jetbrains.annotations.Nullable;
 
-import java.util.Random;
-
 public class StandingCandelabraBlock extends Block implements Waterloggable {
     public static final EnumProperty<DoubleBlockHalf> HALF = Properties.DOUBLE_BLOCK_HALF;
+
     public StandingCandelabraBlock(Settings settings) {
-        super(settings.nonOpaque().luminance(((blockState) -> (Boolean)blockState.get(Properties.LIT) ? 15 : 0)));
+        super(settings.nonOpaque().luminance(((blockState) -> (Boolean) blockState.get(Properties.LIT) ? 15 : 0)));
         this.setDefaultState(this.stateManager.getDefaultState().with(HALF, DoubleBlockHalf.LOWER).with(Properties.WATERLOGGED, false).with(Properties.LIT, true));
 
     }
 
 
-
     @Override
     public VoxelShape getOutlineShape(BlockState state, BlockView world, BlockPos pos, ShapeContext context) {
-        return Block.createCuboidShape(4,0,4, 12, 16, 12);
+        return Block.createCuboidShape(4, 0, 4, 12, 16, 12);
     }
 
     @Override
@@ -90,9 +85,9 @@ public class StandingCandelabraBlock extends Block implements Waterloggable {
     @Override
     public ActionResult onUse(BlockState state, World world, BlockPos pos, PlayerEntity player, Hand hand, BlockHitResult hit) {
         boolean client = world.isClient;
-        if (!(Boolean)state.get(Properties.WATERLOGGED) && state.get(HALF) == DoubleBlockHalf.UPPER) {
+        if (!(Boolean) state.get(Properties.WATERLOGGED) && state.get(HALF) == DoubleBlockHalf.UPPER) {
             ItemStack stack = player.getStackInHand(hand);
-            if (stack.getItem() instanceof FlintAndSteelItem && !(Boolean)state.get(Properties.LIT)) {
+            if (stack.getItem() instanceof FlintAndSteelItem && !(Boolean) state.get(Properties.LIT)) {
                 if (!client) {
                     world.setBlockState(pos, state.with(Properties.LIT, true));
                     world.playSound(null, pos, SoundEvents.ITEM_FLINTANDSTEEL_USE, SoundCategory.BLOCKS, 1.0F, 1.0F);
@@ -150,11 +145,11 @@ public class StandingCandelabraBlock extends Block implements Waterloggable {
     @Override
     public void randomDisplayTick(BlockState state, World world, BlockPos pos, net.minecraft.util.math.random.Random random) {
         if (state.get(Properties.LIT) && state.get(HALF) == DoubleBlockHalf.UPPER) {
-            world.addParticle(ParticleTypes.FLAME, (double)pos.getX() + 0.5D, (double)pos.getY() + 1D, (double)pos.getZ() + 0.5D, 0.0D, 0.0D, 0.0D);
-            world.addParticle(ParticleTypes.FLAME, (double)pos.getX() + 0.125D, (double)pos.getY() + 1.075D, (double)pos.getZ() + 0.5D, 0.0D, 0.0D, 0.0D);
-            world.addParticle(ParticleTypes.FLAME, (double)pos.getX() + 0.875D, (double)pos.getY() + 1.075D, (double)pos.getZ() + 0.5D, 0.0D, 0.0D, 0.0D);
-            world.addParticle(ParticleTypes.FLAME, (double)pos.getX() + 0.5D, (double)pos.getY() + 1.075D, (double)pos.getZ() + 0.875D, 0.0D, 0.0D, 0.0D);
-            world.addParticle(ParticleTypes.FLAME, (double)pos.getX() + 0.5D, (double)pos.getY() + 1.075D, (double)pos.getZ() + 0.125D, 0.0D, 0.0D, 0.0D);
+            world.addParticle(ParticleTypes.FLAME, (double) pos.getX() + 0.5D, (double) pos.getY() + 1D, (double) pos.getZ() + 0.5D, 0.0D, 0.0D, 0.0D);
+            world.addParticle(ParticleTypes.FLAME, (double) pos.getX() + 0.125D, (double) pos.getY() + 1.075D, (double) pos.getZ() + 0.5D, 0.0D, 0.0D, 0.0D);
+            world.addParticle(ParticleTypes.FLAME, (double) pos.getX() + 0.875D, (double) pos.getY() + 1.075D, (double) pos.getZ() + 0.5D, 0.0D, 0.0D, 0.0D);
+            world.addParticle(ParticleTypes.FLAME, (double) pos.getX() + 0.5D, (double) pos.getY() + 1.075D, (double) pos.getZ() + 0.875D, 0.0D, 0.0D, 0.0D);
+            world.addParticle(ParticleTypes.FLAME, (double) pos.getX() + 0.5D, (double) pos.getY() + 1.075D, (double) pos.getZ() + 0.125D, 0.0D, 0.0D, 0.0D);
         }
     }
 

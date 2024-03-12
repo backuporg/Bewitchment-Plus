@@ -1,7 +1,10 @@
 package dev.mrsterner.bewitchmentplus.common.block;
 
 import dev.mrsterner.bewitchmentplus.common.registry.BWPObjects;
-import net.minecraft.block.*;
+import net.minecraft.block.Block;
+import net.minecraft.block.BlockState;
+import net.minecraft.block.PlantBlock;
+import net.minecraft.block.ShapeContext;
 import net.minecraft.entity.Entity;
 import net.minecraft.particle.ParticleTypes;
 import net.minecraft.util.math.BlockPos;
@@ -15,14 +18,15 @@ import net.minecraft.world.World;
 @SuppressWarnings("deprecation")
 public class BWPPlantBlock extends PlantBlock {
     public BWPPlantBlock(Settings settings, int light) {
-        super(settings.noCollision().luminance((blockState) -> light ));
+        super(settings.noCollision().luminance((blockState) -> light));
     }
+
     protected static final VoxelShape SHAPE = Block.createCuboidShape(5.0D, 0.0D, 5.0D, 11.0D, 10.0D, 11.0D);
 
     @Override
     public void onEntityCollision(BlockState state, World world, BlockPos pos, Entity entity) {
         super.onEntityCollision(state, world, pos, entity);
-        if(world.getBlockState(pos).getBlock().equals(BWPObjects.EMBERGRASS)){
+        if (world.getBlockState(pos).getBlock().equals(BWPObjects.EMBERGRASS)) {
             entity.setOnFireFor(2);
         }
     }
@@ -34,13 +38,11 @@ public class BWPPlantBlock extends PlantBlock {
     }
 
 
-
-
     @Override
     public void randomDisplayTick(BlockState state, World world, BlockPos pos, Random random) {
         super.randomDisplayTick(state, world, pos, random);
-        if(world.getBlockState(pos).getBlock().equals(BWPObjects.EMBERGRASS)){
-            world.addParticle(ParticleTypes.FLAME, pos.getX() + 0.5 + world.getRandom().nextGaussian()/4,pos.getY() + 0.5 + world.getRandom().nextGaussian()/4, pos.getZ() + 0.5 + world.getRandom().nextGaussian()/4, 0, 0, 0);
+        if (world.getBlockState(pos).getBlock().equals(BWPObjects.EMBERGRASS)) {
+            world.addParticle(ParticleTypes.FLAME, pos.getX() + 0.5 + world.getRandom().nextGaussian() / 4, pos.getY() + 0.5 + world.getRandom().nextGaussian() / 4, pos.getZ() + 0.5 + world.getRandom().nextGaussian() / 4, 0, 0, 0);
 
         }
     }

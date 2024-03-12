@@ -18,10 +18,12 @@ import software.bernie.geckolib3.core.manager.AnimationFactory;
 import software.bernie.geckolib3.network.GeckoLibNetwork;
 import software.bernie.geckolib3.network.ISyncable;
 import software.bernie.geckolib3.util.GeckoLibUtil;
+
 public class DragonbloodStaffItem extends Item implements IAnimatable, ISyncable {
     public AnimationFactory factory = new AnimationFactory(this);
     private final int maxStorage;
     private final int storedPower = 0;
+
     public DragonbloodStaffItem(int maxStorage, Settings settings) {
         super(settings);
         this.maxStorage = maxStorage;
@@ -32,7 +34,7 @@ public class DragonbloodStaffItem extends Item implements IAnimatable, ISyncable
     public TypedActionResult<ItemStack> use(World world, PlayerEntity user, Hand hand) {
         if (!world.isClient && user.isSneaking()) {
             ItemStack itemStack = user.getStackInHand(hand);
-            if(itemStack.getItem() instanceof DragonbloodStaffItem){
+            if (itemStack.getItem() instanceof DragonbloodStaffItem) {
                 AnimationController controller = GeckoLibUtil.getControllerForStack(this.factory, user.getStackInHand(hand), "controller");
                 String animationName = controller.getCurrentAnimation().animationName;
                 int mode = Integer.parseInt(animationName.substring(animationName.length() - 1));
@@ -49,9 +51,8 @@ public class DragonbloodStaffItem extends Item implements IAnimatable, ISyncable
     }
 
 
-
     private <P extends Item & IAnimatable> PlayState predicate(AnimationEvent<P> event) {
-        if(event.getController().getCurrentAnimation() == null){
+        if (event.getController().getCurrentAnimation() == null) {
             event.getController().setAnimation(new AnimationBuilder().addAnimation("animation.enchanted_staff.glyph_0", true));
         }
         return PlayState.CONTINUE;
@@ -71,6 +72,6 @@ public class DragonbloodStaffItem extends Item implements IAnimatable, ISyncable
     public void onAnimationSync(int id, int state) {
         final AnimationController controller = GeckoLibUtil.getControllerForID(this.factory, id, "controller");
         controller.markNeedsReload();
-        controller.setAnimation(new AnimationBuilder().addAnimation("animation.enchanted_staff.glyph_"+state, true));
+        controller.setAnimation(new AnimationBuilder().addAnimation("animation.enchanted_staff.glyph_" + state, true));
     }
 }

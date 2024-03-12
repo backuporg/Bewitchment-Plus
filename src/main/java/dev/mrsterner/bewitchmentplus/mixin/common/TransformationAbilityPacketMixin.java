@@ -23,23 +23,27 @@ import virtuoel.pehkui.api.ScaleData;
 public class TransformationAbilityPacketMixin {
 
 
-    @Shadow @Final private static float WEREWOLF_HEIGHT;
+    @Shadow
+    @Final
+    private static float WEREWOLF_HEIGHT;
 
-    @Shadow @Final private static float WEREWOLF_WIDTH;
+    @Shadow
+    @Final
+    private static float WEREWOLF_WIDTH;
 
 
     @Inject(method = "canUseAbility", at = @At("HEAD"), cancellable = true)
-    private static void canUseAbility(PlayerEntity player, CallbackInfoReturnable<Boolean> cir){
-        if (BWPTransformations.isLeshon(player, true)){
+    private static void canUseAbility(PlayerEntity player, CallbackInfoReturnable<Boolean> cir) {
+        if (BWPTransformations.isLeshon(player, true)) {
             cir.setReturnValue(true);
         }
     }
 
     @Inject(method = "useAbility", at = @At(value = "HEAD"), cancellable = true)
-    private static void useAbility(PlayerEntity player, boolean forced, CallbackInfo ci){
-        if (BWComponents.TRANSFORMATION_COMPONENT.get(player).getTransformation() == BWPTransformations.LESHON && (forced)){
+    private static void useAbility(PlayerEntity player, boolean forced, CallbackInfo ci) {
+        if (BWComponents.TRANSFORMATION_COMPONENT.get(player).getTransformation() == BWPTransformations.LESHON && (forced)) {
             World world = player.world;
-            if(world instanceof ServerWorld serverWorld){
+            if (world instanceof ServerWorld serverWorld) {
                 boolean isInAlternateForm = BWComponents.TRANSFORMATION_COMPONENT.get(player).isAlternateForm();
                 ScaleData width = BWScaleTypes.MODIFY_WIDTH_TYPE.getScaleData(player);
                 ScaleData height = BWScaleTypes.MODIFY_HEIGHT_TYPE.getScaleData(player);
@@ -54,7 +58,7 @@ public class TransformationAbilityPacketMixin {
                     width.setScale(width.getScale() * WEREWOLF_WIDTH);
                     height.setScale(height.getScale() * WEREWOLF_HEIGHT);
                 }
-            }else{
+            } else {
 
             }
             ci.cancel();

@@ -23,11 +23,10 @@ public class StatueBlock extends HorizontalFacingBlock implements BlockEntityPro
 
     @Override
     public void onPlaced(World world, BlockPos pos, BlockState state, @Nullable LivingEntity placer, ItemStack itemStack) {
-        if(world.getBlockEntity(pos) instanceof StatueBlockEntity statueBlockEntity) {
+        if (world.getBlockEntity(pos) instanceof StatueBlockEntity statueBlockEntity) {
             statueBlockEntity.setStatue((StatueBlockItem) itemStack.getItem());
         }
     }
-
 
 
     @Override
@@ -40,6 +39,7 @@ public class StatueBlock extends HorizontalFacingBlock implements BlockEntityPro
         super.appendProperties(builder);
         builder.add(FACING);
     }
+
     @Nullable
     @Override
     public BlockEntity createBlockEntity(BlockPos pos, BlockState state) {

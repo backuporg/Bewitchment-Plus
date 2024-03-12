@@ -168,7 +168,7 @@ public class LeechChestBlock extends AbstractChestBlock<LeechChestBlockEntity> i
     public void scheduledTick(BlockState state, ServerWorld world, BlockPos pos, Random random) {
         BlockEntity blockEntity = world.getBlockEntity(pos);
         if (blockEntity instanceof LeechChestBlockEntity) {
-            ((LeechChestBlockEntity)blockEntity).onScheduledTick();
+            ((LeechChestBlockEntity) blockEntity).onScheduledTick();
         }
 
     }

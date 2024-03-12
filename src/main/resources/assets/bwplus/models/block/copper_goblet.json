@@ -1,7 +1,10 @@
 {
-	"parent": "builtin/entity",
-	"texture_size": [32, 32],
-	"textures": {
-		"particle": "bwplus:block/copper_goblet"
-	}
+  "parent": "builtin/entity",
+  "texture_size": [
+    32,
+    32
+  ],
+  "textures": {
+    "particle": "bwplus:block/copper_goblet"
+  }
 }

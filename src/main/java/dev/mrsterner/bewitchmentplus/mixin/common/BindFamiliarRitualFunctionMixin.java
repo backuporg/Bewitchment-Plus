@@ -30,8 +30,8 @@ public abstract class BindFamiliarRitualFunctionMixin extends RitualFunction {
     }
 
     @Inject(method = "start", at = @At(value = "INVOKE_ASSIGN", target = "net/minecraft/entity/LivingEntity.saveSelfNbt(Lnet/minecraft/nbt/NbtCompound;)Z", remap = true), locals = LocalCapture.CAPTURE_FAILSOFT, cancellable = true)
-    private void start(ServerWorld world, BlockPos glyphPos, BlockPos effectivePos, Inventory inventory, boolean catFamiliar, CallbackInfo ci, boolean succeeded, ItemStack taglock, LivingEntity livingEntity, PlayerEntity closestPlayer, NbtCompound entityTag){
-        if (livingEntity.getType().isIn(BWPTags.SPECTRAL_FAMILIAR)){
+    private void start(ServerWorld world, BlockPos glyphPos, BlockPos effectivePos, Inventory inventory, boolean catFamiliar, CallbackInfo ci, boolean succeeded, ItemStack taglock, LivingEntity livingEntity, PlayerEntity closestPlayer, NbtCompound entityTag) {
+        if (livingEntity.getType().isIn(BWPTags.SPECTRAL_FAMILIAR)) {
             BWComponents.FAMILIAR_COMPONENT.get(livingEntity).setFamiliar(true);
             BWUniversalWorldState worldState = BWUniversalWorldState.get(world);
             NbtCompound familiarTag = new NbtCompound();

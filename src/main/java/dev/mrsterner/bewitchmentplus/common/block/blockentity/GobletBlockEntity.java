@@ -137,50 +137,52 @@ public class GobletBlockEntity extends BlockEntity implements Inventory {
             this.color = color;
         }
     }
-    public int getColor(){
+
+    public int getColor() {
         return this.color;
     }
 
     public void onUse(BlockState state, World world, BlockPos pos, PlayerEntity player, Hand hand, BlockHitResult hit) {
         if (world.getBlockEntity(pos) instanceof GobletBlockEntity gobletBlockEntity) {
             ItemStack stack = player.getStackInHand(hand);
-            if(player.isSneaking() && stack.isEmpty()){
+            if (player.isSneaking() && stack.isEmpty()) {
                 ItemStack pickup = new ItemStack(goblet);
-                if(!gobletBlockEntity.getStack(0).isEmpty() && gobletBlockEntity.getColor() != 0){
+                if (!gobletBlockEntity.getStack(0).isEmpty() && gobletBlockEntity.getColor() != 0) {
                     gobletBlockEntity.setStackNbt(pickup);
                 }
                 player.setStackInHand(hand, pickup);
                 world.breakBlock(pos, false, player);
 
-            }else if(stack.isIn(BWPTags.GOBLET_LIQUIDS)) {
-                if(!world.isClient() && this.getStack(0).isEmpty()){
-                    if(stack.getItem().equals(Items.HONEY_BOTTLE)){
+            } else if (stack.isIn(BWPTags.GOBLET_LIQUIDS)) {
+                if (!world.isClient() && this.getStack(0).isEmpty()) {
+                    if (stack.getItem().equals(Items.HONEY_BOTTLE)) {
                         setColor(RenderHelper.HONEY_COLOR);
                         world.setBlockState(pos, state.with(LIQUID_STATE, 2));
-                    }else if(stack.getItem().equals(BWObjects.BOTTLE_OF_BLOOD)){
+                    } else if (stack.getItem().equals(BWObjects.BOTTLE_OF_BLOOD)) {
                         setColor(RenderHelper.BLOOD_COLOR);
                         world.setBlockState(pos, state.with(LIQUID_STATE, 3));
-                    }else if(stack.getItem().equals(BWPObjects.UNICORN_BLOOD)){
+                    } else if (stack.getItem().equals(BWPObjects.UNICORN_BLOOD)) {
                         setColor(RenderHelper.UNICORN_BLOOD_COLOR);
                         world.setBlockState(pos, state.with(LIQUID_STATE, 4));
 
-                    }else if(stack.getItem().equals(Items.POTION)){
+                    } else if (stack.getItem().equals(Items.POTION)) {
                         setColor(PotionUtil.getColor(stack));
                         world.setBlockState(pos, state.with(LIQUID_STATE, 1));
                     }
                     this.setStack(0, stack.split(1));
                     this.sync();
                 }
-                world.playSound(null, pos, SoundEvents.ITEM_BOTTLE_FILL, SoundCategory.BLOCKS, 1,1);
-            }else if(stack.getItem() == Items.GLASS_BOTTLE && !getStack(0).isEmpty()){
+                world.playSound(null, pos, SoundEvents.ITEM_BOTTLE_FILL, SoundCategory.BLOCKS, 1, 1);
+            } else if (stack.getItem() == Items.GLASS_BOTTLE && !getStack(0).isEmpty()) {
                 ItemStack itemsStack = gobletBlockEntity.getStack(0);
                 BWUtil.addItemToInventoryAndConsume(player, hand, itemsStack);
                 world.setBlockState(pos, state.with(LIQUID_STATE, 0));
                 this.setColor(0);
-                world.playSound(null, pos, SoundEvents.ITEM_BOTTLE_EMPTY, SoundCategory.BLOCKS, 1,1);
+                world.playSound(null, pos, SoundEvents.ITEM_BOTTLE_EMPTY, SoundCategory.BLOCKS, 1, 1);
             }
         }
     }
+
     public GobletBlockItem getGoblet() {
         return goblet;
     }

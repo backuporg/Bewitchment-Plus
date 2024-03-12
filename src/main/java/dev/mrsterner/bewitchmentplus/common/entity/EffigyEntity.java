@@ -22,6 +22,7 @@ public class EffigyEntity extends LivingEntity implements IAnimatable {
     private final AnimationFactory factory = new AnimationFactory(this);
     private final DefaultedList<ItemStack> handItems;
     private final DefaultedList<ItemStack> armorItems;
+
     public EffigyEntity(EntityType<? extends LivingEntity> entityType, World world) {
         super(entityType, world);
         this.handItems = DefaultedList.ofSize(2, ItemStack.EMPTY);
@@ -47,7 +48,6 @@ public class EffigyEntity extends LivingEntity implements IAnimatable {
     }
 
 
-
     @Override
     public void equipStack(EquipmentSlot slot, ItemStack stack) {
         this.processEquippedStack(stack);
@@ -64,9 +64,9 @@ public class EffigyEntity extends LivingEntity implements IAnimatable {
 
     public static DefaultAttributeContainer.Builder createAttributes() {
         return HostileEntity.createHostileAttributes()
-        .add(EntityAttributes.GENERIC_MAX_HEALTH, 100.0D)
-        .add(EntityAttributes.GENERIC_MOVEMENT_SPEED, 0)
-        .add(EntityAttributes.GENERIC_KNOCKBACK_RESISTANCE, Double.MAX_VALUE);
+                .add(EntityAttributes.GENERIC_MAX_HEALTH, 100.0D)
+                .add(EntityAttributes.GENERIC_MOVEMENT_SPEED, 0)
+                .add(EntityAttributes.GENERIC_KNOCKBACK_RESISTANCE, Double.MAX_VALUE);
     }
 
     private <E extends IAnimatable> PlayState basicMovement(AnimationEvent<E> event) {

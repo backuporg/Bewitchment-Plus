@@ -15,8 +15,6 @@ import net.minecraft.util.math.BlockPos;
 
 import java.util.function.Predicate;
 
-import static net.minecraft.util.collection.Weighting.getRandom;
-
 public class SummonLesserDemonRitualFunction extends RitualFunction {
     public SummonLesserDemonRitualFunction(ParticleType<?> startParticle, Predicate<LivingEntity> sacrifice) {
         super(startParticle, sacrifice);
@@ -37,8 +35,8 @@ public class SummonLesserDemonRitualFunction extends RitualFunction {
     public void start(ServerWorld world, BlockPos glyphPos, BlockPos effectivePos, Inventory inventory, boolean catFamiliar) {
         CambionEntity entity = BWPEntityTypes.CAMBION.create(world);
         if (entity != null) {
-            entity.initialize(world, world.getLocalDifficulty(effectivePos), SpawnReason.EVENT, (EntityData) null, (NbtCompound) null);
-            entity.updatePositionAndAngles((double) effectivePos.getX() + 0.5, (double) effectivePos.getY(), (double) effectivePos.getZ() + 0.5, world.random.nextFloat() * 360.0F, 0.0F);
+            entity.initialize(world, world.getLocalDifficulty(effectivePos), SpawnReason.EVENT, null, null);
+            entity.updatePositionAndAngles((double) effectivePos.getX() + 0.5, effectivePos.getY(), (double) effectivePos.getZ() + 0.5, world.random.nextFloat() * 360.0F, 0.0F);
             world.spawnEntity(entity);
         }
 

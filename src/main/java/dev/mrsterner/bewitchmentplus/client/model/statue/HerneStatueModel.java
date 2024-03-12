@@ -19,11 +19,11 @@ public class HerneStatueModel<T extends Entity> extends EntityModel<T> {
         this.plith01 = root.getChild("plith01");
     }
 
-    public static TexturedModelData create(){
+    public static TexturedModelData create() {
         ModelData data = new ModelData();
         ModelPartData root = data.getRoot();
         ModelPartData chest = root.addChild("chest",
-        ModelPartBuilder.create().uv(23, 15).cuboid(-4.9F, -8.0F, -3.5F, 10.0F, 8.0F, 7.0F), ModelTransform.of(0.0F, -12.0F, 0.0F, 0.0F, 0.0F, 0.0F));
+                ModelPartBuilder.create().uv(23, 15).cuboid(-4.9F, -8.0F, -3.5F, 10.0F, 8.0F, 7.0F), ModelTransform.of(0.0F, -12.0F, 0.0F, 0.0F, 0.0F, 0.0F));
         chest.addChild("leftPec", ModelPartBuilder.create().uv(19, 50).cuboid(-3.0F, -3.0F, -3.0F, 6.0F, 6.0F, 3.0F), ModelTransform.of(-2.6F, -4.8F, -1.2F, 0.0F, 0.1047F, -0.0873F));
         chest.addChild("rightPec", ModelPartBuilder.create().uv(19, 50).cuboid(-3.0F, -3.0F, -3.0F, 6.0F, 6.0F, 3.0F), ModelTransform.of(2.6F, -4.8F, -1.2F, 0.0F, -0.1047F, 0.0873F));
         ModelPartData BipedLeftArm = chest.addChild("BipedLeftArm", ModelPartBuilder.create().uv(51, 31).cuboid(-0.5F, -2.0F, -0.5F, 1.0F, 21.0F, 1.0F), ModelTransform.of(-5.5F, -6.3F, 0.0F, -0.9599F, 0.0F, 0.1396F));
@@ -113,7 +113,7 @@ public class HerneStatueModel<T extends Entity> extends EntityModel<T> {
         ModelPartData plith01 = root.addChild("plith01", ModelPartBuilder.create().uv(60, 84).cuboid(-8.5F, 0.0F, -8.5F, 17.0F, 5.0F, 17.0F), ModelTransform.of(0.0F, 19.0F, 0.0F, 0.0F, 0.0F, 0.0F));
         plith01.addChild("plith02", ModelPartBuilder.create().uv(68, 64).cuboid(-7.5F, -2.7F, -7.5F, 15.0F, 3.0F, 15.0F), ModelTransform.of(0.0F, 0.0F, 0.0F, 0.0F, 0.0F, 0.0F));
 
-        return TexturedModelData.of(data, 128,128);
+        return TexturedModelData.of(data, 128, 128);
     }
 
     @Override

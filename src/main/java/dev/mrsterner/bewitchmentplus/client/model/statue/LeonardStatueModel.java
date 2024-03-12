@@ -22,7 +22,7 @@ public class LeonardStatueModel<T extends Entity> extends EntityModel<T> {
 
     }
 
-    public static TexturedModelData create(){
+    public static TexturedModelData create() {
         ModelData data = new ModelData();
         ModelPartData root = data.getRoot();
         ModelPartData body = root.addChild("body", ModelPartBuilder.create().uv(20, 16).cuboid(-4.5F, 0.0F, -2.5F, 9.0F, 7.0F, 5.0F), ModelTransform.of(-2.0F, -16.1F, 1.5F, 0.0F, 0.0F, 0.0F));
@@ -90,7 +90,7 @@ public class LeonardStatueModel<T extends Entity> extends EntityModel<T> {
         ModelPartData plith01 = root.addChild("plith01", ModelPartBuilder.create().uv(60, 0).cuboid(-8.5F, 0.0F, -8.5F, 17.0F, 5.0F, 17.0F), ModelTransform.of(0.0F, 19.0F, 0.0F, 0.0F, 0.0F, 0.0F));
         plith01.addChild("plith02", ModelPartBuilder.create().uv(68, 25).cuboid(-7.5F, -2.7F, -7.5F, 15.0F, 3.0F, 15.0F), ModelTransform.of(0.0F, 0.0F, 0.0F, 0.0F, 0.0F, 0.0F));
 
-        return TexturedModelData.of(data, 128,64);
+        return TexturedModelData.of(data, 128, 64);
     }
 
     @Override

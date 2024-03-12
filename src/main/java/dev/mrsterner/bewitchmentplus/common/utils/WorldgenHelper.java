@@ -2,9 +2,7 @@ package dev.mrsterner.bewitchmentplus.common.utils;
 
 import dev.mrsterner.bewitchmentplus.BewitchmentPlus;
 import dev.mrsterner.bewitchmentplus.common.registry.BWPObjects;
-import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
-import net.minecraft.server.world.ServerWorld;
 import net.minecraft.structure.StructurePlacementData;
 import net.minecraft.structure.StructureTemplate;
 import net.minecraft.structure.StructureTemplateManager;
@@ -16,31 +14,30 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Vec3i;
 import net.minecraft.util.math.random.Random;
 import net.minecraft.world.StructureWorldAccess;
-import net.minecraft.world.gen.structure.Structure;
 
-import java.util.HashMap;
-import java.util.List;
 import java.util.Optional;
 
 
 public class WorldgenHelper {
     private int offsetX, offsetZ;
 
-    /** This method places and nbt structure at a given origin
-     * @author - MrSterner
+    /**
+     * This method places and nbt structure at a given origin
+     *
      * @param nbtLocation the location of the structure file about to be placed
-     * @param world the structures world access
-     * @param origin the blockpos of the structure corner
-     * @param chance the probability of a successful placement
+     * @param world       the structures world access
+     * @param origin      the blockpos of the structure corner
+     * @param chance      the probability of a successful placement
      * @return true if the placement of the structure was successfull
+     * @author - MrSterner
      */
-    public static boolean generateNbtFeature(Identifier nbtLocation, StructureWorldAccess world, BlockPos origin, float chance){
+    public static boolean generateNbtFeature(Identifier nbtLocation, StructureWorldAccess world, BlockPos origin, float chance) {
         StructureTemplateManager templateManager = world.getServer().getStructureTemplateManager();
         //Try fetch the nbt with the structure manager
         Optional<StructureTemplate> structureOptional = templateManager.getTemplate(nbtLocation);
         if (!structureOptional.isPresent()) {
             BewitchmentPlus.LOGGER.info("NBT " + nbtLocation + " does not exist!");
-        }else if (touchGrass(world, origin, world.getRandom(), chance, structureOptional.get().getSize().getY())) {
+        } else if (touchGrass(world, origin, world.getRandom(), chance, structureOptional.get().getSize().getY())) {
             //Unless structureOptional.isEmpty() not catches, get the structure from the optional
             StructureTemplate structure = structureOptional.get();
             //Change the origin from the corner of the structure to the middle of the structure
@@ -56,12 +53,12 @@ public class WorldgenHelper {
     }
 
     /**
-     * @author - Safro
-     * Yew Tree has a max trunk width of 4x4, height of 9, and foliage width of ~13
      * @param world
      * @param pos
      * @param random
      * @return if the area is a valid generation point for the tree
+     * @author - Safro
+     * Yew Tree has a max trunk width of 4x4, height of 9, and foliage width of ~13
      */
     public static boolean touchGrass(StructureWorldAccess world, BlockPos pos, Random random, float chance, int structureHeight) {
         // Random check to see if the tree should place (used to control spawn weight)
@@ -75,13 +72,13 @@ public class WorldgenHelper {
     }
 
     /**
-     * @author - Safro
-     * Checks the blocks around the area for other trees (prevents trees generating very close)
      * @param world
      * @param pos
      * @param treeHeight
      * @param distance
      * @return
+     * @author - Safro
+     * Checks the blocks around the area for other trees (prevents trees generating very close)
      */
     public static boolean treeNearby(StructureWorldAccess world, BlockPos pos, int treeHeight, int distance) {
         int x = pos.getX();
@@ -103,9 +100,9 @@ public class WorldgenHelper {
     }
 
     /**
-     * @author - Safro
      * @param world
      * @param center
+     * @author - Safro
      */
     public static void checkAir(StructureWorldAccess world, BlockPos center) {
         for (BlockPos pos : BlockPos.iterateOutwards(center.down(), 4, 0, 4)) {

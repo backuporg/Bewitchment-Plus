@@ -2,15 +2,15 @@
   "type": "crafting_shaped",
   "group": "carpet",
   "pattern": [
-	"##"
+    "##"
   ],
   "key": {
-	"#": {
-	  "item": "bwplus:purple_witch_wool"
-	}
+    "#": {
+      "item": "bwplus:purple_witch_wool"
+    }
   },
   "result": {
-	"item": "bwplus:purple_witch_wool_carpet",
-	"count": 3
+    "item": "bwplus:purple_witch_wool_carpet",
+    "count": 3
   }
 }

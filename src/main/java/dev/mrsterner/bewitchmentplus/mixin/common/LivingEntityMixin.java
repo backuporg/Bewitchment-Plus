@@ -43,26 +43,28 @@ public abstract class LivingEntityMixin extends Entity {
     public abstract StatusEffectInstance getStatusEffect(StatusEffect effect);
 
 
-    @Shadow public abstract boolean canWalkOnFluid(FluidState fluidState);
+    @Shadow
+    public abstract boolean canWalkOnFluid(FluidState fluidState);
 
-    private boolean walkOnFluid = false;
+    private final boolean walkOnFluid = false;
 
     @Inject(method = "tryUseTotem", at = @At("HEAD"))
     private void tryUseTotem(DamageSource source, CallbackInfoReturnable<Boolean> callbackInfo) {
-            LivingEntity livingEntity = (LivingEntity) (Object)this;
-            if(livingEntity instanceof PlayerEntity player){
-                BWComponents.CURSES_COMPONENT.maybeGet(player).ifPresent(cursesComponent -> {
-                    if(cursesComponent.hasCurse(BWPCurses.HALF_LIFE)){
-                        for (Curse.Instance instance : cursesComponent.getCurses()) {
-                            cursesComponent.removeCurse(instance.curse);
-                        }
+        LivingEntity livingEntity = (LivingEntity) (Object) this;
+        if (livingEntity instanceof PlayerEntity player) {
+            BWComponents.CURSES_COMPONENT.maybeGet(player).ifPresent(cursesComponent -> {
+                if (cursesComponent.hasCurse(BWPCurses.HALF_LIFE)) {
+                    for (Curse.Instance instance : cursesComponent.getCurses()) {
+                        cursesComponent.removeCurse(instance.curse);
                     }
-                });
-                if(player.hasStatusEffect(BWPStatusEffects.HALF_LIFE)){
-                    player.clearStatusEffects();
                 }
+            });
+            if (player.hasStatusEffect(BWPStatusEffects.HALF_LIFE)) {
+                player.clearStatusEffects();
             }
+        }
     }
+
     @ModifyVariable(method = "damage", at = @At("HEAD"))
     private float halfLifeDamageHandler(float amount) {
         if (this.hasStatusEffect(BWPStatusEffects.HALF_LIFE)) {
@@ -73,7 +75,7 @@ public abstract class LivingEntityMixin extends Entity {
 
     @Inject(method = "damage", at = @At("HEAD"), cancellable = true)
     private void deathRobes(DamageSource source, float amount, CallbackInfoReturnable<Boolean> cir) {
-        LivingEntity livingEntity = (LivingEntity)(Object)this;
+        LivingEntity livingEntity = (LivingEntity) (Object) this;
         if (livingEntity.getEquippedStack(EquipmentSlot.CHEST).getItem().equals(BWPObjects.DEATHS_ROBES) && source.isFire()) {
             cir.setReturnValue(false);
         }
@@ -87,7 +89,7 @@ public abstract class LivingEntityMixin extends Entity {
     }
 
     @Inject(method = "tickMovement", at = @At("HEAD"))
-    private void deathWalk(CallbackInfo ci){
+    private void deathWalk(CallbackInfo ci) {
         /*
         LivingEntity livingEntity = (LivingEntity)(Object)this;
         this.walkOnFluid = livingEntity.getEquippedStack(EquipmentSlot.FEET).getItem().equals(BWPObjects.DEATHS_FOOTWEAR);
@@ -97,15 +99,16 @@ public abstract class LivingEntityMixin extends Entity {
          */
 
     }
+
     @Inject(method = "tickMovement", at = @At("HEAD"))
-    private void deathParticle(CallbackInfo ci){
-        LivingEntity livingEntity = (LivingEntity)(Object)this;
-        if(BWUtil.getArmorPieces(livingEntity, (stack) -> stack.getItem() instanceof ArmorItem && ((ArmorItem)stack.getItem()).getMaterial() == BWPMaterials.DEATH_ARMOR) == 3){
+    private void deathParticle(CallbackInfo ci) {
+        LivingEntity livingEntity = (LivingEntity) (Object) this;
+        if (BWUtil.getArmorPieces(livingEntity, (stack) -> stack.getItem() instanceof ArmorItem && ((ArmorItem) stack.getItem()).getMaterial() == BWPMaterials.DEATH_ARMOR) == 3) {
             float r1 = world.random.nextFloat() * 360.0F;
             float mx = -MathHelper.cos(r1 / 180.0F * 3.1415927F) / 20.0F;
             float mz = MathHelper.sin(r1 / 180.0F * 3.1415927F) / 20.0F;
             world.addParticle(ParticleTypes.SMOKE, true, livingEntity.getX(), livingEntity.getY() + 0.1D, livingEntity.getZ(), mx, 0.0D, mz);
-            if(world.getRandom().nextFloat() < 0.10F){
+            if (world.getRandom().nextFloat() < 0.10F) {
                 world.addParticle(ParticleTypes.SOUL, true, livingEntity.getX(), livingEntity.getY() + 0.1D, livingEntity.getZ(), mx, 0.0D, mz);
             }
         }
@@ -113,8 +116,8 @@ public abstract class LivingEntityMixin extends Entity {
 
 
     @Inject(method = "canWalkOnFluid", at = @At("RETURN"), cancellable = true)
-    private void deathWalk(FluidState fluidState, CallbackInfoReturnable<Boolean> cir){
-        if(walkOnFluid){
+    private void deathWalk(FluidState fluidState, CallbackInfoReturnable<Boolean> cir) {
+        if (walkOnFluid) {
             cir.setReturnValue(true);
         }
     }

@@ -73,12 +73,13 @@ public class BWPWorldState extends PersistentState {
 
         return nbt;
     }
-    public void addHomeStead(UUID uuid, BlockPos pos){
+
+    public void addHomeStead(UUID uuid, BlockPos pos) {
         homeStead.put(uuid, pos);
         markDirty();
     }
 
-    public void removeHomeStead(UUID uuid){
+    public void removeHomeStead(UUID uuid) {
         homeStead.remove(uuid);
         markDirty();
     }

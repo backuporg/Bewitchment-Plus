@@ -12,12 +12,12 @@ import net.minecraft.util.registry.Registry;
 public class BWPTransformations {
     public static final Transformation LESHON = new LeshonTransformation();
 
-    public static void init(){
+    public static void init() {
         register(BWRegistries.TRANSFORMATIONS, "leshon", LESHON);
 
     }
 
-    public static boolean isLeshon(PlayerEntity entity, boolean isTreeBoi){
+    public static boolean isLeshon(PlayerEntity entity, boolean isTreeBoi) {
         return BWComponents.TRANSFORMATION_COMPONENT.get(entity).getTransformation() == LESHON && (!isTreeBoi || BWComponents.TRANSFORMATION_COMPONENT.get(entity).isAlternateForm());
     }
 

@@ -5,7 +5,9 @@ import dev.mrsterner.bewitchmentplus.common.world.BWPWorldState;
 import moriyashiine.bewitchment.common.block.entity.interfaces.TaglockHolder;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
-import net.minecraft.block.entity.*;
+import net.minecraft.block.entity.BlockEntityType;
+import net.minecraft.block.entity.ChestBlockEntity;
+import net.minecraft.block.entity.ChestLidAnimator;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.projectile.thrown.PotionEntity;
 import net.minecraft.inventory.Inventories;
@@ -64,43 +66,43 @@ public class MimicChestBlockEntity extends ChestBlockEntity implements TaglockHo
     }
 
     public static void tick(World world, BlockPos pos, BlockState state, MimicChestBlockEntity blockEntity) {
-        PlayerEntity playerEntity = world.getClosestPlayer((double)pos.getX() + 0.5D, (double)pos.getY() + 0.5D, (double)pos.getZ() + 0.5D, 3.0D, false);
+        PlayerEntity playerEntity = world.getClosestPlayer((double) pos.getX() + 0.5D, (double) pos.getY() + 0.5D, (double) pos.getZ() + 0.5D, 3.0D, false);
         blockEntity.eyeRotation = blockEntity.floppity;
         if (playerEntity != null) {
-            double d = playerEntity.getX() - ((double)pos.getX() + 0.5D);
-            double e = playerEntity.getZ() - ((double)pos.getZ() + 0.5D);
+            double d = playerEntity.getX() - ((double) pos.getX() + 0.5D);
+            double e = playerEntity.getZ() - ((double) pos.getZ() + 0.5D);
             blockEntity.flippity = (float) MathHelper.atan2(e, d);
             blockEntity.hasPlayer = true;
-        }else{
+        } else {
             blockEntity.hasPlayer = false;
         }
-        while(blockEntity.floppity >= 3.1415927F) {
+        while (blockEntity.floppity >= 3.1415927F) {
             blockEntity.floppity -= 6.2831855F;
         }
 
-        while(blockEntity.floppity < -3.1415927F) {
+        while (blockEntity.floppity < -3.1415927F) {
             blockEntity.floppity += 6.2831855F;
         }
 
-        while(blockEntity.flippity >= 3.1415927F) {
+        while (blockEntity.flippity >= 3.1415927F) {
             blockEntity.flippity -= 6.2831855F;
         }
 
-        while(blockEntity.flippity < -3.1415927F) {
+        while (blockEntity.flippity < -3.1415927F) {
             blockEntity.flippity += 6.2831855F;
         }
 
         float d;
-        for(d = blockEntity.flippity - blockEntity.floppity; d >= 3.1415927F; d -= 6.2831855F) {
+        for (d = blockEntity.flippity - blockEntity.floppity; d >= 3.1415927F; d -= 6.2831855F) {
         }
 
-        while(d < -3.1415927F) {
+        while (d < -3.1415927F) {
             d += 6.2831855F;
         }
         blockEntity.floppity += d * 0.4F;
     }
 
-    public DefaultedList<ItemStack> getInventoryChest(){
+    public DefaultedList<ItemStack> getInventoryChest() {
         return this.getInvStackList();
     }
 
@@ -111,11 +113,11 @@ public class MimicChestBlockEntity extends ChestBlockEntity implements TaglockHo
     @Override
     public void onOpen(PlayerEntity player) {
         super.onOpen(player);
-        if(player.world instanceof ServerWorld serverWorld){
+        if (player.world instanceof ServerWorld serverWorld) {
             BWPWorldState worldState = BWPWorldState.get(serverWorld);
             for (int i = worldState.mimicChestsPair.size() - 1; i >= 0; i--) {
-                if(worldState.mimicChestsPair.get(i).getRight().equals(pos.asLong())){
-                    if(!player.getUuid().equals(worldState.mimicChestsPair.get(i).getLeft())){
+                if (worldState.mimicChestsPair.get(i).getRight().equals(pos.asLong())) {
+                    if (!player.getUuid().equals(worldState.mimicChestsPair.get(i).getLeft())) {
                         if (!player.world.isClient && !splashPotionInventory.isEmpty()) {
                             ItemStack itemStack = splashPotionInventory.get(0);
                             PotionUtil.setPotion(itemStack, PotionUtil.getPotion(itemStack));
@@ -188,6 +190,7 @@ public class MimicChestBlockEntity extends ChestBlockEntity implements TaglockHo
     public DefaultedList<ItemStack> getSplashPotionInventory() {
         return splashPotionInventory;
     }
+
     public enum BWPType {
         LEECH;
 

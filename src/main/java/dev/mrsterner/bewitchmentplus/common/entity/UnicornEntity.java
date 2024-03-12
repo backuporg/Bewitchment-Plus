@@ -13,7 +13,6 @@ import net.minecraft.entity.damage.DamageSource;
 import net.minecraft.entity.data.DataTracker;
 import net.minecraft.entity.data.TrackedData;
 import net.minecraft.entity.data.TrackedDataHandlerRegistry;
-import net.minecraft.entity.passive.AbstractHorseEntity;
 import net.minecraft.entity.passive.PassiveEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
@@ -57,6 +56,7 @@ public class UnicornEntity extends PassiveEntity {
     public ItemStack getPickedResult(HitResult target) {
         return new ItemStack(BWPObjects.UNICORN_SPAWN_EGG.asItem());
     }
+
     @Nullable
     @Override
     public PassiveEntity createChild(ServerWorld world, PassiveEntity entity) {
@@ -79,18 +79,20 @@ public class UnicornEntity extends PassiveEntity {
 
     public static DefaultAttributeContainer.Builder createAttributes() {
         return PassiveEntity.createMobAttributes()
-        .add(EntityAttributes.GENERIC_MAX_HEALTH, 20.00D)
-        .add(EntityAttributes.GENERIC_ATTACK_DAMAGE, 4.0D)
-        .add(EntityAttributes.GENERIC_ARMOR, 2.0D)
-        .add(EntityAttributes.GENERIC_MOVEMENT_SPEED, 0.3D)
-        .add(EntityAttributes.GENERIC_KNOCKBACK_RESISTANCE, 0.35D)
-        .add(EntityAttributes.GENERIC_FOLLOW_RANGE, 24.0D);
+                .add(EntityAttributes.GENERIC_MAX_HEALTH, 20.00D)
+                .add(EntityAttributes.GENERIC_ATTACK_DAMAGE, 4.0D)
+                .add(EntityAttributes.GENERIC_ARMOR, 2.0D)
+                .add(EntityAttributes.GENERIC_MOVEMENT_SPEED, 0.3D)
+                .add(EntityAttributes.GENERIC_KNOCKBACK_RESISTANCE, 0.35D)
+                .add(EntityAttributes.GENERIC_FOLLOW_RANGE, 24.0D);
     }
+
     @Override
     public void writeCustomDataToNbt(NbtCompound nbt) {
         super.writeCustomDataToNbt(nbt);
         nbt.putBoolean("EatingHaystack", this.isEatingGrass());
     }
+
     @Override
     public void readCustomDataFromNbt(NbtCompound nbt) {
         super.readCustomDataFromNbt(nbt);
@@ -99,7 +101,8 @@ public class UnicornEntity extends PassiveEntity {
 
     @Override
     public void onDeath(DamageSource source) {
-        if(world.getBlockState(this.getBlockPos()).isAir()) world.setBlockState(this.getBlockPos(), BWPObjects.UNICORN_BLOOD_PUDDLE.getDefaultState());
+        if (world.getBlockState(this.getBlockPos()).isAir())
+            world.setBlockState(this.getBlockPos(), BWPObjects.UNICORN_BLOOD_PUDDLE.getDefaultState());
         super.onDeath(source);
     }
 
@@ -113,13 +116,13 @@ public class UnicornEntity extends PassiveEntity {
         if (i <= 0) {
             return false;
         } else {
-            this.damage(damageSource, (float)i);
+            this.damage(damageSource, (float) i);
             if (this.hasPassengers()) {
                 Iterator var5 = this.getPassengersDeep().iterator();
 
-                while(var5.hasNext()) {
-                    Entity entity = (Entity)var5.next();
-                    entity.damage(damageSource, (float)i);
+                while (var5.hasNext()) {
+                    Entity entity = (Entity) var5.next();
+                    entity.damage(damageSource, (float) i);
                 }
             }
 
@@ -199,20 +202,20 @@ public class UnicornEntity extends PassiveEntity {
     @Override
     protected void initDataTracker() {
         super.initDataTracker();
-        this.dataTracker.startTracking(HORSE_FLAGS, (byte)0);
+        this.dataTracker.startTracking(HORSE_FLAGS, (byte) 0);
     }
 
 
     protected boolean getHorseFlag(int bitmask) {
-        return(this.dataTracker.get(HORSE_FLAGS) & bitmask) != 0;
+        return (this.dataTracker.get(HORSE_FLAGS) & bitmask) != 0;
     }
 
     protected void setHorseFlag(int bitmask, boolean flag) {
         byte b = this.dataTracker.get(HORSE_FLAGS);
         if (flag) {
-            this.dataTracker.set(HORSE_FLAGS, (byte)(b | bitmask));
+            this.dataTracker.set(HORSE_FLAGS, (byte) (b | bitmask));
         } else {
-            this.dataTracker.set(HORSE_FLAGS, (byte)(b & ~bitmask));
+            this.dataTracker.set(HORSE_FLAGS, (byte) (b & ~bitmask));
         }
 
     }
@@ -323,6 +326,7 @@ public class UnicornEntity extends PassiveEntity {
         }
 
     }
+
     public float getAngryAnimationProgress(float tickDelta) {
         return MathHelper.lerp(tickDelta, this.lastAngryAnimationProgress, this.angryAnimationProgress);
     }
@@ -334,6 +338,7 @@ public class UnicornEntity extends PassiveEntity {
     public float getEatingGrassAnimationProgress(float tickDelta) {
         return MathHelper.lerp(tickDelta, this.lastEatingGrassAnimationProgress, this.eatingGrassAnimationProgress);
     }
+
     public void setAngry(boolean angry) {
         if (angry) {
             this.setEatingGrass(false);

@@ -19,12 +19,13 @@ public class BaphometStatueModel<T extends Entity> extends EntityModel<T> {
         this.bipedBody = root.getChild("bipedBody");
     }
 
-    public static TexturedModelData create(){
+    public static TexturedModelData create() {
         ModelData data = new ModelData();
         ModelPartData root = data.getRoot();
         ModelPartData plith01 = root.addChild("plith01",
-        ModelPartBuilder.create().uv(60, 84).cuboid(-8.5F, 0.0F, -8.5F, 17.0F, 5.0F, 17.0F), ModelTransform.of(0.0F, 19.0F, 0.0F, 0.0F, 0.0F, 0.0F));plith01.addChild("plith02",
-        ModelPartBuilder.create().uv(68, 64).cuboid(-7.5F, -2.7F, -7.5F, 15.0F, 3.0F, 15.0F), ModelTransform.of(0.0F, 0.0F, 0.0F, 0.0F, 0.0F, 0.0F));
+                ModelPartBuilder.create().uv(60, 84).cuboid(-8.5F, 0.0F, -8.5F, 17.0F, 5.0F, 17.0F), ModelTransform.of(0.0F, 19.0F, 0.0F, 0.0F, 0.0F, 0.0F));
+        plith01.addChild("plith02",
+                ModelPartBuilder.create().uv(68, 64).cuboid(-7.5F, -2.7F, -7.5F, 15.0F, 3.0F, 15.0F), ModelTransform.of(0.0F, 0.0F, 0.0F, 0.0F, 0.0F, 0.0F));
         ModelPartData bipedBody = root.addChild("bipedBody", ModelPartBuilder.create().uv(19, 19).cuboid(-4.0F, 0.0F, -2.5F, 8.0F, 6.0F, 5.0F), ModelTransform.of(0.0F, 2.6F, 1.5F, 0.0F, 0.0F, 0.0F));
         ModelPartData stomach = bipedBody.addChild("stomach", ModelPartBuilder.create().uv(19, 31).cuboid(-3.5F, 0.0F, -2.0F, 7.0F, 7.0F, 4.0F).uv(20, 77).cuboid(-4.5F, 2.05F, -3.5F, 9.0F, 3.0F, 2.0F).uv(21, 68).cuboid(-4.0F, 0.05F, -3.5F, 8.0F, 2.0F, 2.0F), ModelTransform.of(0.0F, 5.6F, 0.0F, 0.0F, 0.0F, 0.0F));
         ModelPartData hips = stomach.addChild("hips", ModelPartBuilder.create().uv(16, 43).cuboid(-4.0F, 0.0F, -2.3F, 8.0F, 3.0F, 5.0F), ModelTransform.of(0.0F, 5.4F, 0.0F, 0.0F, 0.0F, 0.0F));
@@ -78,12 +79,13 @@ public class BaphometStatueModel<T extends Entity> extends EntityModel<T> {
         head.addChild("rEar", ModelPartBuilder.create().uv(48, 0).mirrored(true).cuboid(-4.0F, -0.5F, -1.0F, 4.0F, 1.0F, 2.0F), ModelTransform.of(-2.6F, -6.0F, 0.8F, -0.3491F, 0.0F, -0.3142F));
         ModelPartData torch00 = head.addChild("torch00", ModelPartBuilder.create().uv(117, 0).cuboid(-1.0F, -2.5F, -1.0F, 2.0F, 3.0F, 2.0F), ModelTransform.of(0.0F, -6.6F, -1.2F, 0.0F, -0.7854F, 0.0F));
         ModelPartData torch01a = torch00.addChild("torch01a", ModelPartBuilder.create().uv(117, 6).cuboid(-0.5F, -3.8F, -0.5F, 1.0F, 4.0F, 1.0F, new Dilation(0.25F, 0.25F, 0.25F)), ModelTransform.of(0.0F, -2.0F, 0.0F, 0.0F, 0.0F, 0.0F));
-        ModelPartData torch02a = torch01a.addChild("torch02a", ModelPartBuilder.create().uv(115, 12).cuboid(-1.0F, -2.0F, -1.0F, 2.0F, 2.0F, 2.0F), ModelTransform.of(0.0F, -3.6F, 0.0F, 0.0F, 0.0F, 0.0F));torch02a.addChild("torch03a", ModelPartBuilder.create().uv(122, 6).mirrored(true).cuboid(-0.5F, -2.0F, -0.5F, 1.0F, 2.0F, 1.0F), ModelTransform.of(-0.6F, -1.5F, -0.6F, 0.2443F, -0.1396F, -0.2793F));
+        ModelPartData torch02a = torch01a.addChild("torch02a", ModelPartBuilder.create().uv(115, 12).cuboid(-1.0F, -2.0F, -1.0F, 2.0F, 2.0F, 2.0F), ModelTransform.of(0.0F, -3.6F, 0.0F, 0.0F, 0.0F, 0.0F));
+        torch02a.addChild("torch03a", ModelPartBuilder.create().uv(122, 6).mirrored(true).cuboid(-0.5F, -2.0F, -0.5F, 1.0F, 2.0F, 1.0F), ModelTransform.of(-0.6F, -1.5F, -0.6F, 0.2443F, -0.1396F, -0.2793F));
         torch02a.addChild("torch03b", ModelPartBuilder.create().uv(122, 6).cuboid(-0.5F, -2.0F, -0.5F, 1.0F, 2.0F, 1.0F), ModelTransform.of(0.6F, -1.5F, -0.6F, 0.2443F, 0.2094F, 0.2793F));
         torch02a.addChild("torch03d", ModelPartBuilder.create().uv(122, 10).mirrored(true).cuboid(-0.5F, -2.0F, -0.5F, 1.0F, 2.0F, 1.0F), ModelTransform.of(-0.6F, -1.5F, 0.6F, -0.2443F, 0.2094F, -0.2793F));
         torch02a.addChild("torch03c", ModelPartBuilder.create().uv(122, 10).cuboid(-0.5F, -2.0F, -0.5F, 1.0F, 2.0F, 1.0F), ModelTransform.of(0.6F, -1.5F, 0.6F, -0.2443F, -0.1396F, 0.2793F));
 
-        return TexturedModelData.of(data, 128,128);
+        return TexturedModelData.of(data, 128, 128);
     }
 
     @Override

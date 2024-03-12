@@ -17,9 +17,9 @@
           {
             "condition": "minecraft:entity_properties",
             "predicate": {
-              "type" : "bwplus:unicorn"
+              "type": "bwplus:unicorn"
             },
-            "entity" : "this"
+            "entity": "this"
           }
         ]
       }

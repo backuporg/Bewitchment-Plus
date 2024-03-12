@@ -40,17 +40,16 @@ public class YewCutLogBlock extends PillarBlock implements BlockEntityProvider {
     @SuppressWarnings("deprecation")
     public ActionResult onUse(BlockState state, World world, BlockPos pos, PlayerEntity player, Hand hand, BlockHitResult hit) {
         ItemStack heldStack = player.getEquippedStack(hand == Hand.MAIN_HAND ? EquipmentSlot.MAINHAND : EquipmentSlot.OFFHAND);
-        if(heldStack.isEmpty()) {
+        if (heldStack.isEmpty()) {
             return ActionResult.FAIL;
         }
         Item held = heldStack.getItem();
-        if(!(held instanceof MiningToolItem)) {
+        if (!(held instanceof MiningToolItem tool)) {
             return ActionResult.FAIL;
         }
-        MiningToolItem tool = (MiningToolItem) held;
-        if(stripped != null && (tool.getMiningSpeedMultiplier(heldStack, state) > 1.0F)) {
+        if (stripped != null && (tool.getMiningSpeedMultiplier(heldStack, state) > 1.0F)) {
             world.playSound(player, pos, SoundEvents.ITEM_AXE_STRIP, SoundCategory.BLOCKS, 1.0F, 1.0F);
-            if(!world.isClient) {
+            if (!world.isClient) {
                 BlockState target = stripped.get().getDefaultState().with(PillarBlock.AXIS, state.get(PillarBlock.AXIS));
                 world.setBlockState(pos, target);
                 heldStack.damage(1, player, consumedPlayer -> consumedPlayer.sendToolBreakStatus(hand));

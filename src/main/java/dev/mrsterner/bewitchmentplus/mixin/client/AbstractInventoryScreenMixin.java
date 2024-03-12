@@ -26,14 +26,15 @@ public abstract class AbstractInventoryScreenMixin<T extends ScreenHandler> exte
     private boolean isBackgroundSwitched;
     @Unique
     private static final Identifier BWP_BACKGROUND_TEXTURE = new Identifier(BewitchmentPlus.MODID, "textures/gui/inventory.png");
+
     public AbstractInventoryScreenMixin(T container, PlayerInventory playerInventory, Text name) {
         super(container, playerInventory, name);
     }
 
     @ModifyArgs(method = "drawStatusEffectDescriptions", at = @At(value = "INVOKE", target = "Lnet/minecraft/entity/effect/StatusEffectUtil;durationToString(Lnet/minecraft/entity/effect/StatusEffectInstance;F)Ljava/lang/String;"))
-    private void stopDrawingDurationWhenSpecialEffect(Args args){
+    private void stopDrawingDurationWhenSpecialEffect(Args args) {
         StatusEffectInstance statusEffectInstance = args.get(0);
-        if(statusEffectInstance.getEffectType() instanceof BWPStatusEffects.BWPStatusEffect && statusEffectInstance.getAmplifier() == 0){
+        if (statusEffectInstance.getEffectType() instanceof BWPStatusEffects.BWPStatusEffect && statusEffectInstance.getAmplifier() == 0) {
             args.set(1, 0.0F);
         }
     }

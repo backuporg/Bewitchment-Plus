@@ -12,7 +12,6 @@ import net.fabricmc.fabric.api.biome.v1.*;
 import net.fabricmc.fabric.api.tag.convention.v1.ConventionalBiomeTags;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.SpawnRestriction;
-import net.minecraft.tag.BiomeTags;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.math.intprovider.ClampedIntProvider;
 import net.minecraft.util.math.intprovider.UniformIntProvider;
@@ -20,11 +19,13 @@ import net.minecraft.util.registry.Registry;
 import net.minecraft.util.registry.RegistryEntry;
 import net.minecraft.world.Heightmap;
 import net.minecraft.world.biome.Biome;
-import net.minecraft.world.biome.BiomeKeys;
 import net.minecraft.world.gen.GenerationStep;
 import net.minecraft.world.gen.ProbabilityConfig;
 import net.minecraft.world.gen.feature.*;
-import net.minecraft.world.gen.placementmodifier.*;
+import net.minecraft.world.gen.placementmodifier.BiomePlacementModifier;
+import net.minecraft.world.gen.placementmodifier.CountPlacementModifier;
+import net.minecraft.world.gen.placementmodifier.RarityFilterPlacementModifier;
+import net.minecraft.world.gen.placementmodifier.SquarePlacementModifier;
 import net.minecraft.world.gen.stateprovider.BlockStateProvider;
 
 import java.util.function.Predicate;
@@ -32,7 +33,7 @@ import java.util.function.Predicate;
 import static net.minecraft.world.gen.feature.VegetationPlacedFeatures.modifiers;
 
 
-public class BWPWorldGenerators extends ConfiguredFeatures{
+public class BWPWorldGenerators extends ConfiguredFeatures {
     public static final Feature<ProbabilityConfig> YEW_TREE_FEATURE = registerFeature("yew_tree_feature",
             new YewTreeFeature(ProbabilityConfig.CODEC));
 
@@ -62,7 +63,7 @@ public class BWPWorldGenerators extends ConfiguredFeatures{
             BiomePlacementModifier.of());
 
     public static final RegistryEntry<PlacedFeature> LOTUS_HEAVY = PlacedFeatures.register("lotus_multiple",
-        LOTUS_TREE_IN_JUNGEL, modifiers(PlacedFeatures.createCountExtraModifier(4, 0.1F, 1)));
+            LOTUS_TREE_IN_JUNGEL, modifiers(PlacedFeatures.createCountExtraModifier(4, 0.1F, 1)));
 
     private static <C extends FeatureConfig, F extends Feature<C>> F registerFeature(String name, F feature) {
         return Registry.register(Registry.FEATURE, name, feature);
@@ -72,7 +73,7 @@ public class BWPWorldGenerators extends ConfiguredFeatures{
     public static void init() {
         BiomeModification worldGen = BiomeModifications.create(new Identifier(BewitchmentPlus.MODID, "world_features"));
         worldGen.add(ModificationPhase.ADDITIONS, BiomeSelectors.tag(ConventionalBiomeTags.EXTREME_HILLS), context -> context.getGenerationSettings().addBuiltInFeature(GenerationStep.Feature.VEGETAL_DECORATION, YEW_LIGHT.value()));
-        worldGen.add(ModificationPhase.ADDITIONS, BiomeSelectors.tag(ConventionalBiomeTags.MESA).or( BiomeSelectors.tag(ConventionalBiomeTags.DESERT)), context -> context.getGenerationSettings().addBuiltInFeature(GenerationStep.Feature.VEGETAL_DECORATION, PATCH_BLOODROOT_DESERT.value()));
+        worldGen.add(ModificationPhase.ADDITIONS, BiomeSelectors.tag(ConventionalBiomeTags.MESA).or(BiomeSelectors.tag(ConventionalBiomeTags.DESERT)), context -> context.getGenerationSettings().addBuiltInFeature(GenerationStep.Feature.VEGETAL_DECORATION, PATCH_BLOODROOT_DESERT.value()));
         worldGen.add(ModificationPhase.ADDITIONS, BiomeSelectors.tag(ConventionalBiomeTags.JUNGLE), context -> context.getGenerationSettings().addBuiltInFeature(GenerationStep.Feature.VEGETAL_DECORATION, LOTUS_HEAVY.value()));
 
 

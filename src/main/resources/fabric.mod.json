@@ -8,23 +8,23 @@
     "MrSterner",
     "SafroDev",
     "CyberCat5555",
-	"Sunconure11"
+    "Sunconure11"
   ],
   "contact": {
-	"homepage": "https://bloomhousemc.com/",
-	"sources": "https://github.com/BloomhouseMC/bewitchment-plus"
+    "homepage": "https://bloomhousemc.com/",
+    "sources": "https://github.com/BloomhouseMC/bewitchment-plus"
   },
   "license": "GPL-3.0",
   "icon": "assets/bwplus/icon.png",
   "environment": "*",
-  "accessWidener" : "bewitchmentplus.accesswidener",
+  "accessWidener": "bewitchmentplus.accesswidener",
   "entrypoints": {
-	"main": [
+    "main": [
       "dev.mrsterner.bewitchmentplus.BewitchmentPlus"
-	],
-	"client": [
+    ],
+    "client": [
       "dev.mrsterner.bewitchmentplus.BewitchmentPlusClient"
-	],
+    ],
     "cardinal-components-entity": [
       "dev.mrsterner.bewitchmentplus.common.registry.BWPComponents"
     ]
@@ -35,12 +35,12 @@
     ]
   },
   "mixins": [
-	"bewitchmentplus.mixins.json"
+    "bewitchmentplus.mixins.json"
   ],
   "depends": {
-	"fabricloader": ">=0.7.4",
-	"fabric": "*",
-	"minecraft": ">=1.19",
+    "fabricloader": ">=0.7.4",
+    "fabric": "*",
+    "minecraft": ">=1.19",
     "bewitchment": ">=1.19-1",
     "geckolib3": ">=3.1.0"
   }

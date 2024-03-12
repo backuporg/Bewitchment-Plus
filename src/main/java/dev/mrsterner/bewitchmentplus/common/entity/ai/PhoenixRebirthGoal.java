@@ -42,14 +42,14 @@ public class PhoenixRebirthGoal extends Goal {
         BlockPos pos = phoenixEntity.getBlockPos();
         World world = phoenixEntity.getWorld();
         world.addParticle(ParticleTypes.FLAME,
-        pos.getX() + 0.5 + world.getRandom().nextGaussian()/4,
-        pos.getY() + 0.5 + world.getRandom().nextGaussian()/4,
-        pos.getZ() + 0.5 + world.getRandom().nextGaussian()/4,
-        0, 0, 0);
-        if(rebirthTimer >= 0){
+                pos.getX() + 0.5 + world.getRandom().nextGaussian() / 4,
+                pos.getY() + 0.5 + world.getRandom().nextGaussian() / 4,
+                pos.getZ() + 0.5 + world.getRandom().nextGaussian() / 4,
+                0, 0, 0);
+        if (rebirthTimer >= 0) {
             //TODO do the thing
             rebirthTimer = 0;
-        }else{
+        } else {
             rebirthTimer++;
         }
         super.tick();

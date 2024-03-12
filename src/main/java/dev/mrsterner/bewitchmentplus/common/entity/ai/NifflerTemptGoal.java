@@ -55,7 +55,7 @@ public class NifflerTemptGoal extends Goal {
                 if (this.closestPlayer.squaredDistanceTo(this.lastPlayerX, this.lastPlayerY, this.lastPlayerZ) > 0.010000000000000002) {
                     return false;
                 }
-                if (Math.abs((double)this.closestPlayer.getPitch() - this.lastPlayerPitch) > 5.0 || Math.abs((double)this.closestPlayer.getYaw() - this.lastPlayerYaw) > 5.0) {
+                if (Math.abs((double) this.closestPlayer.getPitch() - this.lastPlayerPitch) > 5.0 || Math.abs((double) this.closestPlayer.getYaw() - this.lastPlayerYaw) > 5.0) {
                     return false;
                 }
             } else {

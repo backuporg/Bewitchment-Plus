@@ -24,6 +24,7 @@ import java.util.function.Predicate;
 
 public class EffigyRitualFunction extends RitualFunction {
     private boolean found = false;
+
     public EffigyRitualFunction(ParticleType<?> startParticle, Predicate<LivingEntity> sacrifice) {
         super(startParticle, sacrifice);
     }
@@ -31,7 +32,7 @@ public class EffigyRitualFunction extends RitualFunction {
     @Override
     public boolean isValid(ServerWorld world, BlockPos pos, Inventory inventory) {
         ItemStack taglock = null;
-        for(int i = 0; i < inventory.size(); ++i) {
+        for (int i = 0; i < inventory.size(); ++i) {
             ItemStack stack = inventory.getStack(i);
             if (inventory.getStack(i).getItem() instanceof TaglockItem && TaglockItem.hasTaglock(stack)) {
                 taglock = stack;
@@ -48,7 +49,7 @@ public class EffigyRitualFunction extends RitualFunction {
         found = false;
         int radius = 16;
         ItemStack tagLock = null;
-        for(int i = 0; i < inventory.size(); ++i) {
+        for (int i = 0; i < inventory.size(); ++i) {
             ItemStack stack = inventory.getStack(i);
             if (inventory.getStack(i).getItem() instanceof TaglockItem) {
                 tagLock = stack;
@@ -57,21 +58,21 @@ public class EffigyRitualFunction extends RitualFunction {
         }
         if (tagLock != null) {
             List<ArmorStandEntity> armorStandEntityList = world.getEntitiesByClass(ArmorStandEntity.class, (new Box(effectivePos)).expand(radius, 0.0D, radius), ArmorStandEntity::isAlive);
-            if(armorStandEntityList.iterator().hasNext() && !found){
+            if (armorStandEntityList.iterator().hasNext() && !found) {
                 ArmorStandEntity armorStandEntity = armorStandEntityList.iterator().next();
                 EffigyEntity effigyEntity = BWPEntityTypes.EFFIGY.create(world);
                 if (effigyEntity != null) {
                     found = true;
                     effigyEntity.updatePositionAndAngles(armorStandEntity.getX() + 0.5, armorStandEntity.getY(), armorStandEntity.getZ() + 0.5, world.random.nextFloat() * 360, 0);
                     var ownerUUID = BewitchmentAPI.getTaglockOwner(world, tagLock);
-                    if(ownerUUID instanceof PlayerEntity player){
-                        if(!BWPComponents.EFFIGY_COMPONENT.get(player).getHasEffigy()){
+                    if (ownerUUID instanceof PlayerEntity player) {
+                        if (!BWPComponents.EFFIGY_COMPONENT.get(player).getHasEffigy()) {
                             BWPComponents.EFFIGY_COMPONENT.get(player).setEffigy(effigyEntity.getUuid());
                             BWPComponents.EFFIGY_COMPONENT.get(player).setHasEffigy(true);
                         }
                         armorStandEntity.discard();
                         world.spawnEntity(effigyEntity);
-                        if(world.isClient()){
+                        if (world.isClient()) {
                             effigyEntity.playSound(SoundEvents.BLOCK_ROOTS_BREAK, 3F, 1);
                             world.addParticle(ParticleTypes.HAPPY_VILLAGER, effigyEntity.getX() + MathHelper.nextDouble(world.random, (-radius), radius), effigyEntity.getY() + 0.5D, effigyEntity.getZ() + MathHelper.nextDouble(world.random, (-radius), radius), 0.0D, 0.0D, 0.0D);
                         }

@@ -58,7 +58,7 @@ public class LeechChestBlockEntity extends ChestBlockEntity implements LidOpenab
                 if (!(player.currentScreenHandler instanceof GenericContainerScreenHandler)) {
                     return false;
                 } else {
-                    Inventory inventory = ((GenericContainerScreenHandler)player.currentScreenHandler).getInventory();
+                    Inventory inventory = ((GenericContainerScreenHandler) player.currentScreenHandler).getInventory();
                     return inventory == LeechChestBlockEntity.this;
                 }
             }
@@ -206,7 +206,7 @@ public class LeechChestBlockEntity extends ChestBlockEntity implements LidOpenab
         if (this.world.getBlockEntity(this.pos) != this) {
             return false;
         } else {
-            return !(player.squaredDistanceTo((double)this.pos.getX() + 0.5D, (double)this.pos.getY() + 0.5D, (double)this.pos.getZ() + 0.5D) > 64.0D);
+            return !(player.squaredDistanceTo((double) this.pos.getX() + 0.5D, (double) this.pos.getY() + 0.5D, (double) this.pos.getZ() + 0.5D) > 64.0D);
         }
     }
 

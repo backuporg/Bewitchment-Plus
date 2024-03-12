@@ -19,7 +19,7 @@ public class LilithStatueModel<T extends Entity> extends EntityModel<T> {
         this.plith01 = root.getChild("plith01");
     }
 
-    public static TexturedModelData create(){
+    public static TexturedModelData create() {
         ModelData data = new ModelData();
         ModelPartData root = data.getRoot();
 
@@ -107,7 +107,7 @@ public class LilithStatueModel<T extends Entity> extends EntityModel<T> {
         ModelPartData plith01 = root.addChild("plith01", ModelPartBuilder.create().uv(60, 84).cuboid(-8.5F, 0.0F, -8.5F, 17.0F, 5.0F, 17.0F), ModelTransform.of(0.0F, 19.0F, 0.0F, 0.0F, 0.0F, 0.0F));
         plith01.addChild("plith02", ModelPartBuilder.create().uv(68, 64).cuboid(-7.5F, -2.7F, -7.5F, 15.0F, 3.0F, 15.0F), ModelTransform.of(0.0F, 0.0F, 0.0F, 0.0F, 0.0F, 0.0F));
 
-        return TexturedModelData.of(data, 128,128);
+        return TexturedModelData.of(data, 128, 128);
     }
 
     @Override

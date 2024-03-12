@@ -12,7 +12,8 @@ import net.minecraft.world.BlockView;
 public class FleeceBlock extends Block {
     private final DyeColor color;
     private final boolean isCarpet;
-    public FleeceBlock(DyeColor color,Settings settings, boolean carpet) {
+
+    public FleeceBlock(DyeColor color, Settings settings, boolean carpet) {
         super(settings);
         this.color = color;
         this.isCarpet = carpet;
@@ -20,7 +21,7 @@ public class FleeceBlock extends Block {
 
     @Override
     public VoxelShape getOutlineShape(BlockState state, BlockView world, BlockPos pos, ShapeContext context) {
-        return isCarpet ? Block.createCuboidShape(0,0,0, 16, 1, 16) : VoxelShapes.fullCube();
+        return isCarpet ? Block.createCuboidShape(0, 0, 0, 16, 1, 16) : VoxelShapes.fullCube();
     }
 
     public DyeColor getColor() {

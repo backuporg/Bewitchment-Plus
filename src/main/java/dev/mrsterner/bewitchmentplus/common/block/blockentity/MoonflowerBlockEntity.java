@@ -21,8 +21,8 @@ public class MoonflowerBlockEntity extends BlockEntity implements IAnimatable {
         super(BWPBlockEntityTypes.MOONFLOWER_BLOCK_ENTITY, pos, state);
     }
 
-    public String getMoon(){
-        if(this.world != null){
+    public String getMoon() {
+        if (this.world != null) {
             return switch (BewitchmentAPI.getMoonPhase(this.world)) {
                 case 1 -> "waningGibbous";
                 case 2 -> "thirdQuarter";
@@ -33,14 +33,14 @@ public class MoonflowerBlockEntity extends BlockEntity implements IAnimatable {
                 case 7 -> "waxingGibbous";
                 default -> "fullMoon";
             };
-        }else{
+        } else {
             return "fullMoon";
         }
     }
 
 
     private <E extends BlockEntity & IAnimatable> PlayState predicate(AnimationEvent<E> event) {
-        event.getController().setAnimation(new AnimationBuilder().addAnimation("animation.moonflower."+getMoon(), true));
+        event.getController().setAnimation(new AnimationBuilder().addAnimation("animation.moonflower." + getMoon(), true));
         return PlayState.CONTINUE;
     }
 

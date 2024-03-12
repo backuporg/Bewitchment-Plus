@@ -16,17 +16,17 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 @Mixin(IronGolemEntity.class)
 public class IronGolemTargetingMixin {
-	@Inject(method = "pushAway", at = @At(value = "HEAD"))
-	private void init(Entity entity, CallbackInfo cir) {
-		if (entity instanceof Monster && !(entity instanceof CreeperEntity) && !(entity instanceof CambionEntity) && ((IronGolemEntity) (Object) this).getRandom().nextInt(20) == 0) {
-			((IronGolemEntity) (Object) this).setTarget((LivingEntity) entity);
-		}
-	}
+    @Inject(method = "pushAway", at = @At(value = "HEAD"))
+    private void init(Entity entity, CallbackInfo cir) {
+        if (entity instanceof Monster && !(entity instanceof CreeperEntity) && !(entity instanceof CambionEntity) && ((IronGolemEntity) (Object) this).getRandom().nextInt(20) == 0) {
+            ((IronGolemEntity) (Object) this).setTarget((LivingEntity) entity);
+        }
+    }
 
-	@Inject(method = "canTarget", at = @At(value = "RETURN"), cancellable = true)
-	private void canTargetInject(EntityType<?> type, CallbackInfoReturnable<Boolean> cir) {
-		if (type == BWPEntityTypes.CAMBION) {
-			cir.setReturnValue(false);
-		}
-	}
+    @Inject(method = "canTarget", at = @At(value = "RETURN"), cancellable = true)
+    private void canTargetInject(EntityType<?> type, CallbackInfoReturnable<Boolean> cir) {
+        if (type == BWPEntityTypes.CAMBION) {
+            cir.setReturnValue(false);
+        }
+    }
 }

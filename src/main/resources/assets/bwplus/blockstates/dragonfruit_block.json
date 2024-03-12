@@ -1,7 +1,7 @@
 {
   "variants": {
-	"": {
-	  "model": "bwplus:block/dragonfruit_block"
-	}
+    "": {
+      "model": "bwplus:block/dragonfruit_block"
+    }
   }
 }

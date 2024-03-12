@@ -7,6 +7,7 @@ import net.minecraft.entity.attribute.EntityAttributeInstance;
 import net.minecraft.entity.attribute.EntityAttributeModifier;
 import net.minecraft.entity.attribute.EntityAttributes;
 import net.minecraft.entity.player.PlayerEntity;
+
 import java.util.UUID;
 
 
@@ -21,7 +22,7 @@ public class LeshonLogic {
     private static final EntityAttributeModifier LESHON_ARMOR_TOUGHNESS_MODIFIER_1 = new EntityAttributeModifier(UUID.fromString("edfd078d-e25c-4e27-ad91-c2b32037c8bf"), "Transformation modifier", 16, EntityAttributeModifier.Operation.ADDITION);
 
 
-    public static void handleAttributes(PlayerEntity player){
+    public static void handleAttributes(PlayerEntity player) {
         boolean isLeshon = BWPUtil.isLeshon(player, false);
         EntityAttributeInstance attackDamageAttribute = player.getAttributeInstance(EntityAttributes.GENERIC_ATTACK_DAMAGE);
         EntityAttributeInstance attackSpeedAttribute = player.getAttributeInstance(EntityAttributes.GENERIC_ATTACK_SPEED);
@@ -51,12 +52,12 @@ public class LeshonLogic {
         }
     }
 
-    public static void sprintHandler(PlayerEntity player){
+    public static void sprintHandler(PlayerEntity player) {
         EntityAttributeInstance movementSpeedAttribute = player.getAttributeInstance(EntityAttributes.GENERIC_MOVEMENT_SPEED);
-        if(player.isSprinting() && movementSpeedAttribute != null && !movementSpeedAttribute.hasModifier(LESHON_MOVEMENT_SPEED_MODIFIER)){
+        if (player.isSprinting() && movementSpeedAttribute != null && !movementSpeedAttribute.hasModifier(LESHON_MOVEMENT_SPEED_MODIFIER)) {
             movementSpeedAttribute.addPersistentModifier(LESHON_MOVEMENT_SPEED_MODIFIER);
-        }else {
-            if(!player.isSprinting()) {
+        } else {
+            if (!player.isSprinting()) {
                 if (movementSpeedAttribute != null && movementSpeedAttribute.hasModifier(LESHON_MOVEMENT_SPEED_MODIFIER)) {
                     movementSpeedAttribute.removeModifier(LESHON_MOVEMENT_SPEED_MODIFIER);
                 }

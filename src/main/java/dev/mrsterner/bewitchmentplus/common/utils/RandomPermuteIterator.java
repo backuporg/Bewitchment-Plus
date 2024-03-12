@@ -9,7 +9,6 @@ public class RandomPermuteIterator implements Enumeration<Integer> {
     boolean hasNext = true;
 
     /**
-     *
      * @param N ceiling of random permutator
      * @throws Exception
      */
@@ -19,7 +18,6 @@ public class RandomPermuteIterator implements Enumeration<Integer> {
         m = (int) Math.pow(2, Math.ceil(Math.log(N) / Math.log(2)));
         next = seed = new Random().nextInt(N);
     }
-
 
 
     @Override
@@ -32,6 +30,6 @@ public class RandomPermuteIterator implements Enumeration<Integer> {
         next = (a * next + c) % m;
         while (next >= N) next = (a * next + c) % m;
         if (next == seed) hasNext = false;
-        return  next;
+        return next;
     }
 }

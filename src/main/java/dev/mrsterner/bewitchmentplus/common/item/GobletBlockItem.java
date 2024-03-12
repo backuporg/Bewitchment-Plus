@@ -4,7 +4,6 @@ import dev.mrsterner.bewitchmentplus.common.registry.BWPObjects;
 import dev.mrsterner.bewitchmentplus.common.registry.BWPStatusEffects;
 import moriyashiine.bewitchment.api.BewitchmentAPI;
 import moriyashiine.bewitchment.common.BWConfig;
-import moriyashiine.bewitchment.common.Bewitchment;
 import moriyashiine.bewitchment.common.registry.BWComponents;
 import moriyashiine.bewitchment.common.registry.BWCurses;
 import moriyashiine.bewitchment.common.registry.BWObjects;
@@ -44,7 +43,7 @@ public class GobletBlockItem extends BlockItem {
     @Override
     public UseAction getUseAction(ItemStack stack) {
         var nbt = stack.getNbt();
-        return nbt != null && nbt.contains("BlockEntityTag") ? UseAction.DRINK :UseAction.NONE;
+        return nbt != null && nbt.contains("BlockEntityTag") ? UseAction.DRINK : UseAction.NONE;
     }
 
     @Override
@@ -63,16 +62,16 @@ public class GobletBlockItem extends BlockItem {
             }
             NbtCompound nbtCompound = nbt.getCompound("BlockEntityTag");
             NbtCompound goblet = nbtCompound.getCompound("Goblet");
-            if(user instanceof PlayerEntity player){
+            if (user instanceof PlayerEntity player) {
                 BWComponents.TRANSFORMATION_COMPONENT.maybeGet(player).ifPresent(transformationComponent -> {
-                    if(transformationComponent.getTransformation() == BWTransformations.HUMAN){
-                        if(nbtCompound.getCompound("VampireBlood") != null && nbtCompound.getBoolean("VampireBlood") && (!BWConfig.enableCurses || BWComponents.CURSES_COMPONENT.get(player).hasCurse(BWCurses.SUSCEPTIBILITY))){
+                    if (transformationComponent.getTransformation() == BWTransformations.HUMAN) {
+                        if (nbtCompound.getCompound("VampireBlood") != null && nbtCompound.getBoolean("VampireBlood") && (!BWConfig.enableCurses || BWComponents.CURSES_COMPONENT.get(player).hasCurse(BWCurses.SUSCEPTIBILITY))) {
                             transformationComponent.getTransformation().onRemoved(player);
                             transformationComponent.setTransformation(BWTransformations.VAMPIRE);
                             transformationComponent.getTransformation().onAdded(player);
                         }
 
-                    }else if(BewitchmentAPI.isVampire(user, true)){
+                    } else if (BewitchmentAPI.isVampire(user, true)) {
                         BWComponents.BLOOD_COMPONENT.get(user).fillBlood(20, false);
                     }
                 });
@@ -83,12 +82,12 @@ public class GobletBlockItem extends BlockItem {
             DefaultedList<ItemStack> slots = DefaultedList.ofSize(1, ItemStack.EMPTY);
             Inventories.readNbt(nbt.getCompound("BlockEntityTag"), slots);
             ItemStack slot = slots.get(0);
-            if(!world.isClient()){
+            if (!world.isClient()) {
                 if (slot.getItem() == Items.HONEY_BOTTLE) {
                     user.removeStatusEffect(StatusEffects.POISON);
-                }else if (slot.getItem() == BWPObjects.UNICORN_BLOOD) {
+                } else if (slot.getItem() == BWPObjects.UNICORN_BLOOD) {
                     user.addStatusEffect(new StatusEffectInstance(BWPStatusEffects.HALF_LIFE, 20 * 10, 1, false, false, true));
-                }else if(slot.getItem() == Items.POTION){
+                } else if (slot.getItem() == Items.POTION) {
                     Potion potion = PotionUtil.getPotion(slot);
                     user.addStatusEffect(new StatusEffectInstance(potion.getEffects().get(0)));
                 }
@@ -96,8 +95,7 @@ public class GobletBlockItem extends BlockItem {
             stack.decrement(1);
         }
         if (!stack.isEmpty()) {
-            if (user instanceof PlayerEntity && !((PlayerEntity) user).getAbilities().creativeMode) {
-                PlayerEntity playerEntity = (PlayerEntity) user;
+            if (user instanceof PlayerEntity playerEntity && !((PlayerEntity) user).getAbilities().creativeMode) {
                 if (!playerEntity.getInventory().insertStack(itemStack)) {
                     playerEntity.dropItem(itemStack, false);
                 }
@@ -131,12 +129,12 @@ public class GobletBlockItem extends BlockItem {
                 var slots = DefaultedList.ofSize(1, ItemStack.EMPTY);
                 Inventories.readNbt(stack.getNbt().getCompound("BlockEntityTag"), slots);
                 boolean vamp = stack.getNbt().getCompound("BlockEntityTag").getBoolean("VampireBlood");
-                if(slots.get(0).getItem().equals(Items.POTION)){
+                if (slots.get(0).getItem().equals(Items.POTION)) {
                     PotionUtil.buildTooltip(slots.get(0), tooltip, 1.0F);
-                }else{
+                } else {
                     tooltip.add(Text.translatable("liquid." + slots.get(0).toString().replace("1 ", ""))
-                    .formatted(vamp ? Formatting.ITALIC : Formatting.DARK_RED)
-                    .formatted(slots.get(0).getItem() == BWObjects.BOTTLE_OF_BLOOD ? Formatting.DARK_RED : slots.get(0).getItem() == Items.HONEY_BOTTLE ? Formatting.GOLD : Formatting.AQUA));
+                            .formatted(vamp ? Formatting.ITALIC : Formatting.DARK_RED)
+                            .formatted(slots.get(0).getItem() == BWObjects.BOTTLE_OF_BLOOD ? Formatting.DARK_RED : slots.get(0).getItem() == Items.HONEY_BOTTLE ? Formatting.GOLD : Formatting.AQUA));
                 }
 
             }

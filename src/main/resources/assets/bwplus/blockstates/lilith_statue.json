@@ -1,7 +1,7 @@
 {
   "variants": {
-	"": {
-	  "model": "bwplus:block/lilith_statue"
-	}
+    "": {
+      "model": "bwplus:block/lilith_statue"
+    }
   }
 }

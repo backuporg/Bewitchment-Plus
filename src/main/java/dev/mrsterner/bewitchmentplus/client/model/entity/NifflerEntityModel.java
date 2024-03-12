@@ -35,10 +35,10 @@ public class NifflerEntityModel extends AnimatedGeoModel<NifflerEntity> {
         EntityModelData extraData = (EntityModelData) customPredicate.getExtraDataOfType(EntityModelData.class).get(0);
         boolean isMovingHorizontal = Math.sqrt(Math.pow(entity.getDeltaMotion().x, 2) + Math.pow(entity.getDeltaMotion().z, 2)) > 0.005;
         if (head != null && !entity.getDataTracker().get(SLEEPING)) {
-            if(!isMovingHorizontal){
+            if (!isMovingHorizontal) {
                 head.setRotationX(extraData.headPitch * ((float) Math.PI / 180F));
                 head.setRotationY(extraData.netHeadYaw * ((float) Math.PI / 180F));
-            }else{
+            } else {
                 head.setRotationZ(extraData.netHeadYaw * ((float) Math.PI / 180F));
             }
         }

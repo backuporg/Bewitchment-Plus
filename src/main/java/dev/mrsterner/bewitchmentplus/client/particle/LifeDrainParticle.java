@@ -3,7 +3,10 @@ package dev.mrsterner.bewitchmentplus.client.particle;
 import dev.mrsterner.bewitchmentplus.common.network.packet.C2SBloodParticlePacket;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
-import net.minecraft.client.particle.*;
+import net.minecraft.client.particle.Particle;
+import net.minecraft.client.particle.ParticleFactory;
+import net.minecraft.client.particle.ParticleTextureSheet;
+import net.minecraft.client.particle.SpriteProvider;
 import net.minecraft.client.render.Camera;
 import net.minecraft.client.render.VertexConsumer;
 import net.minecraft.client.world.ClientWorld;
@@ -16,7 +19,10 @@ import net.minecraft.sound.SoundCategory;
 import net.minecraft.sound.SoundEvents;
 import net.minecraft.tag.BlockTags;
 import net.minecraft.util.Identifier;
-import net.minecraft.util.math.*;
+import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.Box;
+import net.minecraft.util.math.Vec3d;
+import net.minecraft.util.math.Vec3i;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.List;
@@ -136,7 +142,7 @@ public class LifeDrainParticle extends Particle {
     }
 
     private void selectBlockTarget() {
-        if(player != null){
+        if (player != null) {
             this.xTarget = player.getX();
             this.yTarget = player.getY() + 0.5D;
             this.zTarget = player.getZ();

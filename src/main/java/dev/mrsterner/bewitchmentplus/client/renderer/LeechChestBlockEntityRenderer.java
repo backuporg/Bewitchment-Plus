@@ -43,8 +43,7 @@ public class LeechChestBlockEntityRenderer<T extends BlockEntity & LidOpenable> 
         World world = entity.getWorld();
         BlockState blockState = world != null ? entity.getCachedState() : Blocks.CHEST.getDefaultState().with(ChestBlock.FACING, Direction.SOUTH);
         Block block = blockState.getBlock();
-        if (block instanceof LeechChestBlock) {
-            LeechChestBlock chest = (LeechChestBlock) block;
+        if (block instanceof LeechChestBlock chest) {
             matrices.push();
             float rotation = blockState.get(ChestBlock.FACING).asRotation();
             matrices.translate(0.5D, 0.5D, 0.5D);
@@ -56,10 +55,10 @@ public class LeechChestBlockEntityRenderer<T extends BlockEntity & LidOpenable> 
             } else {
                 properties = chest.getBlockEntitySource(blockState, world, entity.getPos(), true);
             }
-            float g = properties.apply(LeechChestBlock.getAnimationProgressRetriever((LidOpenable)entity)).get(tickDelta);
+            float g = properties.apply(LeechChestBlock.getAnimationProgressRetriever(entity)).get(tickDelta);
             g = 1.0F - g;
             g = 1.0F - g * g * g;
-            int i = ((Int2IntFunction)properties.apply(new LightmapCoordinatesRetriever())).applyAsInt(light);
+            int i = ((Int2IntFunction) properties.apply(new LightmapCoordinatesRetriever())).applyAsInt(light);
             SpriteIdentifier spriteIdentifier = BWPSpriteIdentifiers.LEECH_CHEST;
             VertexConsumer vertexConsumer = spriteIdentifier.getVertexConsumer(vertexConsumers, RenderLayer::getEntityCutout);
             renderMatrices(matrices, vertexConsumer, this.chestLid, this.chestLock, this.chestBottom, g, i, overlay);

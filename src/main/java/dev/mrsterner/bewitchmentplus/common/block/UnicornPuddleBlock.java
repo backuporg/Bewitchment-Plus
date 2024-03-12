@@ -20,29 +20,29 @@ import net.minecraft.util.hit.BlockHitResult;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 
-public class UnicornPuddleBlock extends PuddleBlock{
+public class UnicornPuddleBlock extends PuddleBlock {
     public UnicornPuddleBlock(Settings settings) {
         super(settings);
     }
 
     @Override
     public ActionResult onUse(BlockState state, World world, BlockPos pos, PlayerEntity player, Hand hand, BlockHitResult hit) {
-        if(player.getStackInHand(hand).getItem() instanceof GlassBottleItem || player.getStackInHand(hand).getItem() instanceof GobletBlockItem){
-            if(player.getStackInHand(hand).getItem() instanceof GobletBlockItem){
+        if (player.getStackInHand(hand).getItem() instanceof GlassBottleItem || player.getStackInHand(hand).getItem() instanceof GobletBlockItem) {
+            if (player.getStackInHand(hand).getItem() instanceof GobletBlockItem) {
                 NbtCompound compound = new NbtCompound();
                 DefaultedList<ItemStack> slots = DefaultedList.ofSize(1, BWPObjects.UNICORN_BLOOD.getDefaultStack());
                 Inventories.writeNbt(compound, slots);
                 compound.putInt("Color", RenderHelper.UNICORN_BLOOD_COLOR);
                 compound.put("Goblet", player.getOffHandStack().getItem().getDefaultStack().writeNbt(new NbtCompound()));
-                if(player.getMainHandStack().getItem() instanceof GobletBlockItem){
+                if (player.getMainHandStack().getItem() instanceof GobletBlockItem) {
                     player.getMainHandStack().getOrCreateNbt().put("BlockEntityTag", compound);
-                }else{
+                } else {
                     player.getOffHandStack().getOrCreateNbt().put("BlockEntityTag", compound);
                 }
-            }else{
+            } else {
                 BWUtil.addItemToInventoryAndConsume(player, hand, new ItemStack(BWPObjects.UNICORN_BLOOD));
             }
-            world.playSound(null, pos, SoundEvents.ITEM_BUCKET_FILL, SoundCategory.BLOCKS, 1,1);
+            world.playSound(null, pos, SoundEvents.ITEM_BUCKET_FILL, SoundCategory.BLOCKS, 1, 1);
             world.setBlockState(pos, Blocks.AIR.getDefaultState());
             return ActionResult.SUCCESS;
         }

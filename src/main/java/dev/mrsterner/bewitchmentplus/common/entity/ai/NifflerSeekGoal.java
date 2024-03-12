@@ -3,7 +3,10 @@ package dev.mrsterner.bewitchmentplus.common.entity.ai;
 import dev.mrsterner.bewitchmentplus.common.entity.NifflerEntity;
 import dev.mrsterner.bewitchmentplus.common.registry.BWPTags;
 import dev.mrsterner.bewitchmentplus.common.utils.RandomPermuteIterator;
-import net.minecraft.block.*;
+import net.minecraft.block.Block;
+import net.minecraft.block.BlockState;
+import net.minecraft.block.ChestBlock;
+import net.minecraft.block.InventoryProvider;
 import net.minecraft.block.entity.ChestBlockEntity;
 import net.minecraft.block.entity.LootableContainerBlockEntity;
 import net.minecraft.entity.ai.goal.Goal;
@@ -33,32 +36,32 @@ public class NifflerSeekGoal extends Goal {
         this.niffler = niffler;
     }
 
-    public void lootChest(){
+    public void lootChest() {
         try {
             RandomPermuteIterator randomPermuteIterator = new RandomPermuteIterator(blockList.size());
-            while (randomPermuteIterator.hasMoreElements()){
+            while (randomPermuteIterator.hasMoreElements()) {
                 BlockPos chestPos = blockList.get(randomPermuteIterator.nextElement());
                 Inventory inventory = getInventoryAt(niffler.world, chestPos.getX(), chestPos.getY(), chestPos.getZ());
                 List<Pair<ItemStack, Integer>> itemStacks = new ArrayList<>();
-                for(int i = 0; i < inventory.size(); i++){
-                    if(inventory.getStack(i).isIn(BWPTags.NIFFLER)){
+                for (int i = 0; i < inventory.size(); i++) {
+                    if (inventory.getStack(i).isIn(BWPTags.NIFFLER)) {
                         itemStacks.add(new Pair<>(inventory.getStack(i), i));
                     }
                 }
-                if(itemStacks.size() > 0){
-                    try{
+                if (itemStacks.size() > 0) {
+                    try {
                         RandomPermuteIterator pickItemAtRandom = new RandomPermuteIterator(itemStacks.size());
                         int k = pickItemAtRandom.nextElement();
                         ItemStack itemStack = itemStacks.get(k).getLeft();
-                        if(niffler.world.getBlockEntity(chestPos) instanceof ChestBlockEntity){
+                        if (niffler.world.getBlockEntity(chestPos) instanceof ChestBlockEntity) {
                             niffler.world.emitGameEvent(null, GameEvent.CONTAINER_OPEN, chestPos);
                             this.blockPos = chestPos;
                             niffler.world.addSyncedBlockEvent(chestPos, niffler.world.getBlockState(chestPos).getBlock(), 1, 1);
-                            niffler.world.playSound(null, chestPos, SoundEvents.BLOCK_CHEST_OPEN, SoundCategory.BLOCKS, 1,1);
+                            niffler.world.playSound(null, chestPos, SoundEvents.BLOCK_CHEST_OPEN, SoundCategory.BLOCKS, 1, 1);
                         }
-                        if(niffler.nifflerInventory.canInsert(itemStack)){
-                            for(int i = 0; i < niffler.nifflerInventory.size(); i++){
-                                if(niffler.nifflerInventory.getStack(i).getItem().equals(itemStack.getItem()) || niffler.nifflerInventory.getStack(i).getItem().equals(Items.AIR)){
+                        if (niffler.nifflerInventory.canInsert(itemStack)) {
+                            for (int i = 0; i < niffler.nifflerInventory.size(); i++) {
+                                if (niffler.nifflerInventory.getStack(i).getItem().equals(itemStack.getItem()) || niffler.nifflerInventory.getStack(i).getItem().equals(Items.AIR)) {
                                     niffler.nifflerInventory.setStack(i, itemStack.split(1));
                                     this.niffleCooldown = -200;
                                     this.chestOpenAnimationCooldown = -20;
@@ -67,7 +70,7 @@ public class NifflerSeekGoal extends Goal {
                                 }
                             }
                         }
-                    } catch (Exception e){
+                    } catch (Exception e) {
                         e.printStackTrace();
                     }
                     break;
@@ -80,19 +83,19 @@ public class NifflerSeekGoal extends Goal {
 
     @Override
     public void tick() {
-        if(this.chestOpenAnimationCooldown < 0){
+        if (this.chestOpenAnimationCooldown < 0) {
             this.chestOpenAnimationCooldown++;
         }
-        if(this.niffleCooldown < 0){
+        if (this.niffleCooldown < 0) {
             this.niffleCooldown++;
         }
-        if(this.niffleCooldown == 0){
+        if (this.niffleCooldown == 0) {
             lootChest();
         }
-        if(chestOpenAnimationCooldown == 0 && blockPos != null && this.shouldCloseChest){
+        if (chestOpenAnimationCooldown == 0 && blockPos != null && this.shouldCloseChest) {
             niffler.world.addSyncedBlockEvent(blockPos, niffler.world.getBlockState(blockPos).getBlock(), 1, 0);
             niffler.world.emitGameEvent(null, GameEvent.CONTAINER_CLOSE, blockPos);
-            niffler.world.playSound(null, blockPos, SoundEvents.BLOCK_CHEST_CLOSE, SoundCategory.BLOCKS, 1,1);
+            niffler.world.playSound(null, blockPos, SoundEvents.BLOCK_CHEST_CLOSE, SoundCategory.BLOCKS, 1, 1);
             this.shouldCloseChest = false;
         }
         super.tick();
@@ -105,22 +108,23 @@ public class NifflerSeekGoal extends Goal {
     }
 
 
-    /**TODO
+    /**
+     * TODO
      * create a goal to make niffler walk to inventory instead of being able to open it from distance:
-     * @see dev.mrsterner.bewitchmentplus.common.entity.ai.NifflerWalkToInventoryGoal
      *
      * @return true if niffler has found valid inventory
+     * @see dev.mrsterner.bewitchmentplus.common.entity.ai.NifflerWalkToInventoryGoal
      */
     @Override
     public boolean canStart() {
         int rangeCheck = 8;
         int yRangeCheck = 4;
         BlockPos blockPos = niffler.getBlockPos();
-        for(double x = -rangeCheck; x <= rangeCheck; ++x) {
+        for (double x = -rangeCheck; x <= rangeCheck; ++x) {
             for (double y = -yRangeCheck; y <= yRangeCheck; ++y) {
                 for (double z = -rangeCheck; z <= rangeCheck; ++z) {
                     BlockPos lootPos = new BlockPos(blockPos.getX() + x, blockPos.getY() + y, blockPos.getZ() + z);
-                    if(niffler.world.getBlockEntity(lootPos) instanceof LootableContainerBlockEntity chestBlockEntity){
+                    if (niffler.world.getBlockEntity(lootPos) instanceof LootableContainerBlockEntity chestBlockEntity) {
                         blockList.add(chestBlockEntity.getPos());
                         niffler.blocksChecked.add(chestBlockEntity.getPos().asLong());
                     }
@@ -138,9 +142,9 @@ public class NifflerSeekGoal extends Goal {
         BlockState blockState = world.getBlockState(blockPos);
         Block block = blockState.getBlock();
         if (block instanceof InventoryProvider) {
-            inventory = ((InventoryProvider)(block)).getInventory(blockState, world, blockPos);
-        } else if (blockState.hasBlockEntity() && (blockEntity = world.getBlockEntity(blockPos)) instanceof Inventory && (inventory = (Inventory)blockEntity) instanceof ChestBlockEntity && block instanceof ChestBlock) {
-            inventory = ChestBlock.getInventory((ChestBlock)block, blockState, world, blockPos, true);
+            inventory = ((InventoryProvider) (block)).getInventory(blockState, world, blockPos);
+        } else if (blockState.hasBlockEntity() && (blockEntity = world.getBlockEntity(blockPos)) instanceof Inventory && (inventory = (Inventory) blockEntity) instanceof ChestBlockEntity && block instanceof ChestBlock) {
+            inventory = ChestBlock.getInventory((ChestBlock) block, blockState, world, blockPos, true);
         }
         return inventory;
     }

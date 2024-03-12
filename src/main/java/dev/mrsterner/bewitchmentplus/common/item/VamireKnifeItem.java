@@ -17,7 +17,7 @@ public class VamireKnifeItem extends SwordItem {
 
     @Override
     public boolean postHit(ItemStack stack, LivingEntity target, LivingEntity attacker) {
-        if(target.getType().isIn(BWTags.HAS_BLOOD) || target instanceof AnimalEntity || target instanceof WitherSkeletonEntity){
+        if (target.getType().isIn(BWTags.HAS_BLOOD) || target instanceof AnimalEntity || target instanceof WitherSkeletonEntity) {
             PlayerLookup.tracking(target).forEach(trackingPlayer -> S2CBloodParticlesPacket.send(trackingPlayer, target));
         }
         return super.postHit(stack, target, attacker);

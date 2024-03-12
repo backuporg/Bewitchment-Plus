@@ -5,8 +5,12 @@ import dev.mrsterner.bewitchmentplus.common.registry.BWPObjects;
 import dev.mrsterner.bewitchmentplus.common.registry.BWPTags;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
-import net.minecraft.block.*;
-import net.minecraft.entity.*;
+import net.minecraft.block.BlockState;
+import net.minecraft.block.Waterloggable;
+import net.minecraft.entity.AreaEffectCloudEntity;
+import net.minecraft.entity.EntityType;
+import net.minecraft.entity.FlyingItemEntity;
+import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.projectile.thrown.ThrownItemEntity;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
@@ -50,12 +54,13 @@ public class MutandisItemEntity extends ThrownItemEntity implements FlyingItemEn
         if (status == 3) {
             ParticleEffect particleEffect = this.getParticleParameters();
 
-            for(int i = 0; i < 8; ++i) {
+            for (int i = 0; i < 8; ++i) {
                 this.world.addParticle(particleEffect, this.getX(), this.getY(), this.getZ(), 0.0D, 0.0D, 0.0D);
             }
         }
 
     }
+
     @Override
     public void onBlockHit(BlockHitResult blockHitResult) {
         super.onBlockHit(blockHitResult);
@@ -64,21 +69,21 @@ public class MutandisItemEntity extends ThrownItemEntity implements FlyingItemEn
         areaEffectCloudEntity.setDuration(10);
         areaEffectCloudEntity.setColor(2290338);
         this.world.spawnEntity(areaEffectCloudEntity);
-        BlockPos origo = blockHitResult.getBlockPos().add(-1,1,-1);
+        BlockPos origo = blockHitResult.getBlockPos().add(-1, 1, -1);
         List<BlockPos> listPos = new ArrayList<>();
-        for(int x = 0; x<3; x++){
-            for(int z = 0; z<3; z++){
-                listPos.add(x + z,origo.add(x,0,z));
+        for (int x = 0; x < 3; x++) {
+            for (int z = 0; z < 3; z++) {
+                listPos.add(x + z, origo.add(x, 0, z));
             }
         }
         listPos.forEach(blockPos1 -> {
-            if(this.world.getBlockState(blockPos1).isIn(BWPTags.MUTANDIS)){
+            if (this.world.getBlockState(blockPos1).isIn(BWPTags.MUTANDIS)) {
                 BlockState blockState = world.getBlockState(blockPos1);
                 blockState = Registry.BLOCK.getEntryList(BWPTags.MUTANDIS).flatMap((blocks) -> blocks.getRandom(world.random)).map((blockEntry) -> (blockEntry.value()).getDefaultState()).orElse(blockState);
-                if(blockState.getBlock() instanceof Waterloggable){
+                if (blockState.getBlock() instanceof Waterloggable) {
                     this.world.setBlockState(blockPos1, blockState.with(WATERLOGGED, false));
-                }else{
-                    this.world.setBlockState(blockPos1,blockState);
+                } else {
+                    this.world.setBlockState(blockPos1, blockState);
                 }
             }
         });
@@ -88,7 +93,7 @@ public class MutandisItemEntity extends ThrownItemEntity implements FlyingItemEn
     protected void onCollision(HitResult hitResult) {
         super.onCollision(hitResult);
         if (!this.world.isClient) {
-            this.world.sendEntityStatus(this, (byte)3);
+            this.world.sendEntityStatus(this, (byte) 3);
             this.kill();
         }
     }

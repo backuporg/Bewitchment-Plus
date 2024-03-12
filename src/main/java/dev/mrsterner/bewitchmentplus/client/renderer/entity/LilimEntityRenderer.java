@@ -15,18 +15,18 @@ import net.minecraft.util.Identifier;
 @Environment(EnvType.CLIENT)
 public class LilimEntityRenderer extends BipedEntityRenderer<LilimEntity, BipedEntityModel<LilimEntity>> {
 
-	public LilimEntityRenderer(EntityRendererFactory.Context context) {
-		super(context, new LilimEntityModel(context.getPart(LilimEntityModel.LILIM_MODEL_LAYER)), 0.5f);
-	}
+    public LilimEntityRenderer(EntityRendererFactory.Context context) {
+        super(context, new LilimEntityModel(context.getPart(LilimEntityModel.LILIM_MODEL_LAYER)), 0.5f);
+    }
 
-	@Override
-	public Identifier getTexture(LilimEntity entity) {
-		return new Identifier(BewitchmentPlus.MODID, "textures/entity/lilim/0.png");
-	}
+    @Override
+    public Identifier getTexture(LilimEntity entity) {
+        return new Identifier(BewitchmentPlus.MODID, "textures/entity/lilim/0.png");
+    }
 
-	@Override
-	public void render(LilimEntity mobEntity, float f, float g, MatrixStack matrixStack, VertexConsumerProvider vertexConsumerProvider, int i) {
-		matrixStack.translate(0,0.5F,0);
-		super.render(mobEntity, f, g, matrixStack, vertexConsumerProvider, i);
-	}
+    @Override
+    public void render(LilimEntity mobEntity, float f, float g, MatrixStack matrixStack, VertexConsumerProvider vertexConsumerProvider, int i) {
+        matrixStack.translate(0, 0.5F, 0);
+        super.render(mobEntity, f, g, matrixStack, vertexConsumerProvider, i);
+    }
 }

@@ -13,18 +13,17 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 public class VillagerHostilesSensorMixin {
 
     @Inject(at = @At("HEAD"), method = "isHostile", cancellable = true)
-    private void watchOut(LivingEntity entity, CallbackInfoReturnable<Boolean> cir){
+    private void watchOut(LivingEntity entity, CallbackInfoReturnable<Boolean> cir) {
         if (entity instanceof PlayerEntity player && BWPTransformations.isLeshon(player, false)) {
             cir.setReturnValue(true);
         }
     }
 
 
-
     @Inject(method = "isCloseEnoughForDanger", at = @At("HEAD"), cancellable = true)
-    private void getNearestHostile(LivingEntity villager, LivingEntity target, CallbackInfoReturnable<Boolean> cir){
+    private void getNearestHostile(LivingEntity villager, LivingEntity target, CallbackInfoReturnable<Boolean> cir) {
         if (target instanceof PlayerEntity player && BWPTransformations.isLeshon(player, false)) {
-            cir.setReturnValue(target.squaredDistanceTo(villager) <= 12*12);
+            cir.setReturnValue(target.squaredDistanceTo(villager) <= 12 * 12);
         }
     }
 }

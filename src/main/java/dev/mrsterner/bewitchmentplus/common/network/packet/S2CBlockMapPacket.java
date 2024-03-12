@@ -17,6 +17,7 @@ import net.minecraft.util.Identifier;
 
 public class S2CBlockMapPacket {
     public static final Identifier ID = new Identifier(BewitchmentPlus.MODID, "block_map");
+
     public static void send(LivingEntity entity) {
         PacketByteBuf data = new PacketByteBuf(Unpooled.buffer());
         data.writeInt(entity.getId());

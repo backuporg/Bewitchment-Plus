@@ -19,9 +19,9 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 public abstract class EntityRenderDispatcherMixin {
 
     @Inject(method = "renderFire", at = @At("HEAD"), cancellable = true)
-    private void dontGetSprite(MatrixStack matrices, VertexConsumerProvider vertexConsumers, Entity entity, CallbackInfo ci){
-        if(entity instanceof PlayerEntity player){
-            if(player.getEquippedStack(EquipmentSlot.CHEST).getItem().equals(BWPObjects.DEATHS_ROBES)){
+    private void dontGetSprite(MatrixStack matrices, VertexConsumerProvider vertexConsumers, Entity entity, CallbackInfo ci) {
+        if (entity instanceof PlayerEntity player) {
+            if (player.getEquippedStack(EquipmentSlot.CHEST).getItem().equals(BWPObjects.DEATHS_ROBES)) {
                 ci.cancel();
             }
         }

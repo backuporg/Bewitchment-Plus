@@ -15,7 +15,9 @@ import net.minecraft.client.model.*;
 import net.minecraft.client.render.RenderLayer;
 import net.minecraft.client.render.VertexConsumer;
 import net.minecraft.client.render.VertexConsumerProvider;
-import net.minecraft.client.render.block.entity.*;
+import net.minecraft.client.render.block.entity.BlockEntityRenderer;
+import net.minecraft.client.render.block.entity.BlockEntityRendererFactory;
+import net.minecraft.client.render.block.entity.LightmapCoordinatesRetriever;
 import net.minecraft.client.render.entity.model.EntityModelLayer;
 import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.util.Identifier;
@@ -23,7 +25,7 @@ import net.minecraft.util.math.Direction;
 import net.minecraft.util.math.Vec3f;
 import net.minecraft.world.World;
 
-@Environment(value= EnvType.CLIENT)
+@Environment(value = EnvType.CLIENT)
 public class MimicBlockEntityRenderer<T extends BlockEntity> implements BlockEntityRenderer<T> {
 
     public static final EntityModelLayer MIMIC_LAYER = new EntityModelLayer(new Identifier(BewitchmentPlus.MODID, "mimic"), "main");
@@ -65,24 +67,24 @@ public class MimicBlockEntityRenderer<T extends BlockEntity> implements BlockEnt
         matrices.translate(-0.5, -0.5, -0.5);
         matrices.multiply(Vec3f.POSITIVE_Y.getDegreesQuaternion(180));
         matrices.multiply(Vec3f.POSITIVE_Z.getDegreesQuaternion(180));
-        matrices.translate(0.5,-1.5,-0.5);
+        matrices.translate(0.5, -1.5, -0.5);
         DoubleBlockProperties.PropertySource<Object> propertySource = (DoubleBlockProperties.PropertySource<Object>) abstractChestBlock.getBlockEntitySource(blockState, world, entity.getPos(), true);
-        var g = MimicChestBlock.getAnimationProgressRetriever((LidOpenable)entity).getFallback().get(tickDelta);
-        if(!world.isClient())return;
+        var g = MimicChestBlock.getAnimationProgressRetriever((LidOpenable) entity).getFallback().get(tickDelta);
+        if (!world.isClient()) return;
         g = 1.0f - g;
         g = 1.0f - g * g * g;
         float h;
         float e = 0;
         MimicChestBlockEntity mimicChestBlockEntity = (MimicChestBlockEntity) world.getBlockEntity(entity.getPos());
-        if(mimicChestBlockEntity != null){
-            for(h = mimicChestBlockEntity.floppity - mimicChestBlockEntity.eyeRotation; h >= 3.1415927F; h -= 6.2831855F) {
+        if (mimicChestBlockEntity != null) {
+            for (h = mimicChestBlockEntity.floppity - mimicChestBlockEntity.eyeRotation; h >= 3.1415927F; h -= 6.2831855F) {
             }
-            while(h < -3.1415927F) {
+            while (h < -3.1415927F) {
                 h += 6.2831855F;
             }
             e = mimicChestBlockEntity.eyeRotation + h * mimicChestBlockEntity.partial;
         }
-        int i = ((Int2IntFunction)propertySource.apply(new LightmapCoordinatesRetriever())).applyAsInt(light);
+        int i = ((Int2IntFunction) propertySource.apply(new LightmapCoordinatesRetriever())).applyAsInt(light);
         VertexConsumer vertexConsumer = BWPSpriteIdentifiers.MIMIC_SPRITE.getVertexConsumer(vertexConsumers, RenderLayer::getEntityCutout);
         this.render(matrices, vertexConsumer, this.chest, this.lid, this.tounge, this.tounge2, this.tounge3, this.tounge4, this.tounge5, this.eye, e, g, i, overlay, blockState, tickDelta);
         matrices.pop();
@@ -106,24 +108,24 @@ public class MimicBlockEntityRenderer<T extends BlockEntity> implements BlockEnt
     }
 
 
-    public float degToRad(float f){
+    public float degToRad(float f) {
         return f * (float) Math.PI / 180F;
     }
 
-    public void render(MatrixStack matrices, VertexConsumer vertices, ModelPart base,ModelPart lid, ModelPart tounge, ModelPart tounge2, ModelPart tounge3, ModelPart tounge4, ModelPart tounge5, ModelPart eye, float eyeturn, float openFactor, int light, int overlay, BlockState blockState, float tickDelta) {
+    public void render(MatrixStack matrices, VertexConsumer vertices, ModelPart base, ModelPart lid, ModelPart tounge, ModelPart tounge2, ModelPart tounge3, ModelPart tounge4, ModelPart tounge5, ModelPart eye, float eyeturn, float openFactor, int light, int overlay, BlockState blockState, float tickDelta) {
         double ticks = (BewitchmentPlusClient.ClientTickHandler.ticksInGame + tickDelta) * 0.5;
         lid.pitch = -(openFactor);
         tounge.pitch = degToRad(62.5F) - openFactor / 3F;
-        tounge2.pitch =  degToRad(40) - openFactor / 3F;
+        tounge2.pitch = degToRad(40) - openFactor / 3F;
         tounge3.pitch = degToRad(40) - openFactor / 3F;
         tounge4.pitch = degToRad(40) - openFactor / 3F;
         tounge5.pitch = degToRad(40) - openFactor / 3F;
         eye.yaw = eyeturn;
 
         matrices.push();
-        matrices.translate(0, -openFactor/2.5 + Math.sin(ticks/20)/20, 0);
+        matrices.translate(0, -openFactor / 2.5 + Math.sin(ticks / 20) / 20, 0);
         float f = blockState.get(ChestBlock.FACING).asRotation();
-        matrices.multiply(Vec3f.POSITIVE_Y.getDegreesQuaternion( - 90 - f));
+        matrices.multiply(Vec3f.POSITIVE_Y.getDegreesQuaternion(-90 - f));
         eye.render(matrices, vertices, light, overlay);
         matrices.pop();
 
