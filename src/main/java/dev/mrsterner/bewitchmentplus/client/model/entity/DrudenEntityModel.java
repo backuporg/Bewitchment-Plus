@@ -9,6 +9,7 @@ import net.minecraft.client.render.VertexConsumer;
 import net.minecraft.client.render.entity.model.BipedEntityModel;
 import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.entity.Entity;
+import net.minecraft.util.Arm;
 import net.minecraft.util.math.MathHelper;
 
 // Made with Blockbench 4.9.4
@@ -186,31 +187,49 @@ public class DrudenEntityModel extends BipedEntityModel<DrudenEntity> {
 		super.setAngles(entity, limbAngle, limbDistance, animationProgress, headYaw, headPitch);
 		realArm = true;
 		copyRotation(head, super.head);
-		copyRotation(body, super.torso);
 		copyRotation(bipedLeftArm, super.leftArm);
+		bipedLeftArm.roll -= 0.1309f;
 		copyRotation(bipedRightArm, super.rightArm);
+		bipedRightArm.roll += 0.1309f;
 		copyRotation(bipedLeftLeg, super.leftLeg);
+		bipedLeftLeg.pitch /= 2;
+		bipedLeftLeg.pitch -= 0.2793f;
+		bipedLeftLeg.roll -= 0.1047f;
 		copyRotation(bipedRightLeg, super.rightLeg);
+		bipedRightLeg.pitch /= 2;
+		bipedRightLeg.pitch -= 0.2793f;
+		bipedRightLeg.roll += 0.1047f;
 
 		this.bipedRightArm.pitch = -MathHelper.cos(limbAngle * 0.6662F + 3.1415927F) * 2.0F * limbDistance * 0.55F;
 		this.bipedLeftArm.pitch = MathHelper.cos(limbAngle * 0.6662F + 3.1415927F) * 2.0F * limbDistance * 0.55F;
 		float j = MathHelper.sin(entity.handSwingProgress * 3.1415927F);
 		if (j > 0) {
 			this.bipedRightArm.pitch = -j;
-			if (entity.getDataTracker().get(CambionEntity.PUNCH)) {
+			if (entity.getDataTracker().get(DrudenEntity.SPEAR_LUNGE)) {
 				this.bipedLeftArm.pitch = -j;
 			}
 		}
 	}
 
-	public void setRotationAngle(ModelPart bone, float x, float y, float z) {
+	private void setRotation(ModelPart bone, float x, float y, float z) {
 		bone.pitch = x;
 		bone.yaw = y;
 		bone.roll = z;
 	}
 
 	@Override
+	public void setArmAngle(Arm arm, MatrixStack matrices) {
+		super.setArmAngle(arm, matrices);
+		matrices.translate(0, 0.20, 0);
+	}
+
 	protected ModelPart getArm(Arm arm) {
-		return realArm ? (arm == Arm.LEFT ? bipedLeftArm : bipedRightArm) : super.getArm(arm);
+		return arm == Arm.LEFT ? this.bipedLeftArm : this.bipedRightArm;
+	}
+
+	private void copyRotation(ModelPart to, ModelPart from) {
+		to.pitch = from.pitch;
+		to.yaw = from.yaw;
+		to.roll = from.roll;
 	}
 }
