@@ -1,6 +1,5 @@
 package dev.mrsterner.bewitchmentplus.common.entity;
 
-import dev.mrsterner.bewitchmentplus.BewitchmentPlus;
 import dev.mrsterner.bewitchmentplus.common.BWPConfig;
 import dev.mrsterner.bewitchmentplus.common.registry.BWPObjects;
 import moriyashiine.bewitchment.client.network.packet.SpawnSmokeParticlesPacket;
