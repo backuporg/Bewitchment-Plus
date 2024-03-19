@@ -150,11 +150,11 @@ public class DrudenEntity extends BWHostileEntity {
         }
         if (i <= 10) {
             if (target instanceof LivingEntity) {
+                //I am a sadist.
                 ((LivingEntity) target).addStatusEffect(new StatusEffectInstance(StatusEffects.POISON, 300,1));
                 ((LivingEntity) target).addStatusEffect(new StatusEffectInstance(StatusEffects.DARKNESS, 10000, 3));
                 ((LivingEntity) target).addStatusEffect(new StatusEffectInstance(StatusEffects.BLINDNESS, 10000, 3));
                 swingHand(Hand.MAIN_HAND, true);
-                //I am a sadist.
                 this.playSound(SoundEvents.BLOCK_BAMBOO_HIT, 1, 1);
                 this.playSound(SoundEvents.ENTITY_GHAST_SCREAM, 1, 1);
                 this.playSound(SoundEvents.ENTITY_ENDER_DRAGON_GROWL, 1, 1);
