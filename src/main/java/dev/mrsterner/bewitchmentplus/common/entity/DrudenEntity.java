@@ -154,6 +154,7 @@ public class DrudenEntity extends BWHostileEntity {
                 ((LivingEntity) target).addStatusEffect(new StatusEffectInstance(StatusEffects.BLINDNESS, 10000, 3));
                 swingHand(Hand.MAIN_HAND, true);
                 this.playSound(SoundEvents.BLOCK_BAMBOO_HIT, 1, 1);
+                this.playSound(SoundEvents.ENTITY_GHAST_SCREAM, 1, 1);
             }
         }
         return flag;
