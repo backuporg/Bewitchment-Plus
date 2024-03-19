@@ -2,6 +2,7 @@ package dev.mrsterner.bewitchmentplus.common.entity;
 
 import moriyashiine.bewitchment.api.BewitchmentAPI;
 import moriyashiine.bewitchment.common.entity.living.util.BWHostileEntity;
+import moriyashiine.bewitchment.common.registry.BWSoundEvents;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
 import net.minecraft.block.Fertilizable;
@@ -153,8 +154,14 @@ public class DrudenEntity extends BWHostileEntity {
                 ((LivingEntity) target).addStatusEffect(new StatusEffectInstance(StatusEffects.DARKNESS, 10000, 3));
                 ((LivingEntity) target).addStatusEffect(new StatusEffectInstance(StatusEffects.BLINDNESS, 10000, 3));
                 swingHand(Hand.MAIN_HAND, true);
+                //I am a sadist.
                 this.playSound(SoundEvents.BLOCK_BAMBOO_HIT, 1, 1);
                 this.playSound(SoundEvents.ENTITY_GHAST_SCREAM, 1, 1);
+                this.playSound(SoundEvents.ENTITY_ENDER_DRAGON_GROWL, 1, 1);
+                this.playSound(SoundEvents.ENTITY_ENDERMAN_SCREAM, 1, 1);
+                this.playSound(SoundEvents.ENTITY_PHANTOM_BITE, 1, 1);
+                this.playSound(BWSoundEvents.ENTITY_DEMON_HURT, 1, 1);
+                this.playSound(SoundEvents.ENTITY_WARDEN_HEARTBEAT, 1, 1);
             }
         }
         return flag;
