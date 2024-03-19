@@ -20,7 +20,9 @@ import net.minecraft.entity.effect.StatusEffects;
 import net.minecraft.entity.mob.HostileEntity;
 import net.minecraft.entity.mob.IllagerEntity;
 import net.minecraft.entity.mob.MobEntity;
+import net.minecraft.entity.mob.PiglinEntity;
 import net.minecraft.entity.passive.MerchantEntity;
+import net.minecraft.entity.passive.VillagerEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NbtCompound;
@@ -80,6 +82,7 @@ public class DrudenEntity extends BWHostileEntity {
         super.tick();
         if (this.isOnFire())
             this.applyDamage(DamageSource.ON_FIRE, 6);
+            this.playSound(SoundEvents.BLOCK_CAMPFIRE_CRACKLE, 1, 1);
     }
 
     @Override
@@ -142,11 +145,15 @@ public class DrudenEntity extends BWHostileEntity {
         int i = rand.nextInt(100);
         if (target instanceof LivingEntity) {
             swingHand(Hand.MAIN_HAND, true);
+            this.playSound(SoundEvents.BLOCK_BAMBOO_HIT, 1, 1);
         }
         if (i <= 10) {
             if (target instanceof LivingEntity) {
-                ((LivingEntity) target).addStatusEffect(new StatusEffectInstance(StatusEffects.POISON, 100));
+                ((LivingEntity) target).addStatusEffect(new StatusEffectInstance(StatusEffects.POISON, 300,1));
+                ((LivingEntity) target).addStatusEffect(new StatusEffectInstance(StatusEffects.DARKNESS, 10000, 3));
+                ((LivingEntity) target).addStatusEffect(new StatusEffectInstance(StatusEffects.BLINDNESS, 10000, 3));
                 swingHand(Hand.MAIN_HAND, true);
+                this.playSound(SoundEvents.BLOCK_BAMBOO_HIT, 1, 1);
             }
         }
         return flag;
@@ -170,12 +177,12 @@ public class DrudenEntity extends BWHostileEntity {
 
     @Override
     protected SoundEvent getDeathSound() {
-        return SoundEvents.BLOCK_BAMBOO_BREAK;
+        return SoundEvents.ENTITY_GHAST_DEATH;
     }
 
     @Override
     protected SoundEvent getHurtSound(DamageSource source) {
-        return SoundEvents.BLOCK_BAMBOO_HIT;
+        return SoundEvents.ENTITY_GHAST_SCREAM;
     }
 
     @Override
@@ -227,7 +234,7 @@ public class DrudenEntity extends BWHostileEntity {
         goalSelector.add(3, new LookAtEntityGoal(this, PlayerEntity.class, 8));
         goalSelector.add(3, new LookAroundGoal(this));
         targetSelector.add(0, new RevengeGoal(this));
-        targetSelector.add(1, new ActiveTargetGoal<>(this, LivingEntity.class, 10, true, false, entity -> entity instanceof PlayerEntity || entity instanceof MerchantEntity || entity instanceof IllagerEntity));
+        targetSelector.add(1, new ActiveTargetGoal<>(this, LivingEntity.class, 10, true, false, entity -> entity instanceof PlayerEntity || entity instanceof VillagerEntity || entity instanceof IllagerEntity || entity instanceof PiglinEntity));
     }
 
     @Override
