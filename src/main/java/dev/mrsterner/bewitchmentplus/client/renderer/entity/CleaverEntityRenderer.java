@@ -1,6 +1,8 @@
 package dev.mrsterner.bewitchmentplus.client.renderer.entity;
 
 import dev.mrsterner.bewitchmentplus.BewitchmentPlus;
+import dev.mrsterner.bewitchmentplus.client.model.entity.CleaverEntityModel;
+import dev.mrsterner.bewitchmentplus.common.entity.CleaverEntity;
 import moriyashiine.bewitchment.common.entity.living.util.BWHostileEntity;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
