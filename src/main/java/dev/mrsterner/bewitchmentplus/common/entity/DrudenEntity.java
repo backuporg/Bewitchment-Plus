@@ -21,11 +21,12 @@ import net.minecraft.entity.data.TrackedDataHandlerRegistry;
 import net.minecraft.entity.effect.StatusEffectInstance;
 import net.minecraft.entity.effect.StatusEffects;
 import net.minecraft.entity.mob.HostileEntity;
-import net.minecraft.entity.mob.IllagerEntity;
 import net.minecraft.entity.mob.MobEntity;
+import net.minecraft.entity.mob.PiglinBruteEntity;
 import net.minecraft.entity.mob.PiglinEntity;
 import net.minecraft.entity.passive.VillagerEntity;
 import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.entity.raid.RaiderEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NbtCompound;
 import net.minecraft.server.world.ServerWorld;
@@ -246,7 +247,7 @@ public class DrudenEntity extends BWHostileEntity {
         goalSelector.add(3, new LookAtEntityGoal(this, PlayerEntity.class, 8));
         goalSelector.add(3, new LookAroundGoal(this));
         targetSelector.add(0, new RevengeGoal(this));
-        targetSelector.add(1, new ActiveTargetGoal<>(this, LivingEntity.class, 10, true, false, entity -> entity instanceof PlayerEntity && !BewitchmentAPI.isWerewolf(entity, true) ||  entity instanceof PlayerEntity && BewitchmentAPI.isVampire(entity, true) || entity instanceof VillagerEntity || entity instanceof IllagerEntity || entity instanceof VampireEntity || entity instanceof PiglinEntity || !(entity instanceof WerewolfEntity)));
+        targetSelector.add(1, new ActiveTargetGoal<>(this, LivingEntity.class, 10, true, false, entity -> entity instanceof PlayerEntity && !BewitchmentAPI.isWerewolf(entity, true) || entity instanceof PlayerEntity && BewitchmentAPI.isVampire(entity, true) || entity instanceof VillagerEntity || entity.getGroup() == EntityGroup.ILLAGER || entity instanceof VampireEntity || entity instanceof PiglinEntity || entity instanceof RaiderEntity || entity instanceof PiglinBruteEntity || !(entity instanceof WerewolfEntity)));
     }
 
     @Override

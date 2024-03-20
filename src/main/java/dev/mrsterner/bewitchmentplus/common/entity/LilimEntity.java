@@ -127,6 +127,11 @@ public class LilimEntity extends BWHostileEntity {
     }
 
     @Override
+    public boolean canBeLeashedBy(PlayerEntity player) {
+        return false;
+    }
+
+    @Override
     protected boolean shouldDropLoot() {
         return super.shouldDropLoot() && !this.onFireFromSun;
     }

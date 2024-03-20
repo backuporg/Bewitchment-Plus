@@ -67,6 +67,11 @@ public class LeshonEntity extends HostileEntity implements IAnimatable {
         this.dataTracker.set(ATTACKING, isAttacking);
     }
 
+    @Override
+    public boolean canBeLeashedBy(PlayerEntity player) {
+        return false;
+    }
+
     private <E extends IAnimatable> PlayState devMovement(AnimationEvent<E> animationEvent) {
         AnimationBuilder builder = new AnimationBuilder();
         boolean isMovingHorizontal = Math.sqrt(Math.pow(motionCalc.x, 2) + Math.pow(motionCalc.z, 2)) > 0.005;

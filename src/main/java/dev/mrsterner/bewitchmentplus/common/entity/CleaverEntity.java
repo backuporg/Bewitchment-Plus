@@ -42,6 +42,11 @@ public class CleaverEntity extends BWHostileEntity {
     }
 
     @Override
+    public boolean canBeLeashedBy(PlayerEntity player) {
+        return false;
+    }
+
+    @Override
     protected void initGoals() {
         goalSelector.add(0, new SwimGoal(this));
         goalSelector.add(1, new MeleeAttackGoal(this, 1, true));

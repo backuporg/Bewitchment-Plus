@@ -94,6 +94,11 @@ public class BlackDogEntity extends BWHostileEntity {
     }
 
     @Override
+    public boolean canBeLeashedBy(PlayerEntity player) {
+        return false;
+    }
+
+    @Override
     public boolean handleFallDamage(float fallDistance, float damageMultiplier, DamageSource source) {
         return false;
     }

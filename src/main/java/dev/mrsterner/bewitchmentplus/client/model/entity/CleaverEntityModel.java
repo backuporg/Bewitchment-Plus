@@ -110,6 +110,16 @@ public class CleaverEntityModel extends EntityModel<Entity> {
         head.render(matrices, vertexConsumer, light, overlay, red, green, blue, alpha);
     }
 
+    @Override
+    public void render(MatrixStack matrices, VertexConsumer vertexConsumer, int light, int overlay, float red, float green, float blue, float alpha) {
+        body.render(matrices, vertexConsumer, light, overlay, red, green, blue, alpha);
+        bipedLeftArm.render(matrices, vertexConsumer, light, overlay, red, green, blue, alpha);
+        bipedRightArm.render(matrices, vertexConsumer, light, overlay, red, green, blue, alpha);
+        bipedLeftLeg.render(matrices, vertexConsumer, light, overlay, red, green, blue, alpha);
+        bipedRightLeg.render(matrices, vertexConsumer, light, overlay, red, green, blue, alpha);
+        head.render(matrices, vertexConsumer, light, overlay, red, green, blue, alpha);
+    }
+
     public void setRotationAngle(ModelPart bone, float x, float y, float z) {
         bone.pitch = x;
         bone.yaw = y;
