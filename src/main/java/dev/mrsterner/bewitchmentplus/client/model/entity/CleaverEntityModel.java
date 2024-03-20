@@ -1,14 +1,17 @@
 package dev.mrsterner.bewitchmentplus.client.model.entity;
 
+import dev.mrsterner.bewitchmentplus.common.entity.CleaverEntity;
+import dev.mrsterner.bewitchmentplus.common.entity.DrudenEntity;
 import net.minecraft.client.model.*;
 import net.minecraft.client.render.VertexConsumer;
+import net.minecraft.client.render.entity.model.BipedEntityModel;
 import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.util.Arm;
 
 // Made with Blockbench 4.9.4
 // Exported for Minecraft version 1.17+ for Yarn
 // Paste this class into your mod and generate all required imports
-public class CleaverEntityModel extends EntityModel<Entity> {
+public class CleaverEntityModel extends BipedEntityModel<CleaverEntity> {
     private final ModelPart body;
     private final ModelPart bipedLeftArm;
     private final ModelPart bipedRightArm;
@@ -98,16 +101,6 @@ public class CleaverEntityModel extends EntityModel<Entity> {
 
         ModelPartData rHorn04 = rHorn03.addChild("rHorn04", ModelPartBuilder.create().uv(43, 43).mirrored().cuboid(-0.9F, -2.4F, -0.5F, 1.0F, 2.0F, 1.0F, new Dilation(0.0F)).mirrored(false), ModelTransform.of(0.0F, -2.3F, 0.0F, 0.1396F, 0.0F, 0.3491F));
         return TexturedModelData.of(modelData, 64, 64);
-    }
-
-    @Override
-    public void render(MatrixStack matrices, VertexConsumer vertexConsumer, int light, int overlay, float red, float green, float blue, float alpha) {
-        body.render(matrices, vertexConsumer, light, overlay, red, green, blue, alpha);
-        bipedLeftArm.render(matrices, vertexConsumer, light, overlay, red, green, blue, alpha);
-        bipedRightArm.render(matrices, vertexConsumer, light, overlay, red, green, blue, alpha);
-        bipedLeftLeg.render(matrices, vertexConsumer, light, overlay, red, green, blue, alpha);
-        bipedRightLeg.render(matrices, vertexConsumer, light, overlay, red, green, blue, alpha);
-        head.render(matrices, vertexConsumer, light, overlay, red, green, blue, alpha);
     }
 
     @Override
