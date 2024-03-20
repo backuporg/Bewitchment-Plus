@@ -97,6 +97,9 @@ public class DrudenEntity extends BWHostileEntity {
         BlockPos pos = new BlockPos.Mutable(this.getX(), this.getY(), this.getZ());
         BlockState blockState = world.getBlockState(pos);
 
+        if (this.isWet())
+            heal(3);
+
 
         if (!this.isAttacking()) {
             if (blockState.getBlock() instanceof Fertilizable) {
