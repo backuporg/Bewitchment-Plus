@@ -57,7 +57,7 @@ public class CleaverEntity extends BWHostileEntity {
         goalSelector.add(3, new LookAtEntityGoal(this, PlayerEntity.class, 8));
         goalSelector.add(3, new LookAroundGoal(this));
         targetSelector.add(0, new RevengeGoal(this));
-        targetSelector.add(1, new ActiveTargetGoal<>(this, LivingEntity.class, 10, true, false, entity -> entity instanceof PlayerEntity || entity instanceof VillagerEntity || entity.getGroup() == EntityGroup.ILLAGER || entity instanceof PiglinEntity || entity instanceof PiglinBruteEntity));
+        targetSelector.add(1, new ActiveTargetGoal<>(this, LivingEntity.class, 10, true, false, entity -> entity instanceof PlayerEntity || entity instanceof VillagerEntity || entity.getGroup() == EntityGroup.ILLAGER || entity instanceof PiglinEntity || entity instanceof PiglinBruteEntity || entity instanceof CambionEntity));
     }
 
     @Override
