@@ -22,7 +22,6 @@ import net.minecraft.entity.mob.HostileEntity;
 import net.minecraft.entity.mob.IllagerEntity;
 import net.minecraft.entity.mob.MobEntity;
 import net.minecraft.entity.mob.PiglinEntity;
-import net.minecraft.entity.passive.MerchantEntity;
 import net.minecraft.entity.passive.VillagerEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
@@ -83,7 +82,7 @@ public class DrudenEntity extends BWHostileEntity {
         super.tick();
         if (this.isOnFire())
             this.applyDamage(DamageSource.ON_FIRE, 6);
-            this.playSound(SoundEvents.BLOCK_CAMPFIRE_CRACKLE, 1, 1);
+        this.playSound(SoundEvents.BLOCK_CAMPFIRE_CRACKLE, 1, 1);
     }
 
     @Override
@@ -154,7 +153,7 @@ public class DrudenEntity extends BWHostileEntity {
         if (i <= 10) {
             if (target instanceof LivingEntity) {
                 //I am a sadist.
-                ((LivingEntity) target).addStatusEffect(new StatusEffectInstance(StatusEffects.POISON, 300,1));
+                ((LivingEntity) target).addStatusEffect(new StatusEffectInstance(StatusEffects.POISON, 300, 1));
                 ((LivingEntity) target).addStatusEffect(new StatusEffectInstance(StatusEffects.DARKNESS, 10000, 3));
                 ((LivingEntity) target).addStatusEffect(new StatusEffectInstance(StatusEffects.BLINDNESS, 10000, 3));
                 swingHand(Hand.MAIN_HAND, true);
