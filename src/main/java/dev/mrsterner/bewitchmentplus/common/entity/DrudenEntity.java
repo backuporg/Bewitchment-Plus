@@ -1,6 +1,7 @@
 package dev.mrsterner.bewitchmentplus.common.entity;
 
 import moriyashiine.bewitchment.api.BewitchmentAPI;
+import moriyashiine.bewitchment.common.entity.living.WerewolfEntity;
 import moriyashiine.bewitchment.common.entity.living.util.BWHostileEntity;
 import moriyashiine.bewitchment.common.registry.BWSoundEvents;
 import net.minecraft.block.BlockState;
@@ -244,7 +245,7 @@ public class DrudenEntity extends BWHostileEntity {
         goalSelector.add(3, new LookAtEntityGoal(this, PlayerEntity.class, 8));
         goalSelector.add(3, new LookAroundGoal(this));
         targetSelector.add(0, new RevengeGoal(this));
-        targetSelector.add(1, new ActiveTargetGoal<>(this, LivingEntity.class, 10, true, false, entity -> entity instanceof PlayerEntity || entity instanceof VillagerEntity || entity instanceof IllagerEntity || entity instanceof PiglinEntity));
+        targetSelector.add(1, new ActiveTargetGoal<>(this, LivingEntity.class, 10, true, false, entity -> entity instanceof PlayerEntity && !BewitchmentAPI.isWerewolf(entity, true)|| entity instanceof VillagerEntity || entity instanceof IllagerEntity || entity instanceof PiglinEntity || !(entity instanceof WerewolfEntity)));
     }
 
     @Override
